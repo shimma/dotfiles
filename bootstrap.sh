@@ -13,7 +13,7 @@ ln -s $HOME/dotfiles/.peco              $HOME/
 ln -s $HOME/dotfiles/.tmux.conf         $HOME/
 ln -s $HOME/dotfiles/.zsh               $HOME/
 ln -s $HOME/dotfiles/.zshrc             $HOME/
-ln -s $HOME/dotfiles/Vagrantfile        $HOME/
+#ln -s $HOME/dotfiles/Vagrantfile        $HOME/
 
 # ------------------------------
 ## Homebrew
@@ -55,6 +55,7 @@ brew install peco                         || true
 brew install python3                      || true
 brew install neovim                       || true
 brew install jq                           || true
+brew install node                         || true
 brew cask install alfred                  || true
 brew cask install dropbox                 || true
 brew cask install github                  || true
