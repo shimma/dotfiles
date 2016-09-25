@@ -119,9 +119,17 @@ npm install -g superstatic
 # ------------------------------
 # Go & Gem & Python
 # ------------------------------
+sudo easy_install pip
 pip3 install neovim
 go get github.com/motemen/ghq
 gem install tmuxinator
+
+# ------------------------------
+# Ruby 
+# ------------------------------
+sudo gem install bundler
+sudo gem update --system
+
 
 # ------------------------------
 ##SDKMAN
