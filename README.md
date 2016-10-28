@@ -1,11 +1,11 @@
+## Tools
+
+- Neovim
+- Zsh
+- Tmux
+
 ## Installation
 
-To install basic dotfiles.
-
 ```sh
-$ cd $HOME
-$ git clone https://github.com/rksz/dotfiles.git
-$ dotfiles/bootstrap.sh
+$ cd $HOME && git clone https://github.com/shimma/dotfiles.git && dotfiles/bootstrap.sh
 ```
-
-Enjoy!
