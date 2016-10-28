@@ -26,7 +26,7 @@ brew tap neovim/homebrew-neovim
 brew install --disable-etcdir zsh         || true
 brew install ag                           || true
 brew install ansible                      || true
-brew install autojump                     || true
+#brew install autojump                     || true
 brew install binutils                     || true
 brew install caskroom/cask/brew-cask      || true
 brew install cocot                        || true

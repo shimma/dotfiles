@@ -39,8 +39,8 @@ BLUE="%{${fg[blue]}%}"
 # RED="%{${fg[red]}%}"
 # CYAN="%{${fg[cyan]}%}"
 WHITE="%{${fg[white]}%}"
-# PROMPT="${RESET}${BLUE}[%D{%T}][%C]${RESET}${WHITE}$ ${RESET}"
-PROMPT="${RESET}${BLUE}[%C]${RESET}${WHITE}$ ${RESET}"
+PROMPT="${RESET}${BLUE}[%D{%T}][%C]${RESET}${WHITE}$ ${RESET}"
+#PROMPT="${RESET}${BLUE}[%C]${RESET}${WHITE}$ ${RESET}"
 HISTFILE=~/.zsh_history
 HISTSIZE=10000
 SAVEHIST=10000
@@ -65,16 +65,16 @@ vim_file_mru () {
     zle reset-prompt
 }
 
-zle -N jump_repo
-bindkey "^h" jump_repo
-function jump_repo() {
-    peco_query=$@
-    dir=$(ghq list -p | peco --query="$peco_query")
-    if [[ -d $dir && -n $dir ]]; then
-        cd $dir
-    fi
-    zle reset-prompt
-}
+## zle -N jump_repo
+## bindkey "^h" jump_repo
+## function jump_repo() {
+##     peco_query=$@
+##     dir=$(ghq list -p | peco --query="$peco_query")
+##     if [[ -d $dir && -n $dir ]]; then
+##         cd $dir
+##     fi
+##     zle reset-prompt
+## }
 
 #zle -N chrome_history
 ##bindkey "^h" chrome_history
