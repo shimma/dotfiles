@@ -1,30 +1,25 @@
 call plug#begin('~/.cache/vim-plug')
 Plug 'fatih/vim-go', { 'for': 'go' }
-" Plug 'flazz/vim-colorschemes'
 Plug 'itchyny/landscape.vim'
+" Plug 'flazz/vim-colorschemes'
 Plug 'gcmt/wildfire.vim'
 Plug 'h1mesuke/vim-alignta', { 'on': 'Alignta' }
 Plug 'junegunn/vim-easy-align', { 'on': '<Plug>(EasyAlign)' }
 Plug 'kana/vim-niceblock'
 Plug 'kana/vim-operator-replace', { 'on': '<Plug>(operator-replace)' }
 Plug 'kana/vim-operator-user'
-" Plug 'kana/vim-textobj-user'
+Plug 'rhysd/clever-f.vim'
 Plug 'othree/html5.vim', { 'for': 'html' }
-Plug 'scrooloose/nerdcommenter', { 'for': [ 'vim', 'go', 'php', 'sh'] }
+Plug 'scrooloose/nerdcommenter', { 'for': [ 'vim', 'go', 'php', 'sh', 'ruby'] }
 Plug 't9md/vim-quickhl', { 'on': '<Plug>(quickhl-manual-this)' }
-" Plug 'thinca/vim-quickrun'
-" Plug 'thinca/vim-ref'
-" Plug 'tpope/vim-fugitive', { 'on': ['Gdiff', 'Glog' ] }
-Plug 'tpope/vim-fugitive'
-Plug 'tpope/vim-surround'
-" Plug 'ujihisa/unite-colorscheme'
+" Plug 'tpope/vim-fugitive', { 'on': ['Gdiff', 'Glog', 'Gblame' ] }
+Plug 'tpope/vim-surround', { 'for': [ 'vim', 'go', 'php', 'sh', 'ruby'] }
 Plug 'Shougo/vimproc.vim', { 'do': 'make' }
 Plug 'Shougo/deoplete.nvim'
 Plug 'Shougo/unite.vim'
 Plug 'Shougo/neomru.vim'
 Plug 'scrooloose/nerdtree', { 'on':  ['NERDTreeToggle', 'NERDTree' ], 'do' : 'cp ~/dotfiles/.config/nvim/nerdtree_plugin/* ~/.cache/vim-plug/nerdtree/nerdtree_plugin/'}
-Plug 'scrooloose/syntastic', { 'for': [ 'go', 'php'] }
-" Plug 'christoomey/vim-tmux-navigator'
+Plug 'scrooloose/syntastic', { 'for': [ 'go', 'php', 'ruby'] }
 
 call plug#end()
 
@@ -155,10 +150,10 @@ set number            " 行番号表示
 set list              " 不可視文字表示
 set display=uhex      " 印字不可能文字を16進数で表示
 set foldmethod=marker " folding
-set lazyredraw        " コマンド実行中は再描画しない
+" set lazyredraw        " コマンド実行中は再描画しない
 set ttyfast           " 高速ターミナル接続を行う
 set cursorline        " カーソル行をハイライト
-set colorcolumn=80
+" set colorcolumn=80
 set listchars=tab:>.,trail:_,extends:>,precedes:< " 不可視文字の表示形式
 set laststatus=2      " 常にステータスラインを表示
 set ruler             " カーソルが何行目の何列目に置かれているかを表示する
@@ -183,7 +178,7 @@ vnoremap <C-j> <Esc>
 inoremap <silent> <ESC> <ESC>:set iminsert=0<CR>
 nnoremap <Space>S :%s!
 nnoremap <Space>s /
-nnoremap f /
+" nnoremap f /
 nnoremap ; :
 
 nnoremap Y y$
@@ -369,7 +364,8 @@ nnoremap <silent> [unite]d        :<C-u>UniteWithBufferDir file<CR>
 nnoremap <silent> [unite]o        :<C-u>Unite -vertical -no-quit -winwidth=40 outline<CR>
 nnoremap <silent> m               :<C-u>Unite file_mru<CR>
 nnoremap <silent> <C-o>           :<C-u>Unite file_mru<CR>
-nnoremap <silent> <C-i>           :<C-u>Unite grep:. -buffer-name=search-buffer<CR>
+" nnoremap <silent> <C-i>           :<C-u>Unite grep:. -buffer-name=search-buffer<CR>
+nnoremap <silent> <C-i>           :<C-u>Unite buffer<CR>
 nnoremap <silent> [unite]a        :<C-u>Unite file_rec/async:!<CR>
 nnoremap <silent> ,a              :<C-u>Unite grep:. -buffer-name=search-buffer<CR>
 nnoremap <silent> ,ca             :<C-u>Unite grep:. -buffer-name=search-buffer<CR><C-R><C-W>
@@ -411,6 +407,8 @@ nnoremap <silent> <Leader>n :NERDTreeToggle<CR>
 nnoremap <silent> <C-e> :NERDTreeToggle<CR>
 " let NERDTreeShowBookmarks=1
 " let NERDTreeShowHidden=1
+let NERDTreeWinSize=22
+" let g:NERDTreeWinPos = "right"
 
 "------------------------------
 " easyalign
@@ -471,6 +469,3 @@ autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTree
 
 nmap <Space>' ciW'<c-r>"'<esc>
 vmap <space>' c'<c-r>"'<esc>
-
-
-" nnoremap <silent> <BS> :TmuxNavigateLeft<cr>
