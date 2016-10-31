@@ -4,6 +4,7 @@ cd $BASEPATH
 echo $BASEPATH
 # ln -s $HOME/dotfiles/.vimrc             $HOME/
 # ln -s $HOME/dotfiles/.vim               $HOME/
+#ln -s $HOME/dotfiles/.zsh               $HOME/
 ln -s $HOME/dotfiles/.config            $HOME/
 ln -s $HOME/dotfiles/.ctags             $HOME/
 ln -s $HOME/dotfiles/.gitignore         $HOME/
@@ -11,7 +12,6 @@ ln -s $HOME/dotfiles/.gitconfig         $HOME/
 ln -s $HOME/dotfiles/.gitconfig.local   $HOME/
 ln -s $HOME/dotfiles/.peco              $HOME/
 ln -s $HOME/dotfiles/.tmux.conf         $HOME/
-ln -s $HOME/dotfiles/.zsh               $HOME/
 ln -s $HOME/dotfiles/.zshrc             $HOME/
 
 # ------------------------------
