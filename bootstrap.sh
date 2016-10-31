@@ -2,9 +2,6 @@
 BASEPATH=$(cd `dirname $0`; pwd)
 cd $BASEPATH
 echo $BASEPATH
-# ln -s $HOME/dotfiles/.vimrc             $HOME/
-# ln -s $HOME/dotfiles/.vim               $HOME/
-#ln -s $HOME/dotfiles/.zsh               $HOME/
 ln -s $HOME/dotfiles/.config            $HOME/
 ln -s $HOME/dotfiles/.ctags             $HOME/
 ln -s $HOME/dotfiles/.gitignore         $HOME/
