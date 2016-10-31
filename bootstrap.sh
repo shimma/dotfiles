@@ -53,6 +53,7 @@ brew install vim                          || true
 brew install wget                         || true
 brew install xz                           || true
 brew install zsh                          || true
+brew install imagemagick                  || true
 brew cask install atom                    || true
 brew cask install dockertoolbox           || true
 brew cask install font-anonymous-pro      || true
@@ -105,3 +106,8 @@ sudo gem install tmuxinator
 sudo gem install bundler
 sudo gem update --system
 #curl -s api.sdkman.io | bash
+
+
+brew install homebrew/versions/v8-315
+bundle config build.libv8 --with-system-v8
+bundle config build.therubyracer --with-v8-dir=/usr/local/opt/v8-315/
