@@ -1,7 +1,6 @@
-#!/bin/bash
+#!/bin/bash -x
 BASEPATH=$(cd `dirname $0`; pwd)
 cd $BASEPATH
-echo $BASEPATH
 ln -s $HOME/dotfiles/.config            $HOME/
 ln -s $HOME/dotfiles/.ctags             $HOME/
 ln -s $HOME/dotfiles/.gitignore         $HOME/
@@ -11,21 +10,18 @@ ln -s $HOME/dotfiles/.peco              $HOME/
 ln -s $HOME/dotfiles/.tmux.conf         $HOME/
 ln -s $HOME/dotfiles/.zshrc             $HOME/
 
-# ------------------------------
-# Xcode
-# ------------------------------
+## macOS
 xcode-select --install
+sudo defaults write -g InitialKeyRepeat -int 14
+sudo defaults write -g KeyRepeat -int 1
 
-# ------------------------------
 ## Homebrew
-# ------------------------------
 ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 brew tap caskroom/fonts
 brew tap neovim/homebrew-neovim
 #brew install ack                          || true
 #brew install tree                         || true
 #brew install watch                        || true
-#brew install autojump                     || true
 brew install --disable-etcdir zsh         || true
 brew install ag                           || true
 brew install ansible                      || true
@@ -81,51 +77,31 @@ brew cask install virtualbox              || true
 brew update                               || true
 brew cleanup                              || true
 
-# ------------------------------
-# MacApp
-# ------------------------------
-# macapp install Google Chrome
-# macapp install Evernote
-# macapp install Reeder3
-# macapp install Pixelmeter
-# macapp install Kindle
-# macapp install ScanSnap Manager
-# macapp install ScanSnap Cloud
-# macapp install GooglePlayMusic
-# macapp install Franz
-# macapp install line
-# macapp install Xmind
-# macapp install ei-kana https://ei-kana.appspot.com/
-# macapp install alfred
+## MacApp
+#macapp install Google Chrome
+#macapp install Spotify
+#macapp install Evernote
+#macapp install Reeder3
+#macapp install Pixelmeter
+#macapp install Kindle
+#macapp install ScanSnap Manager
+#macapp install ScanSnap Cloud
+#macapp install Franz
+#macapp install line
+#macapp install Xmind
+#macapp install ei-kana https://ei-kana.appspot.com/
+#macapp install alfred
 
-# ------------------------------
-# Node
-# ------------------------------
+## Node
 curl -L git.io/nodebrew | perl - setup
-nodebrew install latest
 nodebrew install stable
-nodebrew use latest
-#npm install -g bower
-#npm install -g gulp
-#npm install -g gulp-straw
-#npm install -g gulp-sass
-#npm install -g node-sass
-#npm install -g node-inspector
-#npm install -g superstatic
+nodebrew use stable
 
-# ------------------------------
-# Go & Gem & Python
-# ------------------------------
+## Go, Ruby, Python, Java
 sudo easy_install pip
 pip3 install neovim
 go get github.com/motemen/ghq
 sudo gem install tmuxinator
 sudo gem install bundler
 sudo gem update --system
-
-# ------------------------------
-##SDKMAN
-# ------------------------------
-## curl -s api.sdkman.io | bash
-sudo defaults write -g InitialKeyRepeat -int 14
-sudo defaults write -g KeyRepeat -int 1
+#curl -s api.sdkman.io | bash
