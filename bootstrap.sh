@@ -8,11 +8,16 @@ ln -s $HOME/dotfiles/.config            $HOME/
 ln -s $HOME/dotfiles/.ctags             $HOME/
 ln -s $HOME/dotfiles/.gitignore         $HOME/
 ln -s $HOME/dotfiles/.gitconfig         $HOME/
-ln -s $HOME/dotfiles/.gvimrc            $HOME/
+ln -s $HOME/dotfiles/.gitconfig.local   $HOME/
 ln -s $HOME/dotfiles/.peco              $HOME/
 ln -s $HOME/dotfiles/.tmux.conf         $HOME/
 ln -s $HOME/dotfiles/.zsh               $HOME/
 ln -s $HOME/dotfiles/.zshrc             $HOME/
+
+# ------------------------------
+# Xcode
+# ------------------------------
+xcode-select --install
 
 # ------------------------------
 ## Homebrew
@@ -23,10 +28,10 @@ brew tap neovim/homebrew-neovim
 #brew install ack                          || true
 #brew install tree                         || true
 #brew install watch                        || true
+#brew install autojump                     || true
 brew install --disable-etcdir zsh         || true
 brew install ag                           || true
 brew install ansible                      || true
-#brew install autojump                     || true
 brew install binutils                     || true
 brew install caskroom/cask/brew-cask      || true
 brew install cocot                        || true
@@ -55,12 +60,6 @@ brew install vim                          || true
 brew install wget                         || true
 brew install xz                           || true
 brew install zsh                          || true
-#brew cask install dropbox                 || true
-#brew cask install github                  || true
-#brew cask install google-chrome           || true
-#brew cask install hyperswitch             || true
-#brew cask install quartzclocks            || true
-brew cask install alfred                  || true
 brew cask install atom                    || true
 brew cask install dockertoolbox           || true
 brew cask install font-anonymous-pro      || true
@@ -88,6 +87,7 @@ brew cleanup                              || true
 # ------------------------------
 # MacApp
 # ------------------------------
+# macapp install Google Chrome
 # macapp install Evernote
 # macapp install Reeder3
 # macapp install Pixelmeter
@@ -99,6 +99,7 @@ brew cleanup                              || true
 # macapp install line
 # macapp install Xmind
 # macapp install ei-kana https://ei-kana.appspot.com/
+# macapp install alfred
 
 # ------------------------------
 # Node
@@ -107,13 +108,13 @@ curl -L git.io/nodebrew | perl - setup
 nodebrew install latest
 nodebrew install stable
 nodebrew use latest
-npm install -g bower
-npm install -g gulp
-npm install -g gulp-straw
-npm install -g gulp-sass
-npm install -g node-sass
-npm install -g node-inspector
-npm install -g superstatic
+#npm install -g bower
+#npm install -g gulp
+#npm install -g gulp-straw
+#npm install -g gulp-sass
+#npm install -g node-sass
+#npm install -g node-inspector
+#npm install -g superstatic
 
 # ------------------------------
 # Go & Gem & Python
@@ -121,11 +122,7 @@ npm install -g superstatic
 sudo easy_install pip
 pip3 install neovim
 go get github.com/motemen/ghq
-gem install tmuxinator
-
-# ------------------------------
-# Ruby
-# ------------------------------
+sudo gem install tmuxinator
 sudo gem install bundler
 sudo gem update --system
 
@@ -133,6 +130,5 @@ sudo gem update --system
 ##SDKMAN
 # ------------------------------
 ## curl -s api.sdkman.io | bash
-
-defaults write -g InitialKeyRepeat -int 14
-defaults write -g KeyRepeat -int 1
+sudo defaults write -g InitialKeyRepeat -int 14
+sudo defaults write -g KeyRepeat -int 1
