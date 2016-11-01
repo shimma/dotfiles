@@ -253,7 +253,6 @@ function man() {
   /usr/bin/man ${c} | col -bx | /usr/local/bin/nvim -
 }
 
-
 fancy-ctrl-z () {
   if [[ $#BUFFER -eq 0 ]]; then
     BUFFER="fg"
@@ -273,12 +272,12 @@ case "${OSTYPE}" in
 darwin*)
     export GOPATH="$HOME/.go"
     export EDITOR=/usr/local/bin/nvim
-    export PATH=/usr/local/php5/bin:~/.composer/vendor/bin:~/dotfiles/bin:/usr/local/opt/coreutils/libexec/gnubin:~/Applications/Vagrant/bin:/usr/local/bin:/usr/local/sbin:/opt/local/bin:/opt/local/sbin:~/bin:$GOPATH/bin:~/.cache/gem/bin:~/.nodebrew/current/bin:$PATH
+    export PATH=~/.rbenv/shims:/usr/local/php5/bin:~/.composer/vendor/bin:~/dotfiles/bin:/usr/local/opt/coreutils/libexec/gnubin:~/Applications/Vagrant/bin:/usr/local/bin:/usr/local/sbin:/opt/local/bin:/opt/local/sbin:~/bin:$GOPATH/bin:~/.cache/gem/bin:~/.nodebrew/current/bin:$PATH
     export GEM_HOME=$HOME/.cache/gem
     export HOMEBREW_CASK_OPTS="--appdir=/Applications"
+    export RBENV_SHELL=zsh
     #export PATH=/usr/local/bin:/usr/local/sbin:/opt/local/bin:/opt/local/sbin:~/bin:$PATH
     #export PATH=~/Applications/Vagrant/bin:$PATH
-    #export PATH=/Applications/MacVim.app/Contents/MacOS:$PATH
     #export PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
     #export PATH=$GOPATH/bin:$PATH
     #export PATH=~/dotfiles/bin:$PATH
@@ -298,12 +297,6 @@ darwin*)
     alias mvim="/Applications/MacVim.app/Contents/MacOS/mvim -c NERDTreeToggle -c 'normal O'"
     alias agg='ag -ig'
     alias get='ghq get -p'
-    here() {
-        tmux rename-window $(basename `pwd`)
-    }
-    dic() {
-        w3m "http://ejje.weblio.jp/content/$1" | grep "用例"
-    }
     cdf() {
       target=`osascript -e 'tell application "Finder" to if (count of Finder windows) > 0 then get POSIX path of (target of front Finder window as text)'`
       if [ "$target" != "" ]; then
@@ -311,6 +304,24 @@ darwin*)
       else
         echo 'No Finder window found' >&2
       fi
+    }
+
+    ## Ruby
+    source '/usr/local/Cellar/rbenv/1.0.0/libexec/../completions/rbenv.zsh'
+    #command rbenv rehash 2>/dev/null
+    rbenv() {
+      local command
+      command="$1"
+      if [ "$#" -gt 0 ]; then
+        shift
+      fi
+
+      case "$command" in
+      rehash|shell)
+        eval "$(rbenv "sh-$command" "$@")";;
+      *)
+        command rbenv "$command" "$@";;
+      esac
     }
 ;;
 esac
