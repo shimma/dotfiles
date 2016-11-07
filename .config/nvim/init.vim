@@ -16,8 +16,11 @@ Plug 't9md/vim-quickhl', { 'on': '<Plug>(quickhl-manual-this)' }
 Plug 'tpope/vim-surround', { 'for': [ 'vim', 'go', 'php', 'sh', 'ruby'] }
 Plug 'Shougo/vimproc.vim', { 'do': 'make' }
 Plug 'Shougo/deoplete.nvim'
+Plug 'Shougo/vimfiler.vim'
 Plug 'Shougo/unite.vim'
 Plug 'Shougo/neomru.vim'
+Plug 'tpope/vim-rails'
+Plug 'basyura/unite-rails'
 Plug 'scrooloose/nerdtree', { 'on':  ['NERDTreeToggle', 'NERDTree' ], 'do' : 'cp ~/dotfiles/.config/nvim/nerdtree_plugin/* ~/.cache/vim-plug/nerdtree/nerdtree_plugin/'}
 Plug 'scrooloose/syntastic', { 'for': [ 'go', 'php', 'ruby'] }
 
@@ -170,6 +173,9 @@ set noimdisable            " insertモードを抜けるとIMEオフ
 set iminsert=0 imsearch=0
 set noimcmdline
 au BufNewFile,BufRead *.go set noexpandtab tabstop=4 shiftwidth=4 nolist
+
+set mouse=a
+
 
 " escape mapping
 inoremap jj <Esc>
@@ -356,13 +362,15 @@ nnoremap [unite]U                 :<C-u>Unite -no-split<Space>
 " nnoremap <silent> [unite]a        :<C-u>UniteWithCurrentDir -buffer-name=files buffer file_mru bookmark file<CR>
 " nnoremap <silent> [unite]f        :<C-u>Unite -buffer-name=files file<CR>
 nnoremap <silent> [unite]f        :<C-u>Unite file_rec<CR>
+nnoremap <silent> [unite]m        :<C-u>Unite rails/model<CR>
+nnoremap <silent> [unite]c        :<C-u>Unite rails/controller<CR>
+nnoremap <silent> [unite]v        :<C-u>Unite rails/view<CR>
 nnoremap <silent> [unite]b        :<C-u>Unite buffer<CR>
 nnoremap <silent> [unite]u        :<C-u>Unite buffer file_mru<CR>
 nnoremap <silent> [unite]h        :<C-u>Unite file_mru<CR>
-nnoremap <silent> [unite]c        :<C-u>Unite colorscheme<CR>
 nnoremap <silent> [unite]d        :<C-u>UniteWithBufferDir file<CR>
 nnoremap <silent> [unite]o        :<C-u>Unite -vertical -no-quit -winwidth=40 outline<CR>
-nnoremap <silent> m               :<C-u>Unite file_mru<CR>
+"nnoremap <silent> m               :<C-u>Unite file_mru<CR>
 nnoremap <silent> <C-o>           :<C-u>Unite file_mru<CR>
 " nnoremap <silent> <C-i>           :<C-u>Unite grep:. -buffer-name=search-buffer<CR>
 nnoremap <silent> <C-i>           :<C-u>Unite buffer<CR>
@@ -469,3 +477,6 @@ autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTree
 
 nmap <Space>' ciW'<c-r>"'<esc>
 vmap <space>' c'<c-r>"'<esc>
+
+
+let g:vimfiler_as_default_explorer = 1
