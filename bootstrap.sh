@@ -61,6 +61,7 @@ brew cask install font-fontawesome        || true
 brew cask install font-lobster            || true
 brew cask install font-noto-sans-japanese || true
 brew cask install font-ricty-diminished   || true
+brew cask install google-chrome           || true
 brew cask install google-drive            || true
 brew cask install google-japanese-ime     || true
 brew cask install honer                   || true
