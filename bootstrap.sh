@@ -85,16 +85,16 @@ brew cask install cmd-eikana              || true
 brew update                               || true
 brew cleanup                              || true
 
-brew install mas
-mas install line
-mas install reeder3
-mas install kindle
+#brew install mas @todo
+#mas install line
+#mas install reeder3
+#mas install kindle
+#mas install Pixelmeter
 
 ## MacApp
 #macapp install Google Chrome
 #macapp install Spotify
 #macapp install Evernote
-#macapp install Pixelmeter
 #macapp install ScanSnap Manager
 #macapp install ScanSnap Cloud
 #macapp install Franz
