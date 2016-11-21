@@ -9,6 +9,7 @@ ln -s $HOME/dotfiles/.gitconfig.local   $HOME/
 ln -s $HOME/dotfiles/.peco              $HOME/
 ln -s $HOME/dotfiles/.tmux.conf         $HOME/
 ln -s $HOME/dotfiles/.zshrc             $HOME/
+touch ~/.z
 
 ## macOS
 xcode-select --install
@@ -54,13 +55,16 @@ brew install wget                         || true
 brew install xz                           || true
 brew install zsh                          || true
 brew install imagemagick                  || true
+brew install mysql                        || true
 brew cask install atom                    || true
+brew cask install slack                   || true
 brew cask install dockertoolbox           || true
 brew cask install font-anonymous-pro      || true
 brew cask install font-fontawesome        || true
 brew cask install font-lobster            || true
 brew cask install font-noto-sans-japanese || true
 brew cask install font-ricty-diminished   || true
+brew cask install google-chrome           || true
 brew cask install google-drive            || true
 brew cask install google-japanese-ime     || true
 brew cask install honer                   || true
@@ -75,22 +79,24 @@ brew cask install spectacle               || true
 brew cask install the-unarchiver          || true
 brew cask install vagrant                 || true
 brew cask install virtualbox              || true
+brew cask install cmd-eikana              || true
 brew update                               || true
 brew cleanup                              || true
+
+brew install mas
+mas install line
+mas install reeder3
+mas install kindle
 
 ## MacApp
 #macapp install Google Chrome
 #macapp install Spotify
 #macapp install Evernote
-#macapp install Reeder3
 #macapp install Pixelmeter
-#macapp install Kindle
 #macapp install ScanSnap Manager
 #macapp install ScanSnap Cloud
 #macapp install Franz
-#macapp install line
 #macapp install Xmind
-#macapp install ei-kana https://ei-kana.appspot.com/
 #macapp install alfred
 
 ## Node
@@ -111,3 +117,9 @@ sudo gem update --system
 brew install homebrew/versions/v8-315
 bundle config build.libv8 --with-system-v8
 bundle config build.therubyracer --with-v8-dir=/usr/local/opt/v8-315/
+curl get.pow.cx | sh
+
+
+# vim
+# PlugInstall!
+# UpdateRemotePlugins
