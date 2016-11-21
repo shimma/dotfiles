@@ -1,6 +1,7 @@
 #!/bin/bash -x
 BASEPATH=$(cd `dirname $0`; pwd)
 cd $BASEPATH
+mkdir $HOME/bin
 ln -s $HOME/dotfiles/.config            $HOME/
 ln -s $HOME/dotfiles/.ctags             $HOME/
 ln -s $HOME/dotfiles/.gitignore         $HOME/
@@ -48,6 +49,7 @@ brew install peco                         || true
 brew install python3                      || true
 brew install rbenv                        || true
 brew install reattach-to-user-namespace   || true
+ln -s $(which reattach-to-user-namespace) ~/bin/i
 brew install tig                          || true
 brew install tmux                         || true
 brew install vim                          || true
