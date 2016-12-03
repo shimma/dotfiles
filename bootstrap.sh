@@ -82,7 +82,7 @@ brew cask install the-unarchiver          || true
 brew cask install vagrant                 || true
 brew cask install virtualbox              || true
 brew cask install cmd-eikana              || true
-brew cask install gitfy                   || true
+brew cask install gitify                  || true
 brew update                               || true
 brew cleanup                              || true
 
