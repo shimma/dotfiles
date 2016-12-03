@@ -307,7 +307,7 @@ darwin*)
     }
 
     ## Ruby
-    source '/usr/local/Cellar/rbenv/1.0.0/libexec/../completions/rbenv.zsh'
+    #source '/usr/local/Cellar/rbenv/1.0.0/libexec/../completions/rbenv.zsh'
     #command rbenv rehash 2>/dev/null
     rbenv() {
       local command
