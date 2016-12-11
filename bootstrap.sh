@@ -110,19 +110,14 @@ nodebrew use stable
 ## Go, Ruby, Python, Java
 sudo easy_install pip
 pip3 install neovim
+vim -c "PlugInstall" -c ":q" -c ":q"
 go get github.com/motemen/ghq
 sudo gem install tmuxinator
 sudo gem install bundler
 sudo gem update --system
 #curl -s api.sdkman.io | bash
 
-
 brew install homebrew/versions/v8-315
 bundle config build.libv8 --with-system-v8
 bundle config build.therubyracer --with-v8-dir=/usr/local/opt/v8-315/
 curl get.pow.cx | sh
-
-
-# vim
-# PlugInstall!
-# UpdateRemotePlugins

@@ -15,7 +15,7 @@ Plug 't9md/vim-quickhl', { 'on': '<Plug>(quickhl-manual-this)' }
 " Plug 'tpope/vim-fugitive', { 'on': ['Gdiff', 'Glog', 'Gblame' ] }
 Plug 'tpope/vim-surround', { 'for': [ 'vim', 'go', 'php', 'sh', 'ruby'] }
 Plug 'Shougo/vimproc.vim', { 'do': 'make' }
-Plug 'Shougo/deoplete.nvim'
+Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'Shougo/vimfiler.vim'
 Plug 'Shougo/unite.vim'
 Plug 'Shougo/neomru.vim'
