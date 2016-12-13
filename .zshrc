@@ -62,7 +62,7 @@ autojump_with_peco () {
 zle -N vim_file_mru
 bindkey "^o" vim_file_mru
 vim_file_mru () {
-    sh -c 'nvim -c "Unite file_mru" </dev/tty'
+    sh -c 'nvim -c "Denite file_mru" </dev/tty'
     zle reset-prompt
 }
 
@@ -162,7 +162,7 @@ alias j='z'
 alias la="ls -a"
 alias ll="ls -l"
 alias l="ls -1"
-alias m='vim -c "Unite file_mru"'
+alias m='vim -c "Denite file_mru"'
 alias md='vim ./*.md'
 # alias n="vim -c NERDTreeToggle -c 'normal O'"
 alias n="vim -c NERDTreeToggle"
@@ -181,7 +181,6 @@ alias ur=root
 alias root='cd $(git rev-parse --show-toplevel)'
 alias v="vim"
 alias ve="vim -c 'color Tomorrow-Night-Eighties'"
-alias vem="vim -c 'color Tomorrow-Night-Eighties' -c 'Unite file_mru'"
 alias k="work"
 alias X="tmux kill-server"
 alias M="mvim ~/Desktop/$(date +%Y%m%d)_tmp.md"

@@ -17,7 +17,7 @@ Plug 'tpope/vim-surround', { 'for': [ 'vim', 'go', 'php', 'sh', 'ruby'] }
 Plug 'Shougo/vimproc.vim', { 'do': 'make' }
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'Shougo/vimfiler.vim'
-Plug 'Shougo/unite.vim'
+Plug 'Shougo/denite.nvim'
 Plug 'Shougo/neomru.vim'
 Plug 'tpope/vim-rails'
 Plug 'basyura/unite-rails'
@@ -348,55 +348,60 @@ nnoremap <Space>gC :<C-u>Git commit --amend<Enter>
 nnoremap <Space>gb :<C-u>Gblame<Enter>
 
 "------------------------------
-" unite.vim
+" denite.vim
 "------------------------------
-nnoremap    [unite]   <Nop>
-nmap     <Space>f [unite]
-" nmap     f [unite]
-let g:unite_enable_start_insert = 1
-let g:unite_source_file_mru_limit = 200
-let g:unite_split_rule = "belowright"
+nnoremap    [denite]   <Nop>
+nmap     <Space>f [denite]
+" nmap     f [denite]
+let g:denite_enable_start_insert = 1
+let g:denite_source_file_mru_limit = 200
+let g:denite_split_rule = "belowright"
 let g:neomru#file_mru_limit = 2000
 
-nnoremap [unite]U                 :<C-u>Unite -no-split<Space>
-" nnoremap <silent> [unite]a        :<C-u>UniteWithCurrentDir -buffer-name=files buffer file_mru bookmark file<CR>
-" nnoremap <silent> [unite]f        :<C-u>Unite -buffer-name=files file<CR>
-nnoremap <silent> [unite]f        :<C-u>Unite file_rec<CR>
-nnoremap <silent> [unite]m        :<C-u>Unite rails/model<CR>
-nnoremap <silent> [unite]c        :<C-u>Unite rails/controller<CR>
-nnoremap <silent> [unite]v        :<C-u>Unite rails/view<CR>
-nnoremap <silent> [unite]b        :<C-u>Unite buffer<CR>
-nnoremap <silent> [unite]u        :<C-u>Unite buffer file_mru<CR>
-nnoremap <silent> [unite]h        :<C-u>Unite file_mru<CR>
-nnoremap <silent> [unite]d        :<C-u>UniteWithBufferDir file<CR>
-nnoremap <silent> [unite]o        :<C-u>Unite -vertical -no-quit -winwidth=40 outline<CR>
-"nnoremap <silent> m               :<C-u>Unite file_mru<CR>
-nnoremap <silent> <C-o>           :<C-u>Unite file_mru<CR>
-" nnoremap <silent> <C-i>           :<C-u>Unite grep:. -buffer-name=search-buffer<CR>
-nnoremap <silent> <C-i>           :<C-u>Unite buffer<CR>
-nnoremap <silent> [unite]a        :<C-u>Unite file_rec/async:!<CR>
-nnoremap <silent> ,a              :<C-u>Unite grep:. -buffer-name=search-buffer<CR>
-nnoremap <silent> ,ca             :<C-u>Unite grep:. -buffer-name=search-buffer<CR><C-R><C-W>
+nnoremap [denite]U                  :<C-u>Denite -no-split<Space>
+" nnoremap <silent> [denite]a       :<C-u>DeniteWithCurrentDir -buffer-name=files buffer file_mru bookmark file<CR>
+" nnoremap <silent> [denite]f       :<C-u>Denite -buffer-name=files file<CR>
+nnoremap <silent> [denite]f         :<C-u>Denite file_rec<CR>
+nnoremap <silent> [denite]m         :<C-u>Denite rails/model<CR>
+nnoremap <silent> [denite]c         :<C-u>Denite rails/controller<CR>
+nnoremap <silent> [denite]v         :<C-u>Denite rails/view<CR>
+nnoremap <silent> [denite]b         :<C-u>Denite buffer<CR>
+nnoremap <silent> [denite]u         :<C-u>Denite buffer file_mru<CR>
+nnoremap <silent> [denite]h         :<C-u>Denite file_mru<CR>
+nnoremap <silent> [denite]d         :<C-u>DeniteWithBufferDir file<CR>
+nnoremap <silent> [denite]o         :<C-u>Denite -vertical -no-quit -winwidth=40 outline<CR>
+"nnoremap <silent> m                :<C-u>Denite file_mru<CR>
+nnoremap <silent> <C-o>             :<C-u>Denite file_mru<CR>
+" nnoremap <silent> <C-i>           :<C-u>Denite grep:. -buffer-name=search-buffer<CR>
+nnoremap <silent> <C-i>             :<C-u>Denite buffer<CR>
+nnoremap <silent> [denite]a         :<C-u>Denite file_rec/async:!<CR>
+nnoremap <silent> ,a                :<C-u>Denite grep:. -buffer-name=search-buffer<CR>
+nnoremap <silent> ,ca               :<C-u>Denite grep:. -buffer-name=search-buffer<CR><C-R><C-W>
 
-nnoremap <silent> <Leader>g  :<C-u>Unite grep:. -buffer-name=search-buffer<CR>
-nnoremap <silent> <Leader>s  :<C-u>Unite line<CR>
+nnoremap <silent> <Leader>g  :<C-u>Denite grep:. -buffer-name=search-buffer<CR>
+nnoremap <silent> <Leader>s  :<C-u>Denite line<CR>
 
-if executable('ag')
-  let g:unite_source_grep_command = 'ag'
-  let g:unite_source_grep_default_opts = '--nogroup --nocolor --column'
-  let g:unite_source_grep_recursive_opt = ''
-endif
+call denite#custom#var('file_rec', 'command', ['ag', '--follow', '--nocolor', '--nogroup', '-g', ''])
+call denite#custom#var('grep', 'command', ['ag'])
+call denite#custom#var('grep', 'recursive_opts', [])
+call denite#custom#var('grep', 'default_opts', ['--follow', '--no-group', '--no-color'])
 
-autocmd FileType unite call s:unite_my_settings()
-function! s:unite_my_settings()
-  nmap     <buffer> <ESC>          <Plug>(unite_exit)
-  nmap     <buffer> <C-j>          <Plug>(unite_exit)
-  imap     <buffer> <Space>q       <Plug>(unite_exit)
-  imap     <buffer> jj             <Plug>(unite_insert_leave)
-  nnoremap <silent> <buffer>       <C-k> :<C-u>call unite#mappings#do_action('preview')<CR>
-  imap     <buffer> <C-w>          <Plug>(unite_delete_backward_path)
-  nnoremap <silent> <buffer><expr> <C-l> unite#do_action('vsplit')
-  inoremap <silent> <buffer><expr> <C-l> unite#do_action('vsplit')
+" if executable('ag')
+"   let g:denite_source_grep_command = 'ag'
+"   let g:denite_source_grep_default_opts = '-g --nogroup --nocolor --column'
+"   let g:denite_source_grep_recursive_opt = ''
+" endif
+
+autocmd FileType denite call s:denite_my_settings()
+function! s:denite_my_settings()
+  nmap     <buffer> <ESC>          <Plug>(denite_exit)
+  nmap     <buffer> <C-j>          <Plug>(denite_exit)
+  imap     <buffer> <Space>q       <Plug>(denite_exit)
+  imap     <buffer> jj             <Plug>(denite_insert_leave)
+  nnoremap <silent> <buffer>       <C-k> :<C-u>call denite#mappings#do_action('preview')<CR>
+  imap     <buffer> <C-w>          <Plug>(denite_delete_backward_path)
+  nnoremap <silent> <buffer><expr> <C-l> denite#do_action('vsplit')
+  inoremap <silent> <buffer><expr> <C-l> denite#do_action('vsplit')
 endfunction
 
 "------------------------------
