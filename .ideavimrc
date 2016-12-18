@@ -1,0 +1,75 @@
+"========================================
+" BASE
+"========================================
+set scrolloff=5                     " スクロール時の余白確保
+set textwidth=0                     " 一行に長い文章を書いていても自動折り返しをしない
+set nobackup                        " バックアップ取らない
+set autoread                        " 他で書き換えられたら自動で読み直す
+set noswapfile                      " スワップファイル作らない
+set hidden                          " 編集中でも他のファイルを開けるようにする
+set backspace=indent,eol,start      " バックスペースでなんでも消せるように
+set formatoptions=lmoq              " テキスト整形オプション，マルチバイト系を追加
+set vb t_vb=                        " ビープをならさない
+set browsedir=buffer                " Exploreの初期ディレクトリ
+set whichwrap=b,s,h,l,<,>,[,]       " カーソルを行頭、行末で止まらないようにする
+set showcmd                         " コマンドをステータス行に表示
+set showmode                        " 現在のモードを表示
+set viminfo='50,<1000,s100,\"50     " viminfoファイルの設定
+set modelines=0                     " モードラインは無効
+set nrformats=alpha                 " 数値を全て10進数としてインクリメントする
+set shortmess+=I
+
+"========================================
+" SEARCH
+"========================================
+set wrapscan
+set ignorecase
+set smartcase
+set incsearch
+set hlsearch
+nmap <ESC><ESC> :nohlsearch<CR><ESC>
+nnoremap <C-j> :nohlsearch<CR><ESC>
+
+set notagbsearch
+nnoremap t  <Nop>
+nnoremap T  <C-]>
+nnoremap tt  :<C-u>pop<CR>
+nnoremap tj  :<C-u>tag<CR>
+nnoremap tl  :<C-u>tags<CR>
+
+" escape mapping
+inoremap jj <Esc>
+inoremap <C-j> <Esc>
+vnoremap <C-j> <Esc>
+nnoremap <Space>S :%s!
+nnoremap <Space>s /
+nnoremap ; :
+
+nnoremap Y y$
+" nnoremap V v$h
+
+nnoremap <Space>w :w<CR>
+
+" buffer control
+nnoremap <C-n> gt<CR>
+nnoremap <C-p> gT<CR>
+" nnoremap <C-d> :bd<CR>
+
+nnoremap <Space>q :q!<CR>
+nnoremap ` :qa!<CR>
+nnoremap <Space>n gt
+nnoremap <Space>p gT
+
+"========================================
+" Move
+"========================================
+set virtualedit+=block " 矩形選択で自由に移動する
+nnoremap <Space>h ^
+nnoremap <Space>l $
+nnoremap ( %
+nnoremap ) %
+vnoremap v $h
+" nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
+nnoremap <C-l> <C-w>l
+nnoremap <C-h> <C-w>h

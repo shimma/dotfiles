@@ -10,6 +10,7 @@ ln -s $HOME/dotfiles/.gitconfig.local   $HOME/
 ln -s $HOME/dotfiles/.peco              $HOME/
 ln -s $HOME/dotfiles/.tmux.conf         $HOME/
 ln -s $HOME/dotfiles/.zshrc             $HOME/
+ln -s $HOME/dotfiles/.ideavimrc         $HOME/
 touch ~/.z
 
 ## macOS
@@ -113,8 +114,8 @@ pip3 install neovim
 vim -c "PlugInstall" -c ":q" -c ":q"
 go get github.com/motemen/ghq
 sudo gem install tmuxinator
-sudo gem install bundler
-sudo gem update --system
+#sudo gem install bundler
+#sudo gem update --system
 #curl -s api.sdkman.io | bash
 
 brew install homebrew/versions/v8-315
