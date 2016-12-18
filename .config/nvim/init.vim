@@ -374,7 +374,7 @@ nnoremap <silent> [denite]o         :<C-u>Denite -vertical -no-quit -winwidth=40
 nnoremap <silent> <C-o>             :<C-u>Denite file_mru<CR>
 " nnoremap <silent> <C-i>           :<C-u>Denite grep:. -buffer-name=search-buffer<CR>
 nnoremap <silent> <C-i>             :<C-u>Denite buffer<CR>
-nnoremap <silent> [denite]a         :<C-u>Denite file_rec/async:!<CR>
+nnoremap <silent> [denite]a         :<C-u>Denite file_rec<CR>
 nnoremap <silent> ,a                :<C-u>Denite grep:. -buffer-name=search-buffer<CR>
 nnoremap <silent> ,ca               :<C-u>Denite grep:. -buffer-name=search-buffer<CR><C-R><C-W>
 
