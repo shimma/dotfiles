@@ -184,6 +184,8 @@ alias ve="vim -c 'color Tomorrow-Night-Eighties'"
 alias k="work"
 alias X="tmux kill-server"
 alias M="mvim ~/Desktop/$(date +%Y%m%d)_tmp.md"
+alias master='git checkout master'
+alias develop='git checkout develop'
 
 tmuxnew() {
     name=$(basename `pwd` | sed 's/\./-/g')

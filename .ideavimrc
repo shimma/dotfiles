@@ -18,6 +18,7 @@ set viminfo='50,<1000,s100,\"50     " viminfoファイルの設定
 set modelines=0                     " モードラインは無効
 set nrformats=alpha                 " 数値を全て10進数としてインクリメントする
 set shortmess+=I
+set clipboard=unnamed
 
 "========================================
 " SEARCH
