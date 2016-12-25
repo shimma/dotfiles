@@ -49,6 +49,7 @@ brew install openssl                      || true
 brew install peco                         || true
 brew install python3                      || true
 brew install rbenv                        || true
+brew install ruby-build                   || true
 brew install reattach-to-user-namespace   || true
 ln -s $(which reattach-to-user-namespace) ~/bin/i
 brew install tig                          || true
@@ -113,7 +114,7 @@ sudo easy_install pip
 pip3 install neovim
 vim -c "PlugInstall" -c ":q" -c ":q"
 go get github.com/motemen/ghq
-sudo gem install tmuxinator
+#sudo gem install tmuxinator
 #sudo gem install bundler
 #sudo gem update --system
 #curl -s api.sdkman.io | bash
