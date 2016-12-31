@@ -30,7 +30,6 @@ brew install ag                           || true
 brew install ansible                      || true
 brew install binutils                     || true
 brew install caskroom/cask/brew-cask      || true
-#brew install cocot                        || true
 brew install coreutils                    || true
 brew install ctags                        || true
 brew install curl                         || true
@@ -71,7 +70,6 @@ brew cask install font-ricty-diminished   || true
 brew cask install google-chrome           || true
 brew cask install google-drive            || true
 brew cask install google-japanese-ime     || true
-#brew cask install honer                   || true
 brew cask install hoster                  || true
 brew cask install iterm2                  || true
 brew cask install licecap                 || true
