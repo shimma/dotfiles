@@ -146,7 +146,7 @@ alias duh="du -h ./ --max-depth=1"
 alias evs='vim ~/.ssh/config'
 # alias g='git'
 alias ga='git add .'
-alias gb='git branch -avv'
+alias gb='git branch -a'
 alias gr='git browse'
 alias gc='git commit'
 alias gd='git diff'
@@ -184,8 +184,8 @@ alias ve="vim -c 'color Tomorrow-Night-Eighties'"
 alias k="work"
 alias X="tmux kill-server"
 alias M="mvim ~/Desktop/$(date +%Y%m%d)_tmp.md"
-alias master='git checkout master'
-alias develop='git checkout develop'
+alias master='git checkout master && git pull origin master'
+alias develop='git checkout develop && git pull origin develop'
 
 tmuxnew() {
     name=$(basename `pwd` | sed 's/\./-/g')
