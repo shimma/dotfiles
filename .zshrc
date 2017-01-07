@@ -56,7 +56,7 @@ autojump_with_peco () {
         echo "ll"
         ls -al --color
     fi
-    zle reset-prompt
+    zle reset-prompt 2&>1 >/dev/null
 }
 
 zle -N vim_file_mru
