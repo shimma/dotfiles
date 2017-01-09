@@ -1,4 +1,6 @@
 #!/bin/bash -x
+# see: http://qiita.com/shimma/items/ebeeb410ecebc22dd41e
+
 BASEPATH=$(cd `dirname $0`; pwd)
 cd $BASEPATH
 mkdir $HOME/bin
@@ -89,11 +91,10 @@ brew cleanup                              || true
 #brew install mas @todo
 #mas install line
 #mas install reeder3
-#mas install kindle
 #mas install Pixelmeter
+#mas install kindle
 
 ## MacApp
-#macapp install Google Chrome
 #macapp install Spotify
 #macapp install Evernote
 #macapp install ScanSnap Manager
@@ -101,6 +102,7 @@ brew cleanup                              || true
 #macapp install Franz
 #macapp install Xmind
 #macapp install alfred
+#macapp install AmazonMusic
 
 ## Node
 curl -L git.io/nodebrew | perl - setup
