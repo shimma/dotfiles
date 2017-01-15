@@ -61,6 +61,7 @@ brew install xz                           || true
 brew install zsh                          || true
 brew install imagemagick                  || true
 brew install mysql                        || true
+brew install git-flow-avh                 || true
 brew cask install atom                    || true
 #brew cask install slack                   || true
 brew cask install dockertoolbox           || true
@@ -85,6 +86,7 @@ brew cask install vagrant                 || true
 brew cask install virtualbox              || true
 brew cask install cmd-eikana              || true
 brew cask install gitify                  || true
+brew cask install anaconda                || true
 brew update                               || true
 brew cleanup                              || true
 
