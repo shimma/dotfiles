@@ -20,6 +20,7 @@ Plug 'Shougo/vimfiler.vim'
 Plug 'Shougo/denite.nvim'
 Plug 'Shougo/neomru.vim'
 Plug 'tpope/vim-rails'
+Plug 'AlessandroYorba/Monrovia'
 Plug 'basyura/unite-rails'
 Plug 'scrooloose/nerdtree', { 'on':  ['NERDTreeToggle', 'NERDTree' ], 'do' : 'cp ~/dotfiles/.config/nvim/nerdtree_plugin/* ~/.cache/vim-plug/nerdtree/nerdtree_plugin/'}
 Plug 'scrooloose/syntastic', { 'for': [ 'go', 'php', 'ruby'] }
@@ -89,11 +90,13 @@ set undodir=/tmp
 " colorscheme burnttoast256
 colorscheme landscape
 " colorscheme iceberg
+" set termguicolors
+" colorscheme monrovia
 let edark_current_line=1
 let edark_ime_cursor=1
 let edark_insert_status_line=1
 syntax enable
-highlight PmenuSel cterm=reverse ctermfg=33 ctermbg=222 gui=reverse guifg=#3399ff guibg=#f0e68c
+" highlight PmenuSel cterm=reverse ctermfg=33 ctermbg=222 gui=reverse guifg=#3399ff guibg=#f0e68c
 autocmd BufNewFile,BufRead *.twig   set syntax=html
 
 "========================================
@@ -368,6 +371,7 @@ nnoremap <silent> [denite]v         :<C-u>Denite rails/view<CR>
 nnoremap <silent> [denite]b         :<C-u>Denite buffer<CR>
 nnoremap <silent> [denite]u         :<C-u>Denite buffer file_mru<CR>
 nnoremap <silent> [denite]h         :<C-u>Denite file_mru<CR>
+nnoremap <silent> [denite]a         :<C-u>Denite file_rec file_old buffer<CR>
 nnoremap <silent> [denite]d         :<C-u>DeniteWithBufferDir file<CR>
 nnoremap <silent> [denite]o         :<C-u>Denite -vertical -no-quit -winwidth=40 outline<CR>
 "nnoremap <silent> m                :<C-u>Denite file_mru<CR>
