@@ -62,6 +62,11 @@ brew install zsh                          || true
 brew install imagemagick                  || true
 brew install mysql                        || true
 brew install git-flow-avh                 || true
+brew install homebrew/php/php56-apcu      || true
+brew install homebrew/php/php56-opcache   || true
+brew install homebrew/php/php56-intl      || true
+brew install composer                     || true
+
 brew cask install atom                    || true
 #brew cask install slack                   || true
 brew cask install dockertoolbox           || true
