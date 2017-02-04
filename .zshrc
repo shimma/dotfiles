@@ -187,7 +187,7 @@ alias M="mvim ~/Desktop/$(date +%Y%m%d)_tmp.md"
 alias master='git checkout master && git pull origin master'
 alias develop='git checkout develop && git pull origin develop'
 alias gm='git compare'
-alias pr="hub pull-request --browse -F $(git rev-parse --show-toplevel)/.github/PULL_REQUEST_TEMPLATE.md"
+#alias pr="hub pull-request --browse -F $(git rev-parse --show-toplevel)/.github/PULL_REQUEST_TEMPLATE.md"
 
 tmuxnew() {
     name=$(basename `pwd` | sed 's/\./-/g')
