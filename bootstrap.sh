@@ -62,6 +62,11 @@ brew install zsh                          || true
 brew install imagemagick                  || true
 brew install mysql                        || true
 brew install git-flow-avh                 || true
+brew install homebrew/php/php56-apcu      || true
+brew install homebrew/php/php56-opcache   || true
+brew install homebrew/php/php56-intl      || true
+brew install composer                     || true
+
 brew cask install atom                    || true
 #brew cask install slack                   || true
 brew cask install dockertoolbox           || true
@@ -87,6 +92,9 @@ brew cask install virtualbox              || true
 brew cask install cmd-eikana              || true
 brew cask install gitify                  || true
 brew cask install anaconda                || true
+brew cask install sequel-pro              || true
+brew cask install ngrok                   || true
+brew cask install brackets                || true
 brew update                               || true
 brew cleanup                              || true
 
@@ -124,4 +132,4 @@ go get github.com/motemen/ghq
 brew install homebrew/versions/v8-315
 bundle config build.libv8 --with-system-v8
 bundle config build.therubyracer --with-v8-dir=/usr/local/opt/v8-315/
-curl get.pow.cx | sh
+curl get.pow.cx | s ca
