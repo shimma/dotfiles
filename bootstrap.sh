@@ -94,6 +94,7 @@ brew cask install gitify                  || true
 brew cask install anaconda                || true
 brew cask install sequel-pro              || true
 brew cask install ngrok                   || true
+brew cask install brackets                || true
 brew update                               || true
 brew cleanup                              || true
 
