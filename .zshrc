@@ -47,8 +47,8 @@ HISTSIZE=10000
 SAVEHIST=10000
 compinit -C
 
-zle -N autojump_with_peco
-bindkey "^j" autojump_with_peco
+#zle -N autojump_with_peco
+#bindkey "^j" autojump_with_peco
 autojump_with_peco () {
     dir=$(z | sort -nr | awk "{print \$2}" | peco)
     if [[ -d $dir && -n $dir ]]; then
@@ -65,6 +65,23 @@ vim_file_mru () {
     sh -c 'nvim -c "Denite file_mru" </dev/tty'
     zle reset-prompt
 }
+
+function peco-git-branch-checkout () {
+    local selected_branch_name="$(git branch -a | peco | tr -d ' ')"
+    case "$selected_branch_name" in
+        *-\>* )
+            selected_branch_name="$(echo ${selected_branch_name} | perl -ne 's/^.*->(.*?)\/(.*)$/\2/;print')";;
+        remotes* )
+            selected_branch_name="$(echo ${selected_branch_name} | perl -ne 's/^.*?remotes\/(.*?)\/(.*)$/\2/;print')";;
+    esac
+    if [ -n "$selected_branch_name" ]; then
+        BUFFER="git checkout ${selected_branch_name}"
+        zle accept-line
+    fi
+    zle clear-screen
+}
+zle -N peco-git-branch-checkout
+bindkey '^g' peco-git-branch-checkout
 
 ## zle -N jump_repo
 ## bindkey "^h" jump_repo
