@@ -67,7 +67,7 @@ brew install homebrew/php/php56-opcache   || true
 brew install homebrew/php/php56-intl      || true
 brew install composer                     || true
 
-brew cask install atom                    || true
+brew cask install visual-studio-code      || true
 #brew cask install slack                   || true
 brew cask install dockertoolbox           || true
 brew cask install font-anonymous-pro      || true
@@ -82,7 +82,7 @@ brew cask install hoster                  || true
 brew cask install iterm2                  || true
 brew cask install licecap                 || true
 brew cask install mysqlworkbench          || true
-brew cask install showyedge               || true
+# brew cask install showyedge               || true
 brew cask install skype                   || true
 brew cask install sourcetree              || true
 brew cask install spectacle               || true
@@ -94,7 +94,6 @@ brew cask install gitify                  || true
 brew cask install anaconda                || true
 brew cask install sequel-pro              || true
 brew cask install ngrok                   || true
-brew cask install brackets                || true
 brew update                               || true
 brew cleanup                              || true
 
