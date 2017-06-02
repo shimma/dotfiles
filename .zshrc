@@ -75,7 +75,7 @@ function peco-git-branch-checkout () {
             selected_branch_name="$(echo ${selected_branch_name} | perl -ne 's/^.*?remotes\/(.*?)\/(.*)$/\2/;print')";;
     esac
     if [ -n "$selected_branch_name" ]; then
-        BUFFER="git checkout ${selected_branch_name}"
+        BUFFER="git checkout ${selected_branch_name} && git pull origin ${selected_branch_name}"
         zle accept-line
     fi
     zle clear-screen
@@ -168,7 +168,7 @@ alias gr='git browse'
 alias gc='git commit'
 alias gd='git diff'
 alias gf='git fetch --prune'
-alias gl='git pull'
+alias gl='git pull origin'
 alias gp='git push'
 alias gs='git status -sb'
 alias gsp='git status --porcelain | sed s/^...// | peco | ruby -pe "chomp" | pbcopy'
