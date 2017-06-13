@@ -47,8 +47,8 @@ HISTSIZE=10000
 SAVEHIST=10000
 compinit -C
 
-#zle -N autojump_with_peco
-#bindkey "^j" autojump_with_peco
+zle -N autojump_with_peco
+bindkey "^j" autojump_with_peco
 autojump_with_peco () {
     dir=$(z | sort -nr | awk "{print \$2}" | peco)
     if [[ -d $dir && -n $dir ]]; then
@@ -205,6 +205,7 @@ alias master='git checkout master && git pull origin master'
 alias develop='git checkout develop && git pull origin develop'
 alias gm='git compare'
 #alias pr="hub pull-request --browse -F $(git rev-parse --show-toplevel)/.github/PULL_REQUEST_TEMPLATE.md"
+alias c='bin/rails console'
 
 tmuxnew() {
     name=$(basename `pwd` | sed 's/\./-/g')
