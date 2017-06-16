@@ -389,24 +389,18 @@ call denite#custom#var('file_rec', 'command', ['ag', '--follow', '--nocolor', '-
 call denite#custom#var('grep', 'command', ['ag'])
 call denite#custom#var('grep', 'recursive_opts', [])
 call denite#custom#var('grep', 'default_opts', ['--follow', '--no-group', '--no-color'])
-
-" if executable('ag')
-"   let g:denite_source_grep_command = 'ag'
-"   let g:denite_source_grep_default_opts = '-g --nogroup --nocolor --column'
-"   let g:denite_source_grep_recursive_opt = ''
-" endif
-
-autocmd FileType denite call s:denite_my_settings()
-function! s:denite_my_settings()
-  nmap     <buffer> <ESC>          <Plug>(denite_exit)
-  nmap     <buffer> <C-j>          <Plug>(denite_exit)
-  imap     <buffer> <Space>q       <Plug>(denite_exit)
-  imap     <buffer> jj             <Plug>(denite_insert_leave)
-  nnoremap <silent> <buffer>       <C-k> :<C-u>call denite#mappings#do_action('preview')<CR>
-  imap     <buffer> <C-w>          <Plug>(denite_delete_backward_path)
-  nnoremap <silent> <buffer><expr> <C-l> denite#do_action('vsplit')
-  inoremap <silent> <buffer><expr> <C-l> denite#do_action('vsplit')
-endfunction
+call denite#custom#map(
+      \ 'insert',
+      \ '<C-n>',
+      \ '<denite:move_to_next_line>',
+      \ 'noremap'
+      \)
+call denite#custom#map(
+      \ 'insert',
+      \ '<C-p>',
+      \ '<denite:move_to_previous_line>',
+      \ 'noremap'
+      \)
 
 "------------------------------
 " Syntastic
