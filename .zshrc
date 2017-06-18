@@ -83,33 +83,6 @@ function peco-git-branch-checkout () {
 zle -N peco-git-branch-checkout
 bindkey '^g' peco-git-branch-checkout
 
-## zle -N jump_repo
-## bindkey "^h" jump_repo
-## function jump_repo() {
-##     peco_query=$@
-##     dir=$(ghq list -p | peco --query="$peco_query")
-##     if [[ -d $dir && -n $dir ]]; then
-##         cd $dir
-##     fi
-##     zle reset-prompt
-## }
-
-#zle -N chrome_history
-##bindkey "^h" chrome_history
-#chrome_history() {
-#  filter=$(cat ~/.chrome_history_filter)
-#  cat ~/Library/Application\ Support/Google/Chrome/Default/History >/tmp/h
-#  sqlite3 /tmp/h "select url from urls order by last_visit_time desc"  | egrep $filter | peco | xargs open
-#}
-#
-# zle -N clear-screen-and-ls
-# bindkey '^L' clear-screen-and-ls
-# function clear-screen-and-ls() {
-#     clear
-#     ls -l --color
-#     zle reset-prompt
-# }
-
 zle -N digdir_with_peco_shallow
 bindkey '^u' digdir_with_peco_shallow
 function digdir_with_peco_shallow() {
@@ -120,13 +93,6 @@ function digdir_with_peco_shallow() {
     fi
     zle reset-prompt
 }
-
-# zle -N chrome_bookmarks
-# bindkey "^h" chrome_bookmarks
-# chrome_bookmarks() {
-#   cat ~/.bookmarks.txt | grep -v "^#" | peco | cut -f 2 -d "|" | xargs open
-# }
-# alias b='vim ~/.bookmarks.txt'
 
 # ------------------------------------------------------------
 # Common Aliases
@@ -259,21 +225,8 @@ repo () {
         cd $dir
     fi
 }
-work () {
-    peco_query=$@
-    dir=$(find ~/work -type d -maxdepth 2 -mindepth 2 | peco --query="$peco_query")
-    if [[ -d $dir && -n $dir ]]; then
-        cd $dir
-    fi
-}
 zle -N peco-select-history
 bindkey '^r' peco-select-history
-
-function man() {
-  c=$1
-  #/usr/bin/man ${c} | col -bx | env EDITOR=/Applications/MacVim.app/Contents/MacOS/Vim $EDITOR -R -
-  /usr/bin/man ${c} | col -bx | /usr/local/bin/nvim -
-}
 
 fancy-ctrl-z () {
   if [[ $#BUFFER -eq 0 ]]; then
@@ -306,18 +259,14 @@ darwin*)
     #export PATH=~/dotfiles/bin:$PATH
     # eval "$(rbenv init - zsh)" Ruby
     alias cp="nocorrect gcp -i" # required: brew install coreutils
-    #alias ctags='/Applications/MacVim.app/Contents/MacOS/ctags "$@"'
     alias f='open .'
     alias git=hub # hub command - eval "$(hub alias -s)"
     alias tailf='tail -f'
     alias tma='env TERM=screen-256color-bce tmux attach'
     alias tmux="env TERM=screen-256color-bce tmux" #keep vim colorscheme in tmux mode
-    # alias vim='env LANG=ja_JP.UTF-8 /Applications/MacVim.app/Contents/MacOS/Vim "$@"'
     alias vim='nvim'
-    alias vimdiff='/Applications/MacVim.app/Contents/MacOS/vimdiff'
     alias desk='open ~/Desktop'
     alias sourcetree='open -a SourceTree'
-    alias mvim="/Applications/MacVim.app/Contents/MacOS/mvim -c NERDTreeToggle -c 'normal O'"
     alias agg='ag -ig'
     alias get='ghq get -p'
     cdf() {
