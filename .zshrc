@@ -47,6 +47,13 @@ HISTSIZE=10000
 SAVEHIST=10000
 compinit -C
 
+zle -N list_all
+bindkey "^u" list_all
+list_all () {
+    ls -l --color
+    zle reset-prompt 2>/dev/null
+}
+
 zle -N autojump_with_peco
 bindkey "^j" autojump_with_peco
 autojump_with_peco () {
@@ -84,7 +91,7 @@ zle -N peco-git-branch-checkout
 bindkey '^g' peco-git-branch-checkout
 
 zle -N digdir_with_peco_shallow
-bindkey '^u' digdir_with_peco_shallow
+#bindkey '^u' digdir_with_peco_shallow
 function digdir_with_peco_shallow() {
     peco_query=$@
     dir=$(find  -L . -type d -maxdepth 3 -not -path '*/\.*'| peco --query="$peco_query")
@@ -129,8 +136,8 @@ alias duh="du -h ./ --max-depth=1"
 alias evs='vim ~/.ssh/config'
 # alias g='git'
 alias ga='git add .'
-#alias gb='git branch -a'
-alias gb='git browse'
+alias gb='git branch'
+#alias gb='git browse'
 alias gc='git commit'
 alias gd='git diff'
 alias gf='git fetch --prune'
