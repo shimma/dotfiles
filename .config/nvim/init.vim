@@ -1,7 +1,6 @@
 call plug#begin('~/.cache/vim-plug')
 Plug 'fatih/vim-go', { 'for': 'go' }
 Plug 'itchyny/landscape.vim'
-" Plug 'flazz/vim-colorschemes'
 Plug 'gcmt/wildfire.vim'
 Plug 'h1mesuke/vim-alignta', { 'on': 'Alignta' }
 Plug 'junegunn/vim-easy-align', { 'on': '<Plug>(EasyAlign)' }
@@ -19,9 +18,6 @@ Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'Shougo/vimfiler.vim'
 Plug 'Shougo/denite.nvim'
 Plug 'Shougo/neomru.vim'
-Plug 'tpope/vim-rails'
-Plug 'AlessandroYorba/Monrovia'
-Plug 'basyura/unite-rails'
 Plug 'scrooloose/nerdtree', { 'on':  ['NERDTreeToggle', 'NERDTree' ], 'do' : 'cp ~/dotfiles/.config/nvim/nerdtree_plugin/* ~/.cache/vim-plug/nerdtree/nerdtree_plugin/'}
 Plug 'scrooloose/syntastic', { 'for': [ 'go', 'php', 'ruby'] }
 

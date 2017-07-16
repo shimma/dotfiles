@@ -60,8 +60,8 @@ autojump_with_peco () {
     dir=$(z | sort -nr | awk "{print \$2}" | peco)
     if [[ -d $dir && -n $dir ]]; then
         cd $dir
-        echo "ll"
-        ls -al --color
+        # echo "ll"
+        # ls -al --color
     fi
     zle reset-prompt 2>/dev/null
 }
@@ -90,6 +90,7 @@ function peco-git-branch-checkout () {
 zle -N peco-git-branch-checkout
 bindkey '^g' peco-git-branch-checkout
 
+<<<<<<< HEAD
 zle -N digdir_with_peco_shallow
 #bindkey '^u' digdir_with_peco_shallow
 function digdir_with_peco_shallow() {
@@ -100,6 +101,18 @@ function digdir_with_peco_shallow() {
     fi
     zle reset-prompt
 }
+=======
+#zle -N digdir_with_peco_shallow
+#bindkey '^j' digdir_with_peco_shallow
+#function digdir_with_peco_shallow() {
+#    peco_query=$@
+#    dir=$(find  -L . -type d -maxdepth 3 -not -path '*/\.*'| peco --query="$peco_query")
+#    if [[ -d $dir && -n $dir ]]; then
+#        cd $dir
+#    fi
+#    zle reset-prompt
+#}
+>>>>>>> df16a5f5f0b5b58c608325e9d56c7ad2d0bb71e5
 
 # ------------------------------------------------------------
 # Common Aliases
@@ -147,7 +160,7 @@ alias gs='git status -sb'
 alias gsp='git status --porcelain | sed s/^...// | peco | ruby -pe "chomp" | pbcopy'
 alias gss='git status --porcelain | sed s/^...//'
 alias gu='git add -u && git commit -am "update" && git push'
-alias h='sudo vim /etc/hosts'
+alias h='sudo nvim /etc/hosts'
 alias j='z'
 alias la="ls -a"
 alias ll="ls -l"
