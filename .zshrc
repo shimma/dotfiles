@@ -55,7 +55,7 @@ list_all () {
 }
 
 zle -N autojump_with_peco
-bindkey "^j" autojump_with_peco
+bindkey "^h" autojump_with_peco
 autojump_with_peco () {
     dir=$(z | sort -nr | awk "{print \$2}" | peco)
     if [[ -d $dir && -n $dir ]]; then

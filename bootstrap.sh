@@ -66,6 +66,7 @@ brew install homebrew/php/php56-apcu      || true
 brew install homebrew/php/php56-opcache   || true
 brew install homebrew/php/php56-intl      || true
 brew install composer                     || true
+brew install diff-so-fancy                || true
 
 brew cask install visual-studio-code      || true
 #brew cask install slack                   || true
