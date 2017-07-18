@@ -90,18 +90,6 @@ function peco-git-branch-checkout () {
 zle -N peco-git-branch-checkout
 bindkey '^g' peco-git-branch-checkout
 
-<<<<<<< HEAD
-zle -N digdir_with_peco_shallow
-#bindkey '^u' digdir_with_peco_shallow
-function digdir_with_peco_shallow() {
-    peco_query=$@
-    dir=$(find  -L . -type d -maxdepth 3 -not -path '*/\.*'| peco --query="$peco_query")
-    if [[ -d $dir && -n $dir ]]; then
-        cd $dir
-    fi
-    zle reset-prompt
-}
-=======
 #zle -N digdir_with_peco_shallow
 #bindkey '^j' digdir_with_peco_shallow
 #function digdir_with_peco_shallow() {
@@ -112,7 +100,6 @@ function digdir_with_peco_shallow() {
 #    fi
 #    zle reset-prompt
 #}
->>>>>>> df16a5f5f0b5b58c608325e9d56c7ad2d0bb71e5
 
 # ------------------------------------------------------------
 # Common Aliases
