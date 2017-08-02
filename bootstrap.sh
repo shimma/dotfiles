@@ -24,9 +24,6 @@ sudo defaults write -g KeyRepeat -int 1
 ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 brew tap caskroom/fonts
 brew tap neovim/homebrew-neovim
-#brew install ack                          || true
-#brew install tree                         || true
-#brew install watch                        || true
 brew install --disable-etcdir zsh         || true
 brew install ag                           || true
 brew install ansible                      || true
@@ -67,6 +64,7 @@ brew install homebrew/php/php56-opcache   || true
 brew install homebrew/php/php56-intl      || true
 brew install composer                     || true
 brew install diff-so-fancy                || true
+brew install pwgen                        || true
 
 brew cask install visual-studio-code      || true
 #brew cask install slack                   || true
@@ -83,7 +81,6 @@ brew cask install hoster                  || true
 brew cask install iterm2                  || true
 brew cask install licecap                 || true
 brew cask install mysqlworkbench          || true
-# brew cask install showyedge               || true
 brew cask install skype                   || true
 brew cask install sourcetree              || true
 brew cask install spectacle               || true
@@ -91,28 +88,24 @@ brew cask install the-unarchiver          || true
 brew cask install vagrant                 || true
 brew cask install virtualbox              || true
 brew cask install cmd-eikana              || true
-brew cask install gitify                  || true
 brew cask install anaconda                || true
 brew cask install sequel-pro              || true
 brew cask install ngrok                   || true
 brew update                               || true
 brew cleanup                              || true
 
-#brew install mas @todo
-#mas install line
-#mas install reeder3
-#mas install Pixelmeter
-#mas install kindle
-
-## MacApp
-#macapp install Spotify
-#macapp install Evernote
-#macapp install ScanSnap Manager
-#macapp install ScanSnap Cloud
-#macapp install Franz
-#macapp install Xmind
-#macapp install alfred
-#macapp install AmazonMusic
+## @TODO
+#brew install mas
+#mas install Spotify
+#mas install Evernote
+#mas install ScanSnap Manager
+#mas install ScanSnap Cloud
+#mas install Xmind
+#mas install alfred
+#mas install AmazonMusic
+#mas install Reeder 3
+#mas install PixelMeter
+#mas install Kindle
 
 ## Node
 curl -L git.io/nodebrew | perl - setup
@@ -124,9 +117,6 @@ sudo easy_install pip
 pip3 install neovim
 vim -c "PlugInstall" -c ":q" -c ":q"
 go get github.com/motemen/ghq
-#sudo gem install tmuxinator
-#sudo gem install bundler
-#sudo gem update --system
 #curl -s api.sdkman.io | bash
 
 brew install homebrew/versions/v8-315
