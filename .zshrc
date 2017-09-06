@@ -55,7 +55,7 @@ list_all () {
 }
 
 zle -N autojump_with_peco
-bindkey "^h" autojump_with_peco
+bindkey "^g" autojump_with_peco
 autojump_with_peco () {
     dir=$(z | sort -nr | awk "{print \$2}" | peco)
     if [[ -d $dir && -n $dir ]]; then
@@ -88,7 +88,7 @@ function peco-git-branch-checkout () {
     zle clear-screen
 }
 zle -N peco-git-branch-checkout
-bindkey '^g' peco-git-branch-checkout
+bindkey '^h' peco-git-branch-checkout
 
 #zle -N digdir_with_peco_shallow
 #bindkey '^j' digdir_with_peco_shallow
