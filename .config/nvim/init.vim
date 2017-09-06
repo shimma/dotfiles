@@ -14,7 +14,7 @@ Plug 't9md/vim-quickhl', { 'on': '<Plug>(quickhl-manual-this)' }
 " Plug 'tpope/vim-fugitive', { 'on': ['Gdiff', 'Glog', 'Gblame' ] }
 Plug 'tpope/vim-surround', { 'for': [ 'vim', 'go', 'php', 'sh', 'ruby'] }
 Plug 'Shougo/vimproc.vim', { 'do': 'make' }
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+" Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'Shougo/vimfiler.vim'
 Plug 'Shougo/denite.nvim'
 Plug 'Shougo/neomru.vim'
@@ -316,7 +316,7 @@ autocmd BufNewFile,BufRead *.{md,mdwn,mkd,mkdn,mark*} set filetype=markdown
 "========================================
 " Vim-Plugins
 "========================================
-let g:deoplete#enable_at_startup = 1
+" let g:deoplete#enable_at_startup = 1
 
 " Enable omni completion.
 autocmd FileType c             setlocal omnifunc=ccomplete#Complete
