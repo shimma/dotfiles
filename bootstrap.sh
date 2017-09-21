@@ -93,6 +93,7 @@ brew cask install sequel-pro              || true
 brew cask install ngrok                   || true
 brew update                               || true
 brew cleanup                              || true
+brew cask cleanup --outdated
 
 ## @TODO
 #brew install mas

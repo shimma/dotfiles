@@ -175,7 +175,6 @@ au BufNewFile,BufRead *.go set noexpandtab tabstop=4 shiftwidth=4 nolist
 
 set mouse=a
 
-
 " escape mapping
 inoremap jj <Esc>
 inoremap <C-j> <Esc>
@@ -336,17 +335,6 @@ let NERDShutUp=1
 map <Leader>x ,c<space>
 
 "------------------------------
-" Fugitive.vim
-"------------------------------
-nnoremap <Space>gd :<C-u>Gdiff<Enter>
-nnoremap <Space>gs :<C-u>Gstatus<Enter>
-nnoremap <Space>gl :<C-u>Glog<Enter>
-nnoremap <Space>ga :<C-u>Gwrite<Enter>
-nnoremap <Space>gc :<C-u>Gcommit<Enter>
-nnoremap <Space>gC :<C-u>Git commit --amend<Enter>
-nnoremap <Space>gb :<C-u>Gblame<Enter>
-
-"------------------------------
 " denite.vim
 "------------------------------
 nnoremap    [denite]   <Nop>
@@ -473,9 +461,5 @@ map <leader>p :set ft=php<CR>
 " Nerdtree
 "------------------------------
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
-
-nmap <Space>' ciW'<c-r>"'<esc>
-vmap <space>' c'<c-r>"'<esc>
-
 
 let g:vimfiler_as_default_explorer = 1

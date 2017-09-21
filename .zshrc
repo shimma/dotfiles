@@ -247,9 +247,11 @@ fancy-ctrl-z () {
 zle -N fancy-ctrl-z
 bindkey '^Z' fancy-ctrl-z
 
+import-gcloud() {
 # curl https://sdk.cloud.google.com | bash
-# source /Users/shimma/google-cloud-sdk/completion.zsh.inc
-# source ~/google-cloud-sdk/path.zsh.inc
+  source ~/google-cloud-sdk/completion.zsh.inc
+  source ~/google-cloud-sdk/path.zsh.inc
+}
 
 # ------------------------------------------------------------
 # Custom Aliases
