@@ -83,9 +83,10 @@
 	clean = git media clean %f
 	smudge = git media smudge %f
 [filter "lfs"]
-	clean = git-lfs clean %f
-	smudge = git-lfs smudge %f
 	required = true
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
 [http]
 	postBuffer = 524288000
 [color "diff-highlight"]
@@ -100,3 +101,6 @@
 	old = red bold
 	new = green bold
 	whitespace = red reverse
+[user]
+	name = Shimma
+	email = shimma.dev@gmail.com
