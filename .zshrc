@@ -30,6 +30,8 @@ RESET="%{${reset_color}%}"
 BLUE="%{${fg[blue]}%}"
 WHITE="%{${fg[white]}%}"
 PROMPT="${RESET}${BLUE}[%D{%T}][%C]${RESET}${WHITE}$ ${RESET}"
+#PROMPT="${RESET}${BLUE}%(4~|.../%3~|%~)${RESET}${WHITE} $ ${RESET}"
+#PROMPT="${RESET}${BLUE}[%D{%T}][%~]${RESET}${WHITE}$ ${RESET}"
 HISTFILE=~/.zsh_history
 HISTSIZE=10000
 SAVEHIST=10000
@@ -43,7 +45,7 @@ list_all () {
 }
 
 zle -N autojump_with_peco
-bindkey "^o" autojump_with_peco
+bindkey "^h" autojump_with_peco
 autojump_with_peco () {
     dir=$(z | sort -nr | awk "{print \$2}" | peco)
     if [[ -d $dir && -n $dir ]]; then
@@ -52,12 +54,12 @@ autojump_with_peco () {
     zle reset-prompt 2>/dev/null
 }
 
-#zle -N vim_file_mru
-#bindkey "^o" vim_file_mru
-#vim_file_mru () {
-#    sh -c 'nvim -c "Denite file_mru" </dev/tty'
-#    zle reset-prompt
-#}
+zle -N vim_file_mru
+bindkey "^o" vim_file_mru
+vim_file_mru () {
+    sh -c 'nvim -c "Denite file_mru" </dev/tty'
+    zle reset-prompt
+}
 
 function peco-git-branch-checkout () {
     local selected_branch_name="$(git branch -a | peco | tr -d ' ')"
@@ -496,3 +498,7 @@ elif complete >/dev/null 2>&1; then
         }
     }
 fi
+
+# Gcloud
+if [ -f '~/google-cloud-sdk/path.zsh.inc' ]; then source ~/google-cloud-sdk/path.zsh.inc; fi
+if [ -f '~/google-cloud-sdk/completion.zsh.inc' ]; then source ~/google-cloud-sdk/completion.zsh.inc; fi
