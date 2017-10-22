@@ -4,14 +4,8 @@
 export LANG=ja_JP.UTF-8
 export LEuSCHARSET=utf-8
 typeset -U name_of_the_variable
-
-#setopt no_clobber           # 上書きリダイレクトの禁止
 bindkey "^?" backward-delete-char
 bindkey -e
-#bindkey "^a" beginning-of-line
-#bindkey "^e" end-of-line
-#bindkey "^f" forward-char
-#bindkey "^b" backward-char
 setopt auto_list            # 補完候補が複数ある時に、一覧表示する
 setopt auto_menu            # 補完キー（Tab,  Ctrl+I) を連打するだけで順に補完候補を自動で補完する
 setopt auto_param_keys      # カッコの対応などを自動的に補完する
@@ -32,16 +26,12 @@ setopt share_history        # historyの共有
 autoload -U compinit        # 自動保管
 autoload colors
 colors
-# DEFAULT=$'%{\e[1;0m%}'
 RESET="%{${reset_color}%}"
-# GREEN="%{${fg[green]}%}"
 BLUE="%{${fg[blue]}%}"
-# RED="%{${fg[red]}%}"
-# CYAN="%{${fg[cyan]}%}"
 WHITE="%{${fg[white]}%}"
 PROMPT="${RESET}${BLUE}[%D{%T}][%C]${RESET}${WHITE}$ ${RESET}"
-#PROMPT="${RESET}${BLUE}[%C]${RESET}${WHITE}$ ${RESET}"
-#PROMPT="${RESET}${BLUE}[%C]${RESET}${WHITE}$ ${RESET}"
+#PROMPT="${RESET}${BLUE}%(4~|.../%3~|%~)${RESET}${WHITE} $ ${RESET}"
+#PROMPT="${RESET}${BLUE}[%D{%T}][%~]${RESET}${WHITE}$ ${RESET}"
 HISTFILE=~/.zsh_history
 HISTSIZE=10000
 SAVEHIST=10000
@@ -60,8 +50,6 @@ autojump_with_peco () {
     dir=$(z | sort -nr | awk "{print \$2}" | peco)
     if [[ -d $dir && -n $dir ]]; then
         cd $dir
-        # echo "ll"
-        # ls -al --color
     fi
     zle reset-prompt 2>/dev/null
 }
@@ -90,21 +78,9 @@ function peco-git-branch-checkout () {
 zle -N peco-git-branch-checkout
 bindkey '^g' peco-git-branch-checkout
 
-#zle -N digdir_with_peco_shallow
-#bindkey '^j' digdir_with_peco_shallow
-#function digdir_with_peco_shallow() {
-#    peco_query=$@
-#    dir=$(find  -L . -type d -maxdepth 3 -not -path '*/\.*'| peco --query="$peco_query")
-#    if [[ -d $dir && -n $dir ]]; then
-#        cd $dir
-#    fi
-#    zle reset-prompt
-#}
-
 # ------------------------------------------------------------
 # Common Aliases
 # ------------------------------------------------------------
-# alias -g C="| tr -d '\n' | pbcopy"
 alias -g G="| grep"
 alias -g H="| head"
 alias -g L="| less"
@@ -117,9 +93,7 @@ alias -g Z="| tar -cvzf files_$(date +%Y%m%d%H%M%S).tgz --files-from=-"
 alias ls="ls --color"
 alias allnice="ionice -c2 -n7 nice -n19"
 alias be='bundle exec' # bundler
-# alias c='digdir_with_peco_shallow'
 alias C='cd -'
-# alias vm='vagrant ssh || echo "start running vm..." && vagrant up'
 alias vm='vagrant ssh'
 alias cp='nocorrect cp -irp'
 function p () {
@@ -137,7 +111,6 @@ alias evs='vim ~/.ssh/config'
 # alias g='git'
 alias ga='git add .'
 alias gb='git branch'
-#alias gb='git browse'
 alias gc='git commit'
 alias gd='git diff'
 alias gf='git fetch --prune'
@@ -153,15 +126,10 @@ alias la="ls -a"
 alias ll="ls -l"
 alias l="ls"
 alias m='vim -c "Denite file_mru"'
-alias md='vim ./*.md'
-# alias n="vim -c NERDTreeToggle -c 'normal O'"
-#alias n="vim -c NERDTreeToggle"
 alias pk='pkill -f'
 alias w='repo'
 alias s='sshpeco'
 alias ssh='env TERM=xterm ssh'
-alias ssheuc='env TERM=xterm cocot -t UTF-8 -p EUC-JP ssh '
-#alias t="tmux attach || tmuxnew"
 alias t="tmuxnew"
 alias tn="tmuxnew"
 alias x='tmuxinator'
@@ -170,14 +138,11 @@ alias up='cd ..; ll'
 alias ur=root
 alias root='cd $(git rev-parse --show-toplevel)'
 alias v="vim"
-alias ve="vim -c 'color Tomorrow-Night-Eighties'"
-alias k="work"
 alias X="tmux kill-server"
 alias M="mvim ~/Desktop/$(date +%Y%m%d)_tmp.md"
 alias master='git checkout master && git pull origin master'
 alias develop='git checkout develop && git pull origin develop'
 alias gm='git compare'
-#alias pr="hub pull-request --browse -F $(git rev-parse --show-toplevel)/.github/PULL_REQUEST_TEMPLATE.md"
 alias c='bin/rails console'
 
 tmuxnew() {
@@ -533,3 +498,7 @@ elif complete >/dev/null 2>&1; then
         }
     }
 fi
+
+# Gcloud
+if [ -f '~/google-cloud-sdk/path.zsh.inc' ]; then source ~/google-cloud-sdk/path.zsh.inc; fi
+if [ -f '~/google-cloud-sdk/completion.zsh.inc' ]; then source ~/google-cloud-sdk/completion.zsh.inc; fi
