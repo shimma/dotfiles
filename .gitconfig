@@ -100,3 +100,6 @@
 	old = red bold
 	new = green bold
 	whitespace = red reverse
+[merge "mergepbx"]
+	name = Xcode project files merger
+	driver = /usr/local/bin/mergepbx %O %A %B
