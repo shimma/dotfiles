@@ -37,7 +37,6 @@ brew install git                          || true
 brew install go                           || true
 brew install htop                         || true
 brew install hub                          || true
-brew install hugo                         || true
 brew install jq                           || true
 brew install mcrypt                       || true
 brew install neovim                       || true
@@ -59,9 +58,6 @@ brew install zsh                          || true
 brew install imagemagick                  || true
 brew install mysql                        || true
 brew install git-flow-avh                 || true
-brew install homebrew/php/php56-apcu      || true
-brew install homebrew/php/php56-opcache   || true
-brew install homebrew/php/php56-intl      || true
 brew install composer                     || true
 brew install diff-so-fancy                || true
 brew install pwgen                        || true
