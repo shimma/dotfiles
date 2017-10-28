@@ -129,10 +129,8 @@ alias m='vim -c "Denite file_mru"'
 alias pk='pkill -f'
 alias w='repo'
 alias s='sshpeco'
-alias ssh='env TERM=xterm ssh'
+#alias ssh='env TERM=xterm ssh'
 alias t="tmuxnew"
-alias tn="tmuxnew"
-alias x='tmuxinator'
 alias u='up'
 alias up='cd ..; ll'
 alias ur=root
@@ -230,12 +228,6 @@ darwin*)
     #export GEM_HOME=$HOME/.cache/gem
     export HOMEBREW_CASK_OPTS="--appdir=/Applications"
     export RBENV_SHELL=zsh
-    #export PATH=/usr/local/bin:/usr/local/sbin:/opt/local/bin:/opt/local/sbin:~/bin:$PATH
-    #export PATH=~/Applications/Vagrant/bin:$PATH
-    #export PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
-    #export PATH=$GOPATH/bin:$PATH
-    #export PATH=~/dotfiles/bin:$PATH
-    # eval "$(rbenv init - zsh)" Ruby
     alias cp="nocorrect gcp -i" # required: brew install coreutils
     alias f='open .'
     alias git=hub # hub command - eval "$(hub alias -s)"

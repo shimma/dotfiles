@@ -10,7 +10,7 @@ ln -s $HOME/dotfiles/.gitignore         $HOME/
 ln -s $HOME/dotfiles/.gitconfig         $HOME/
 ln -s $HOME/dotfiles/.gitconfig.local   $HOME/
 ln -s $HOME/dotfiles/.peco              $HOME/
-ln -s $HOME/dotfiles/.tmux.conf         $HOME/
+ln -s $HOME/dotfiles/.tmux.conf.osx     $HOME/.tmux.conf
 ln -s $HOME/dotfiles/.zshrc             $HOME/
 ln -s $HOME/dotfiles/.ideavimrc         $HOME/
 touch ~/.z
