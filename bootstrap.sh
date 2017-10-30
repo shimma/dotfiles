@@ -13,6 +13,7 @@ ln -s $HOME/dotfiles/.peco              $HOME/
 ln -s $HOME/dotfiles/.tmux.conf.osx     $HOME/.tmux.conf
 ln -s $HOME/dotfiles/.zshrc             $HOME/
 ln -s $HOME/dotfiles/.ideavimrc         $HOME/
+#ln -s $HOME/dotfiles/.ideavimrc         $HOME/.ssh
 touch ~/.z
 
 ## macOS
