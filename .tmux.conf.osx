@@ -1,0 +1,84 @@
+## Global ##
+unbind C-b
+set -g prefix C-t
+set -g default-shell $SHELL
+set -g default-terminal "screen-256color"
+set -sg escape-time 1
+set -g renumber-windows on
+set -g base-index 1
+set -g pane-base-index 1
+set -g status-position bottom
+bind > run-shell "tmux rename-window `basename #{pane_current_path}`"
+bind r source-file ~/.tmux.conf\; display-message "config reloaded"
+unbind s
+bind s split-window -c '#{pane_current_path}' -v "tmux ls | cut -d: -f1 | peco | xargs tmux switch-client -t"
+
+## Window
+bind -n C-right next-window
+bind -n C-left  previous-window
+bind p          previous-window
+bind N          new-window  -c "#{pane_current_path}"
+bind Down       kill-window
+bind X          kill-session
+bind M          kill-window
+bind -r C-h     resize-pane -L 6
+bind -r C-l     resize-pane -R 6
+bind -r C-j     resize-pane -D 6
+bind -r C-k     resize-pane -U 6
+
+## Pane
+bind -n C-down  select-pane -t :.+
+bind -n C-up    select-pane -t :.-
+bind m          kill-pane
+bind o          kill-pane -a -t .
+bind -n S-left  select-pane -L
+bind -n S-down  select-pane -D
+bind -n S-up    select-pane -U
+bind -n S-right select-pane -R
+bind h          select-pane -L
+bind j          select-pane -D
+bind k          select-pane -U
+bind l          select-pane -R
+bind |          split-window -h -c "#{pane_current_path}"
+bind '"'        split-window -v -c "#{pane_current_path}"
+bind u          select-layout main-vertical
+bind e          select-layout even-horizontal
+bind E          select-layout even-vertical
+bind t          run "tmux last-pane || tmux last-window || tmux new-window"
+bind C-t        resize-pane -Z
+bind -n C-y     select-pane -t :.+
+bind-key -r C-n swap-pane -D
+bind-key -r C-p swap-pane -U
+bind S setw synchronize-panes
+
+## Appearances
+set -g status on
+#set -g status-bg black
+#set -g status-fg white
+set -g status-interval 2
+set -g status-justify "centre"
+set -g status-left-length  90
+set -g status-right-length 90
+set -g status-left '[#S]#[default]'
+set -g status-right '[%Y/%m/%d(%a) %H:%M]#[default]'
+set -g window-status-current-attr bold
+set -g window-status-current-bg white
+#set -g window-status-current-fg white
+#set -g pane-active-border-fg blue
+#set -g pane-active-border-bg blue
+set -g pane-border-fg white
+set -g automatic-rename off
+#set -g default-command "tmux rename-window i; reattach-to-user-namespace -l zsh"
+#set -g default-command "reattach-to-user-namespace -l zsh"
+set -g default-command "i -l zsh"
+
+## Edit
+set -g mode-keys vi
+bind V send-keys "tmux capture-pane -S -2000 && tmux show-buffer | sed '/^$/d' | vim -" C-m
+bind v copy-mode
+bind y paste-buffer
+#unbind -t vi-copy Enter
+#bind-key -t vi-copy v begin-selection
+#bind-key -t vi-copy y copy-pipe "reattach-to-user-namespace pbcopy"
+#bind-key -t vi-copy Enter copy-pipe "reattach-to-user-namespace pbcopy"
+bind C command-prompt -p "enter log prefix" "run-shell \"tmux capture-pane -S -2000; tmux show-buffer >>#{pane_current_path}/%1-console-$(date '+%Y%m%d%H%M%S').log\""
