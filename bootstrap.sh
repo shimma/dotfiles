@@ -122,3 +122,6 @@ bundle config build.libv8 --with-system-v8
 bundle config build.therubyracer --with-v8-dir=/usr/local/opt/v8-315/
 curl get.pow.cx | s ca
 curl https://sdk.cloud.google.com | bash
+
+## atom
+apm install project-manager
