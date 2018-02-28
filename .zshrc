@@ -37,29 +37,22 @@ HISTSIZE=10000
 SAVEHIST=10000
 compinit -C
 
-zle -N list_all
-bindkey "^u" list_all
-list_all () {
-    ls -l --color
-    zle reset-prompt 2>/dev/null
-}
-
-zle -N autojump_with_peco
-bindkey "^h" autojump_with_peco
-autojump_with_peco () {
-    dir=$(z | sort -nr | awk "{print \$2}" | peco)
-    if [[ -d $dir && -n $dir ]]; then
-        cd $dir
-    fi
-    zle reset-prompt 2>/dev/null
-}
-
-zle -N vim_file_mru
-bindkey "^o" vim_file_mru
-vim_file_mru () {
-    sh -c 'nvim -c "Denite file_mru" </dev/tty'
-    zle reset-prompt
-}
+#zle -N list_all
+#bindkey "^u" list_all
+#list_all () {
+#    ls -l --color
+#    zle reset-prompt 2>/dev/null
+#}
+#
+#zle -N autojump_with_peco
+#bindkey "^h" autojump_with_peco
+#autojump_with_peco () {
+#    dir=$(z | sort -nr | awk "{print \$2}" | peco)
+#    if [[ -d $dir && -n $dir ]]; then
+#        cd $dir
+#    fi
+#    zle reset-prompt 2>/dev/null
+#}
 
 function peco-git-branch-checkout () {
     local selected_branch_name="$(git branch -a | peco | tr -d ' ')"
@@ -78,17 +71,19 @@ function peco-git-branch-checkout () {
 zle -N peco-git-branch-checkout
 bindkey '^g' peco-git-branch-checkout
 
+
+function peco-select-ssh() {
+    BUFFER="ssh $(grep -iE "^host[[:space:]]+[^*]" ~/.ssh/config|grep -v "*"|awk "{print \$2}" | peco --query="$LBUFFER")"
+    CURSOR=$#BUFFER
+    zle clear-screen
+}
+zle -N peco-select-ssh
+bindkey '^o' peco-select-ssh
+
+
 # ------------------------------------------------------------
 # Common Aliases
 # ------------------------------------------------------------
-alias -g G="| grep"
-alias -g H="| head"
-alias -g L="| less"
-alias -g O="| xargs open"
-# alias -g P="| peco | ruby -pe 'chomp' | pbcopy"
-alias -g R="| rsync -av --files-from=- . /tmp/"
-alias -g S="| sed"
-# alias -g V="| col -bx | vim -R -"
 alias -g Z="| tar -cvzf files_$(date +%Y%m%d%H%M%S).tgz --files-from=-"
 alias ls="ls --color"
 alias allnice="ionice -c2 -n7 nice -n19"
@@ -137,7 +132,6 @@ alias ur=root
 alias root='cd $(git rev-parse --show-toplevel)'
 alias v="vim"
 alias X="tmux kill-server"
-alias M="mvim ~/Desktop/$(date +%Y%m%d)_tmp.md"
 alias master='git checkout master && git pull origin master'
 alias develop='git checkout develop && git pull origin develop'
 alias gm='git compare'
@@ -494,3 +488,5 @@ fi
 # Gcloud
 if [ -f '~/google-cloud-sdk/path.zsh.inc' ]; then source ~/google-cloud-sdk/path.zsh.inc; fi
 if [ -f '~/google-cloud-sdk/completion.zsh.inc' ]; then source ~/google-cloud-sdk/completion.zsh.inc; fi
+
+alias xpath="xmllint --html --xpath 2>/dev/null"
