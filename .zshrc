@@ -20,7 +20,7 @@ setopt list_types           # auto_list の補完候補一覧で、ls -F のよ�
 setopt magic_equal_subst    # コマンドラインの引数で --prefix=/usr などの = 以降でも補完できる
 setopt noautoremoveslash    # 最後がディレクトリ名で終わっている場合末尾の / を自動的に取り除かない
 setopt prompt_subst
-setopt pushd_ignore_dups    # ディレクトリスタックに同じディレクトリを追加しないようになる
+#setopt pushd_ignore_dups    # ディレクトリスタックに同じディレクトリを追加しないようになる
 setopt share_history        # historyの共有
 
 autoload -U compinit        # 自動保管
@@ -29,7 +29,8 @@ colors
 RESET="%{${reset_color}%}"
 BLUE="%{${fg[blue]}%}"
 WHITE="%{${fg[white]}%}"
-PROMPT="${RESET}${BLUE}[%D{%T}][%C]${RESET}${WHITE}$ ${RESET}"
+#PROMPT="${RESET}${BLUE}[%D{%T}][%C]${RESET}${WHITE}$ ${RESET}"
+PROMPT="${RESET}${BLUE}[%C]${RESET}${WHITE}$ ${RESET}"
 #PROMPT="${RESET}${BLUE}%(4~|.../%3~|%~)${RESET}${WHITE} $ ${RESET}"
 #PROMPT="${RESET}${BLUE}[%D{%T}][%~]${RESET}${WHITE}$ ${RESET}"
 HISTFILE=~/.zsh_history
@@ -141,28 +142,11 @@ tmuxnew() {
     name=$(basename `pwd` | sed 's/\./-/g')
     tmux new -s $name
 }
-
-findf() {
-    target=$(find . -type f -name "*$1*" | egrep -v '.git|vendors|.bundle|.DS_Store|.vagrant|.chef' | peco)
-    if [ ! -z $target ]; then
-        cd $(dirname $target)
-        ls -al
-    fi
-}
 sshpeco () {
     peco_query=$@
     target=$(grep -iE "^host[[:space:]]+[^*]" ~/.ssh/config|grep -v "*"|awk "{print \$2}" | peco --query="$peco_query")
     if [ ! -z $target ]; then
         ssh $target
-    fi
-}
-digdir_with_peco() {
-    peco_query=$@
-    dir=$(find  -L . -type d -not -path '*/\.*'| peco --query="$peco_query")
-    if [[ -d $dir && -n $dir ]]; then
-        cd $dir
-        echo ll
-        ll
     fi
 }
 cleanup () {
@@ -182,6 +166,9 @@ peco-select-history() {
     CURSOR=$#BUFFER
     zle clear-screen
 }
+zle -N peco-select-history
+bindkey '^r' peco-select-history
+
 repo () {
     peco_query=$@
     dir=$(ghq list -p | peco --query="$peco_query")
@@ -189,8 +176,8 @@ repo () {
         cd $dir
     fi
 }
-zle -N peco-select-history
-bindkey '^r' peco-select-history
+zle -N repo
+bindkey '^w' repo
 
 fancy-ctrl-z () {
   if [[ $#BUFFER -eq 0 ]]; then
@@ -218,7 +205,7 @@ darwin*)
     export GOPATH="$HOME/.go"
     export EDITOR=/usr/local/bin/nvim
     #export PATH=:~/.cache/gem/bin:~/.rbenv/bin:~/.rbenv/shims:/usr/local/php5/bin:~/.composer/vendor/bin:~/dotfiles/bin:/usr/local/opt/coreutils/libexec/gnubin:~/Applications/Vagrant/bin:/usr/local/bin:/usr/local/sbin:/opt/local/bin:/opt/local/sbin:~/bin:$GOPATH/bin:~/.nodebrew/current/bin:$PATH
-    export PATH=:~/.rbenv/bin:~/.rbenv/shims:/usr/local/php5/bin:~/.composer/vendor/bin:~/dotfiles/bin:/usr/local/opt/coreutils/libexec/gnubin:~/Applications/Vagrant/bin:/usr/local/bin:/usr/local/sbin:/opt/local/bin:/opt/local/sbin:~/bin:$GOPATH/bin:~/.nodebrew/current/bin:$PATH
+    export PATH=:~/.nodebrew/current/bin:~/.rbenv/bin:~/.rbenv/shims:/usr/local/php5/bin:~/.composer/vendor/bin:~/dotfiles/bin:/usr/local/opt/coreutils/libexec/gnubin:~/Applications/Vagrant/bin:/usr/local/bin:/usr/local/sbin:/opt/local/bin:/opt/local/sbin:~/bin:$GOPATH/bin:$PATH
     #export GEM_HOME=$HOME/.cache/gem
     export HOMEBREW_CASK_OPTS="--appdir=/Applications"
     export RBENV_SHELL=zsh
@@ -229,7 +216,6 @@ darwin*)
     alias tma='env TERM=screen-256color-bce tmux attach'
     alias tmux="env TERM=screen-256color-bce tmux" #keep vim colorscheme in tmux mode
     alias vim='nvim'
-    alias desk='open ~/Desktop'
     alias sourcetree='open -a SourceTree'
     alias agg='ag -ig'
     alias get='ghq get -p'
@@ -485,8 +471,8 @@ elif complete >/dev/null 2>&1; then
     }
 fi
 
-# Gcloud
-if [ -f '~/google-cloud-sdk/path.zsh.inc' ]; then source ~/google-cloud-sdk/path.zsh.inc; fi
-if [ -f '~/google-cloud-sdk/completion.zsh.inc' ]; then source ~/google-cloud-sdk/completion.zsh.inc; fi
-
-alias xpath="xmllint --html --xpath 2>/dev/null"
+# # Gcloud
+# if [ -f '~/google-cloud-sdk/path.zsh.inc' ]; then source ~/google-cloud-sdk/path.zsh.inc; fi
+# if [ -f '~/google-cloud-sdk/completion.zsh.inc' ]; then source ~/google-cloud-sdk/completion.zsh.inc; fi
+# 
+# alias xpath="xmllint --html --xpath 2>/dev/null"
