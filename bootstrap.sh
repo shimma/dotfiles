@@ -5,7 +5,6 @@ BASEPATH=$(cd `dirname $0`; pwd)
 cd $BASEPATH
 mkdir $HOME/bin
 ln -s $HOME/dotfiles/.config            $HOME/
-ln -s $HOME/dotfiles/.ctags             $HOME/
 ln -s $HOME/dotfiles/.gitignore         $HOME/
 ln -s $HOME/dotfiles/.gitconfig         $HOME/
 ln -s $HOME/dotfiles/.gitconfig.local   $HOME/
@@ -13,6 +12,7 @@ ln -s $HOME/dotfiles/.peco              $HOME/
 ln -s $HOME/dotfiles/.tmux.conf.osx     $HOME/.tmux.conf
 ln -s $HOME/dotfiles/.zshrc             $HOME/
 ln -s $HOME/dotfiles/.ideavimrc         $HOME/
+ln -s $HOME/dotfiles/.hyper.js          $HOME/
 touch ~/.z
 
 ## macOS
