@@ -1,6 +1,3 @@
-# ------------------------------------------------------------
-# ZSH
-# ------------------------------------------------------------
 export LANG=ja_JP.UTF-8
 export LEuSCHARSET=utf-8
 typeset -U name_of_the_variable
@@ -10,8 +7,6 @@ setopt auto_list            # 補完候補が複数ある時に、一覧表示�
 setopt auto_menu            # 補完キー（Tab,  Ctrl+I) を連打するだけで順に補完候補を自動で補完する
 setopt auto_param_keys      # カッコの対応などを自動的に補完する
 setopt auto_param_slash     # ディレクトリ名の補完で末尾の / を自動的に付加し、次の補完に備える
-setopt auto_pushd           # cd でTabを押すとdir list を表示
-setopt brace_ccl            # {a-c} を a b c に展開する機能を使えるようにする
 setopt hist_ignore_all_dups # 登録済コマンド行は古い方を削除
 setopt hist_ignore_dups
 setopt hist_reduce_blanks   # 余分な空白は詰める
@@ -20,10 +15,10 @@ setopt list_types           # auto_list の補完候補一覧で、ls -F のよ�
 setopt magic_equal_subst    # コマンドラインの引数で --prefix=/usr などの = 以降でも補完できる
 setopt noautoremoveslash    # 最後がディレクトリ名で終わっている場合末尾の / を自動的に取り除かない
 setopt prompt_subst
-#setopt pushd_ignore_dups    # ディレクトリスタックに同じディレクトリを追加しないようになる
 setopt share_history        # historyの共有
-
 autoload -U compinit        # 自動保管
+compinit -C
+
 autoload colors
 colors
 RESET="%{${reset_color}%}"
@@ -34,26 +29,8 @@ PROMPT="${RESET}${BLUE}[%C]${RESET}${WHITE}$ ${RESET}"
 #PROMPT="${RESET}${BLUE}%(4~|.../%3~|%~)${RESET}${WHITE} $ ${RESET}"
 #PROMPT="${RESET}${BLUE}[%D{%T}][%~]${RESET}${WHITE}$ ${RESET}"
 HISTFILE=~/.zsh_history
-HISTSIZE=10000
-SAVEHIST=10000
-compinit -C
-
-#zle -N list_all
-#bindkey "^u" list_all
-#list_all () {
-#    ls -l --color
-#    zle reset-prompt 2>/dev/null
-#}
-#
-#zle -N autojump_with_peco
-#bindkey "^h" autojump_with_peco
-#autojump_with_peco () {
-#    dir=$(z | sort -nr | awk "{print \$2}" | peco)
-#    if [[ -d $dir && -n $dir ]]; then
-#        cd $dir
-#    fi
-#    zle reset-prompt 2>/dev/null
-#}
+HISTSIZE=5000
+SAVEHIST=5000
 
 function peco-git-branch-checkout () {
     local selected_branch_name="$(git branch -a | peco | tr -d ' ')"
@@ -72,37 +49,27 @@ function peco-git-branch-checkout () {
 zle -N peco-git-branch-checkout
 bindkey '^g' peco-git-branch-checkout
 
-
 function peco-select-ssh() {
     BUFFER="ssh $(grep -iE "^host[[:space:]]+[^*]" ~/.ssh/config|grep -v "*"|awk "{print \$2}" | peco --query="$LBUFFER")"
     CURSOR=$#BUFFER
     zle clear-screen
 }
 zle -N peco-select-ssh
-bindkey '^o' peco-select-ssh
+bindkey '^o' repo
 
 
 # ------------------------------------------------------------
 # Common Aliases
 # ------------------------------------------------------------
-alias -g Z="| tar -cvzf files_$(date +%Y%m%d%H%M%S).tgz --files-from=-"
 alias ls="ls --color"
-alias allnice="ionice -c2 -n7 nice -n19"
 alias be='bundle exec' # bundler
-alias C='cd -'
 alias vm='vagrant ssh'
 alias cp='nocorrect cp -irp'
 function p () {
     echo $@ | pbcopy
 }
 alias df="df -h"
-alias dstat-cpu='dstat -Tclr'
-alias dstat-disk='dstat -Tcldr'
-alias dstat-full='dstat -Tclmdrn'
-alias dstat-mem='dstat -Tclm'
-alias dstat-net='dstat -Tclnd'
 alias du="du -h"
-alias duh="du -h ./ --max-depth=1"
 alias evs='vim ~/.ssh/config'
 # alias g='git'
 alias ga='git add .'
@@ -113,15 +80,11 @@ alias gf='git fetch --prune'
 alias gl='git pull origin'
 alias gp='git push'
 alias gs='git status -sb'
-alias gsp='git status --porcelain | sed s/^...// | peco | ruby -pe "chomp" | pbcopy'
-alias gss='git status --porcelain | sed s/^...//'
 alias gu='git add -u && git commit -am "update" && git push'
 alias h='vim /etc/hosts'
 alias j='z'
 alias la="ls -a"
 alias ll="ls -l"
-alias l="ls"
-alias m='vim -c "Denite file_mru"'
 alias pk='pkill -f'
 alias w='repo'
 alias s='sshpeco'
@@ -148,10 +111,6 @@ sshpeco () {
     if [ ! -z $target ]; then
         ssh $target
     fi
-}
-cleanup () {
-    find . -type d -maxdepth 2 -empty -exec rmdir -v {} \; 2>/dev/null
-    find . -type d -maxdepth 2 -empty -exec rmdir -v {} \; 2>/dev/null
 }
 peco-select-history() {
     local tac
@@ -205,7 +164,9 @@ darwin*)
     export GOPATH="$HOME/.go"
     export EDITOR=/usr/local/bin/nvim
     #export PATH=:~/.cache/gem/bin:~/.rbenv/bin:~/.rbenv/shims:/usr/local/php5/bin:~/.composer/vendor/bin:~/dotfiles/bin:/usr/local/opt/coreutils/libexec/gnubin:~/Applications/Vagrant/bin:/usr/local/bin:/usr/local/sbin:/opt/local/bin:/opt/local/sbin:~/bin:$GOPATH/bin:~/.nodebrew/current/bin:$PATH
-    export PATH=:~/.nodebrew/current/bin:~/.rbenv/bin:~/.rbenv/shims:/usr/local/php5/bin:~/.composer/vendor/bin:~/dotfiles/bin:/usr/local/opt/coreutils/libexec/gnubin:~/Applications/Vagrant/bin:/usr/local/bin:/usr/local/sbin:/opt/local/bin:/opt/local/sbin:~/bin:$GOPATH/bin:$PATH
+    export PATH=:~/.rbenv/bin:~/.rbenv/shims:/usr/local/php5/bin:~/.composer/vendor/bin:~/dotfiles/bin:/usr/local/opt/coreutils/libexec/gnubin:~/Applications/Vagrant/bin:/usr/local/bin:/usr/local/sbin:/opt/local/bin:/opt/local/sbin:~/bin:$GOPATH/bin:$PATH
+#    export PATH=:~/.nodebrew/current/bin:~/.rbenv/bin:~/.rbenv/shims:/usr/local/php5/bin:~/.composer/vendor/bin:~/dotfiles/bin:/usr/local/opt/coreutils/libexec/gnubin:~/Applications/Vagrant/bin:/usr/local/bin:/usr/local/sbin:/opt/local/bin:/opt/local/sbin:~/bin:$GOPATH/bin:$PATH
+
     #export GEM_HOME=$HOME/.cache/gem
     export HOMEBREW_CASK_OPTS="--appdir=/Applications"
     export RBENV_SHELL=zsh
@@ -474,5 +435,9 @@ fi
 # # Gcloud
 # if [ -f '~/google-cloud-sdk/path.zsh.inc' ]; then source ~/google-cloud-sdk/path.zsh.inc; fi
 # if [ -f '~/google-cloud-sdk/completion.zsh.inc' ]; then source ~/google-cloud-sdk/completion.zsh.inc; fi
-# 
+#
 # alias xpath="xmllint --html --xpath 2>/dev/null"
+
+#if (which zprof > /dev/null) ;then
+#  zprof | less
+#fi
