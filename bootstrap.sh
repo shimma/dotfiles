@@ -116,3 +116,6 @@ bundle config build.libv8 --with-system-v8
 bundle config build.therubyracer --with-v8-dir=/usr/local/opt/v8-315/
 curl get.pow.cx | sh
 curl https://sdk.cloud.google.com | bash
+
+
+#gcloud components install kubectl
