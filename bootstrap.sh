@@ -26,7 +26,6 @@ brew tap caskroom/fonts
 brew tap neovim/homebrew-neovim
 brew install --disable-etcdir zsh         || true
 brew install ag                           || true
-brew install ansible                      || true
 brew install binutils                     || true
 brew install caskroom/cask/brew-cask      || true
 brew install coreutils                    || true
@@ -89,17 +88,6 @@ brew update                               || true
 brew cleanup                              || true
 brew cask cleanup --outdated
 
-## @TODO
-#brew install mas
-#mas install Spotify
-#mas install Evernote
-#mas install Xmind
-#mas install alfred
-#mas install AmazonMusic
-#mas install Reeder 3
-#mas install PixelMeter
-#mas install Kindle
-
 ## Node
 curl -L git.io/nodebrew | perl - setup
 nodebrew install stable
@@ -111,7 +99,7 @@ pip3 install neovim
 vim -c "PlugInstall" -c ":q" -c ":q"
 go get github.com/motemen/ghq
 
-brew install homebrew/versions/v8-315
+brew install v8
 bundle config build.libv8 --with-system-v8
 bundle config build.therubyracer --with-v8-dir=/usr/local/opt/v8-315/
 curl get.pow.cx | sh
