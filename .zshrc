@@ -446,3 +446,5 @@ fi
 #if (which zprof > /dev/null) ;then
 #  zprof | less
 #fi
+
+[[ -s "~/.gvm/scripts/gvm" ]] && source "~/.gvm/scripts/gvm"

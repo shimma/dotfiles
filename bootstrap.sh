@@ -58,6 +58,7 @@ brew install wget                         || true
 brew install xz                           || true
 brew install yarn                         || true
 brew install zsh                          || true
+brew install dep                          || true
 ln -s $(which reattach-to-user-namespace) ~/bin/i
 
 #brew cask install font-fontawesome        || true
@@ -106,6 +107,7 @@ curl get.pow.cx | sh
 curl https://sdk.cloud.google.com | bash
 
 
-#gcloud components install kubectl
-
-bash < <(curl -s -S -L https://raw.githubusercontent.com/moovweb/gvm/master/binscripts/gvm-installer)
+gcloud components install kubectl
+zsh < <(curl -s -S -L https://raw.githubusercontent.com/moovweb/gvm/master/binscripts/gvm-installer)
+chmod 755 ~/google-cloud-sdk/platform/google_appengine/goapp
+ln -s ~/google-cloud-sdk/platform/google_appengine/goapp /usr/local/bin/
