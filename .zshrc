@@ -133,17 +133,17 @@ repo () {
 zle -N repo
 bindkey '^w' repo
 
-fancy-ctrl-z () {
-  if [[ $#BUFFER -eq 0 ]]; then
-    BUFFER="fg"
-    zle accept-line
-  else
-    zle push-input
-    zle clear-screen
-  fi
-}
-zle -N fancy-ctrl-z
-bindkey '^Z' fancy-ctrl-z
+# fancy-ctrl-z () {
+#   if [[ $#BUFFER -eq 0 ]]; then
+#     BUFFER="fg"
+#     zle accept-line
+#   else
+#     zle push-input
+#     zle clear-screen
+#   fi
+# }
+# zle -N fancy-ctrl-z
+# bindkey '^Z' fancy-ctrl-z
 
 import-gcloud() {
 # curl https://sdk.cloud.google.com | bash
@@ -161,9 +161,7 @@ darwin*)
     export HOMEBREW_CASK_OPTS="--appdir=/Applications"
     export RBENV_SHELL=zsh
     export GOROOT_BOOTSTRAP=$GOROOT
-
     export GVM_ROOT=~/.gvm
-    source $GVM_ROOT/scripts/gvm-default
 
     alias cp="nocorrect gcp -i" # required: brew install coreutils
     alias f='open .'
@@ -172,7 +170,6 @@ darwin*)
     alias tma='env TERM=screen-256color-bce tmux attach'
     alias tmux="env TERM=screen-256color-bce tmux" #keep vim colorscheme in tmux mode
     alias vim='nvim'
-    alias sourcetree='open -a SourceTree'
     alias agg='ag -ig'
     alias get='ghq get -p'
     cdf() {
@@ -201,6 +198,9 @@ darwin*)
         command rbenv "$command" "$@";;
       esac
     }
+
+    source $GVM_ROOT/scripts/gvm-default
+    [[ -s "~/.gvm/scripts/gvm" ]] && source "~/.gvm/scripts/gvm"
 ;;
 esac
 
@@ -427,14 +427,3 @@ elif complete >/dev/null 2>&1; then
     }
 fi
 
-# # Gcloud
-# if [ -f '~/google-cloud-sdk/path.zsh.inc' ]; then source ~/google-cloud-sdk/path.zsh.inc; fi
-# if [ -f '~/google-cloud-sdk/completion.zsh.inc' ]; then source ~/google-cloud-sdk/completion.zsh.inc; fi
-#
-# alias xpath="xmllint --html --xpath 2>/dev/null"
-
-#if (which zprof > /dev/null) ;then
-#  zprof | less
-#fi
-
-[[ -s "~/.gvm/scripts/gvm" ]] && source "~/.gvm/scripts/gvm"
