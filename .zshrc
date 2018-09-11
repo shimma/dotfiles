@@ -24,10 +24,7 @@ colors
 RESET="%{${reset_color}%}"
 BLUE="%{${fg[blue]}%}"
 WHITE="%{${fg[white]}%}"
-#PROMPT="${RESET}${BLUE}[%D{%T}][%C]${RESET}${WHITE}$ ${RESET}"
 PROMPT="${RESET}${BLUE}[%C]${RESET}${WHITE}$ ${RESET}"
-#PROMPT="${RESET}${BLUE}%(4~|.../%3~|%~)${RESET}${WHITE} $ ${RESET}"
-#PROMPT="${RESET}${BLUE}[%D{%T}][%~]${RESET}${WHITE}$ ${RESET}"
 HISTFILE=~/.zsh_history
 HISTSIZE=5000
 SAVEHIST=5000
@@ -71,7 +68,6 @@ function p () {
 alias df="df -h"
 alias du="du -h"
 alias evs='vim ~/.ssh/config'
-# alias g='git'
 alias ga='git add .'
 alias gb='git branch'
 alias gc='git commit'
@@ -88,7 +84,6 @@ alias ll="ls -l"
 alias pk='pkill -f'
 alias w='repo'
 alias s='sshpeco'
-#alias ssh='env TERM=xterm ssh'
 alias t="tmuxnew"
 alias u='up'
 alias up='cd ..; ll'
@@ -161,13 +156,8 @@ import-gcloud() {
 # ------------------------------------------------------------
 case "${OSTYPE}" in
 darwin*)
-    #export GOPATH="$HOME/.go"
     export EDITOR=/usr/local/bin/nvim
-    #export PATH=:~/.cache/gem/bin:~/.rbenv/bin:~/.rbenv/shims:/usr/local/php5/bin:~/.composer/vendor/bin:~/dotfiles/bin:/usr/local/opt/coreutils/libexec/gnubin:~/Applications/Vagrant/bin:/usr/local/bin:/usr/local/sbin:/opt/local/bin:/opt/local/sbin:~/bin:$GOPATH/bin:~/.nodebrew/current/bin:$PATH
     export PATH=:~/.gvm/scripts:~/.rbenv/bin:~/.rbenv/shims:/usr/local/php5/bin:~/.composer/vendor/bin:~/dotfiles/bin:/usr/local/opt/coreutils/libexec/gnubin:~/Applications/Vagrant/bin:/usr/local/bin:/usr/local/sbin:/opt/local/bin:/opt/local/sbin:~/bin:$GOPATH/bin:$PATH
-#    export PATH=:~/.nodebrew/current/bin:~/.rbenv/bin:~/.rbenv/shims:/usr/local/php5/bin:~/.composer/vendor/bin:~/dotfiles/bin:/usr/local/opt/coreutils/libexec/gnubin:~/Applications/Vagrant/bin:/usr/local/bin:/usr/local/sbin:/opt/local/bin:/opt/local/sbin:~/bin:$GOPATH/bin:$PATH
-
-    #export GEM_HOME=$HOME/.cache/gem
     export HOMEBREW_CASK_OPTS="--appdir=/Applications"
     export RBENV_SHELL=zsh
     export GOROOT_BOOTSTRAP=$GOROOT
