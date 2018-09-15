@@ -133,6 +133,19 @@ repo () {
 zle -N repo
 bindkey '^w' repo
 
+bindkey '^]' peco-src
+function peco-src() {
+    local src=$(ghq list --full-path | peco --query "$LBUFFER")
+    if [ -n "$src" ]; then
+        BUFFER="cd $src"
+        zle accept-line
+    fi
+    zle -R -c
+}
+zle -N peco-src
+
+
+
 # fancy-ctrl-z () {
 #   if [[ $#BUFFER -eq 0 ]]; then
 #     BUFFER="fg"
