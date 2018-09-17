@@ -18,7 +18,7 @@ osx:
 	sudo defaults write -g InitialKeyRepeat -int 14
 	sudo defaults write -g KeyRepeat -int 1
 
-hoembrew:
+homebrew:
 	ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 	brew tap caskroom/fonts
 	brew tap neovim/homebrew-neovim
