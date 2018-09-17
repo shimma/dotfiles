@@ -29,11 +29,9 @@ hoembrew:
 	brew install coreutils                    || true
 	brew install ctags                        || true
 	brew install curl                         || true
-	brew install dep                          || true
 	brew install diff-so-fancy                || true
 	brew install findutils                    || true
 	brew install git                          || true
-	brew install go                           || true
 	brew install htop                         || true
 	brew install hub                          || true
 	brew install imagemagick                  || true
@@ -42,21 +40,13 @@ hoembrew:
 	brew install mysql                        || true
 	brew install neovim                       || true
 	brew install nkf                          || true
-	brew install node                         || true
 	brew install openssl                      || true
 	brew install peco                         || true
-	brew install python3                      || true
-	brew install rbenv                        || true
-	brew install reattach-to-user-namespace   || true
-	brew install ruby-build                   || true
 	brew install tig                          || true
 	brew install tmux                         || true
-	brew install vim                          || true
 	brew install wget                         || true
 	brew install xz                           || true
-	brew install yarn                         || true
 	brew install zsh                          || true
-	brew install v8                           || true
 	brew cask cleanup --outdated
 	brew cask install cmd-eikana              || true
 	brew cask install dockertoolbox           || true
@@ -75,21 +65,30 @@ hoembrew:
 	ln -s $(which reattach-to-user-namespace) ~/bin/i
 
 node:
+	brew install node                         || true
+	brew install yarn                         || true
 	curl -L git.io/nodebrew | perl - setup
 	nodebrew install stable
 	nodebrew use stable
 
 python:
+	brew install python3                      || true
 	sudo easy_install pip
 	pip3 install neovim
 	vim -c "PlugInstall" -c ":q" -c ":q"
 
 ruby:
+	brew install rbenv                        || true
+	brew install reattach-to-user-namespace   || true
+	brew install ruby-build                   || true
+	brew install v8                           || true
 	bundle config build.libv8 --with-system-v8
 	bundle config build.therubyracer --with-v8-dir=/usr/local/opt/v8-315/
 	curl get.pow.cx | sh
 
 golang:
+	brew install go                           || true
+	brew install dep                          || true
 	zsh < <(curl -s -S -L https://raw.githubusercontent.com/moovweb/gvm/master/binscripts/gvm-installer)
 	go get github.com/motemen/ghq
 	go get github.com/nsf/gocode
