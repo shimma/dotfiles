@@ -47,6 +47,7 @@ homebrew:
 	brew install wget                         || true
 	brew install xz                           || true
 	brew install zsh                          || true
+	brew install kustomize                    || true
 	brew cask cleanup --outdated
 	brew cask install cmd-eikana              || true
 	brew cask install dockertoolbox           || true
@@ -102,4 +103,5 @@ gcloud:
 	curl https://sdk.cloud.google.com | bash
 	gcloud components install kubectl
 	chmod 755 ~/google-cloud-sdk/platform/google_appengine/goapp
-	ln -s ~/google-cloud-sdk/platform/google_appengine/goapp /usr/local/bin/
+	chmod 755 ~/google-cloud-sdk/platform/google_appengine/*.py
+	#ln -s ~/google-cloud-sdk/platform/google_appengine/goapp /usr/local/bin/
