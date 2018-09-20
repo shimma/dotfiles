@@ -1,4 +1,5 @@
 # see: http://qiita.com/shimma/items/ebeeb410ecebc22dd41e
+all: create_symlinks osx homebrew node python ruby golang gcloud
 
 create_symlinks:
 	ln -s ${CURDIR}/dotfiles/.config            ${HOME}/
@@ -100,6 +101,7 @@ golang:
 	go get github.com/golang/lint/golint
 
 gcloud:
+	brew install stern                        || true
 	curl https://sdk.cloud.google.com | bash
 	gcloud components install kubectl
 	chmod 755 ~/google-cloud-sdk/platform/google_appengine/goapp
