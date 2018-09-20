@@ -1,7 +1,7 @@
 # see: http://qiita.com/shimma/items/ebeeb410ecebc22dd41e
-all: create_symlinks osx homebrew node python ruby golang gcloud
+install: create-symlinks osx homebrew node python ruby golang gcloud
 
-create_symlinks:
+create-symlinks:
 	ln -s ${CURDIR}/dotfiles/.config            ${HOME}/
 	ln -s ${CURDIR}/dotfiles/.gitignore         ${HOME}/
 	ln -s ${CURDIR}/dotfiles/.gitconfig         ${HOME}/
