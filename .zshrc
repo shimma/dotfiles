@@ -52,8 +52,13 @@ function peco-select-ssh() {
     zle clear-screen
 }
 zle -N peco-select-ssh
-bindkey '^o' repo
 
+zle -N vim_file_mru
+bindkey "^o" vim_file_mru
+vim_file_mru () {
+    sh -c 'nvim -c "Denite file_mru" </dev/tty'
+    zle reset-prompt
+}
 
 # ------------------------------------------------------------
 # Common Aliases
