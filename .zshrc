@@ -149,25 +149,12 @@ function peco-src() {
 }
 zle -N peco-src
 
-
-
-# fancy-ctrl-z () {
-#   if [[ $#BUFFER -eq 0 ]]; then
-#     BUFFER="fg"
-#     zle accept-line
-#   else
-#     zle push-input
-#     zle clear-screen
-#   fi
-# }
-# zle -N fancy-ctrl-z
-# bindkey '^Z' fancy-ctrl-z
-
 import-gcloud() {
 # curl https://sdk.cloud.google.com | bash
   source ~/google-cloud-sdk/completion.zsh.inc
   source ~/google-cloud-sdk/path.zsh.inc
 }
+source ~/google-cloud-sdk/path.zsh.inc
 
 # ------------------------------------------------------------
 # Custom Aliases
