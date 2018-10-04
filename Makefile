@@ -49,6 +49,7 @@ homebrew:
 	brew install xz                           || true
 	brew install zsh                          || true
 	brew install kustomize                    || true
+	brew install libxml2                      || true
 	brew cask cleanup --outdated
 	brew cask install cmd-eikana              || true
 	brew cask install dockertoolbox           || true
