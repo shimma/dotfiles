@@ -50,6 +50,7 @@ homebrew:
 	brew install zsh                          || true
 	brew install kustomize                    || true
 	brew install libxml2                      || true
+	brew install grep                         || true
 	brew cask cleanup --outdated
 	brew cask install cmd-eikana              || true
 	brew cask install dockertoolbox           || true
@@ -87,6 +88,7 @@ ruby:
 	brew install v8                           || true
 	bundle config build.libv8 --with-system-v8
 	bundle config build.therubyracer --with-v8-dir=/usr/local/opt/v8-315/
+	bundle config build.nokogiri --use-system-libraries
 	curl get.pow.cx | sh
 
 golang:
