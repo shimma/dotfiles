@@ -18,6 +18,7 @@ osx:
 	xcode-select --install || true
 	sudo defaults write -g InitialKeyRepeat -int 14
 	sudo defaults write -g KeyRepeat -int 1
+	sudo defaults write -g CGFontRenderingFontSmoothingDisabled -bool NO
 
 homebrew:
 	ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
@@ -49,6 +50,7 @@ homebrew:
 	brew install xz                           || true
 	brew install zsh                          || true
 	brew install kustomize                    || true
+	brew install ios-webkit-debug-proxy       || true
 	brew cask cleanup --outdated
 	brew cask install cmd-eikana              || true
 	brew cask install dockertoolbox           || true
