@@ -18,6 +18,7 @@ osx:
 	xcode-select --install || true
 	sudo defaults write -g InitialKeyRepeat -int 14
 	sudo defaults write -g KeyRepeat -int 1
+	sudo installer -pkg /Library/Developer/CommandLineTools/Packages/macOS_SDK_headers_for_macOS_10.14.pkg -target / #https://stackoverflow.com/questions/52514791/after-upgrading-to-macos-mojave-gem-update-is-failing?rq=1
 
 homebrew:
 	ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
