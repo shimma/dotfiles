@@ -19,6 +19,7 @@ osx:
 	sudo defaults write -g InitialKeyRepeat -int 14
 	sudo defaults write -g KeyRepeat -int 1
 	sudo defaults write -g CGFontRenderingFontSmoothingDisabled -bool NO
+	sudo installer -pkg /Library/Developer/CommandLineTools/Packages/macOS_SDK_headers_for_macOS_10.14.pkg -target / #https://stackoverflow.com/questions/52514791/after-upgrading-to-macos-mojave-gem-update-is-failing?rq=1
 
 homebrew:
 	ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
@@ -51,6 +52,8 @@ homebrew:
 	brew install zsh                          || true
 	brew install kustomize                    || true
 	brew install ios-webkit-debug-proxy       || true
+	brew install libxml2                      || true
+	brew install grep                         || true
 	brew cask cleanup --outdated
 	brew cask install cmd-eikana              || true
 	brew cask install dockertoolbox           || true
@@ -88,6 +91,7 @@ ruby:
 	brew install v8                           || true
 	bundle config build.libv8 --with-system-v8
 	bundle config build.therubyracer --with-v8-dir=/usr/local/opt/v8-315/
+	bundle config build.nokogiri --use-system-libraries
 	curl get.pow.cx | sh
 
 golang:
@@ -104,6 +108,7 @@ golang:
 
 gcloud:
 	brew install stern                        || true
+	brew reinstall python@2                   || true # for mojave #Homebrew/homebrew-core/issues/29176
 	curl https://sdk.cloud.google.com | bash
 	gcloud components install kubectl
 	chmod 755 ~/google-cloud-sdk/platform/google_appengine/goapp
