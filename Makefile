@@ -110,6 +110,7 @@ gcloud:
 	brew install stern                        || true
 	brew reinstall python@2                   || true # for mojave #Homebrew/homebrew-core/issues/29176
 	curl https://sdk.cloud.google.com | bash
+	gcloud components update
 	gcloud components install kubectl
 	chmod 755 ~/google-cloud-sdk/platform/google_appengine/goapp
 	chmod 755 ~/google-cloud-sdk/platform/google_appengine/*.py
