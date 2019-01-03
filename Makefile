@@ -51,6 +51,7 @@ homebrew:
 	brew install xz                           || true
 	brew install zsh                          || true
 	brew install kustomize                    || true
+	brew install kubernetes-helm              || true
 	brew install ios-webkit-debug-proxy       || true
 	brew install libxml2                      || true
 	brew install grep                         || true
