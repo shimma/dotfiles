@@ -108,6 +108,7 @@ golang:
 
 gcloud:
 	brew install stern                        || true
+	brew cask install minikube                || true
 	brew reinstall python@2                   || true # for mojave #Homebrew/homebrew-core/issues/29176
 	curl https://sdk.cloud.google.com | bash
 	gcloud components update
