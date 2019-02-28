@@ -68,6 +68,7 @@ homebrew:
 	brew cask install vagrant                 || true
 	brew cask install virtualbox              || true
 	brew cask install visual-studio-code      || true
+	brew cask install font-hack-nerd-font     || true
 	brew update                               || true
 	brew cleanup                              || true
 	ln -s $(which reattach-to-user-namespace) ~/bin/i
