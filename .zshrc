@@ -162,9 +162,10 @@ source ~/google-cloud-sdk/path.zsh.inc
 case "${OSTYPE}" in
 darwin*)
     export EDITOR=/usr/local/bin/nvim
-    export PATH=:~/google-cloud-sdk/platform/google_appengine:~/.gvm/scripts:~/.rbenv/bin:~/.rbenv/shims:/usr/local/php5/bin:~/.composer/vendor/bin:~/dotfiles/bin:/usr/local/opt/coreutils/libexec/gnubin:~/Applications/Vagrant/bin:/usr/local/bin:/usr/local/sbin:/opt/local/bin:/opt/local/sbin:~/bin:$GOPATH/bin:$PATH
+    export PATH=:~/.pyenv/shims:~/google-cloud-sdk/platform/google_appengine:~/.gvm/scripts:~/.rbenv/bin:~/.rbenv/shims:/usr/local/php5/bin:~/.composer/vendor/bin:~/dotfiles/bin:/usr/local/opt/coreutils/libexec/gnubin:~/Applications/Vagrant/bin:/usr/local/bin:/usr/local/sbin:/opt/local/bin:/opt/local/sbin:~/bin:$GOPATH/bin:$PATH
     export HOMEBREW_CASK_OPTS="--appdir=/Applications"
     export RBENV_SHELL=zsh
+    export PYENV_SHELL=zsh
     export GOROOT_BOOTSTRAP=$GOROOT
     export GVM_ROOT=~/.gvm
 
@@ -201,6 +202,22 @@ darwin*)
         eval "$(rbenv "sh-$command" "$@")";;
       *)
         command rbenv "$command" "$@";;
+      esac
+    }
+    #source '/usr/local/Cellar/pyenv/1.2.9/libexec/../completions/pyenv.zsh'
+    #command pyenv rehash 2>/dev/null
+    pyenv() {
+      local command
+      command="${1:-}"
+      if [ "$#" -gt 0 ]; then
+        shift
+      fi
+
+      case "$command" in
+      activate|deactivate|rehash|shell)
+        eval "$(pyenv "sh-$command" "$@")";;
+      *)
+        command pyenv "$command" "$@";;
       esac
     }
 

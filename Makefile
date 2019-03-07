@@ -1,5 +1,5 @@
 # see: http://qiita.com/shimma/items/ebeeb410ecebc22dd41e
-install: create-symlinks osx homebrew node python ruby golang gcloud
+install: create-symlinks osx homebrew node python ruby golang gcloud ios
 
 create-symlinks:
 	ln -s ${CURDIR}/dotfiles/.config            ${HOME}/
@@ -68,6 +68,7 @@ homebrew:
 	brew cask install vagrant                 || true
 	brew cask install virtualbox              || true
 	brew cask install visual-studio-code      || true
+	brew cask install charles                 || true
 	brew update                               || true
 	brew cleanup                              || true
 	ln -s $(which reattach-to-user-namespace) ~/bin/i
@@ -80,9 +81,10 @@ node:
 	nodebrew use stable
 
 python:
-	brew install python3                      || true
-	sudo easy_install pip
-	pip3 install neovim
+	brew install pyenv                        || true
+	brew install pipenv                       || true
+	CONFIGURE_OPTS="--enable-shared" pyenv install 3.6.6
+	pip install neovim
 	vim -c "PlugInstall" -c ":q" -c ":q"
 
 ruby:
@@ -117,3 +119,6 @@ gcloud:
 	chmod 755 ~/google-cloud-sdk/platform/google_appengine/goapp
 	chmod 755 ~/google-cloud-sdk/platform/google_appengine/*.py
 	#ln -s ~/google-cloud-sdk/platform/google_appengine/goapp /usr/local/bin/
+
+ios:
+		gem install cocoapods
