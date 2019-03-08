@@ -82,9 +82,10 @@ node:
 	nodebrew use stable
 
 python:
-	brew install pyenv                        || true
-	brew install pipenv                       || true
+	brew install pyenv
+	brew install pipenv
 	CONFIGURE_OPTS="--enable-shared" pyenv install 3.6.6
+	pyenv global 3.6.6
 	pip install neovim
 	vim -c "PlugInstall" -c ":q" -c ":q"
 
