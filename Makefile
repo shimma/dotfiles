@@ -123,4 +123,8 @@ gcloud:
 	#ln -s ~/google-cloud-sdk/platform/google_appengine/goapp /usr/local/bin/
 
 ios:
-		gem install cocoapods
+	gem install cocoapods
+
+aws:
+	sudo curl -o /usr/local/bin/ecs-cli https://s3.amazonaws.com/amazon-ecs-cli/ecs-cli-darwin-amd64-latest
+
