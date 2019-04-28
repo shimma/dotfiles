@@ -162,7 +162,7 @@ source ~/google-cloud-sdk/path.zsh.inc
 case "${OSTYPE}" in
 darwin*)
     export EDITOR=/usr/local/bin/nvim
-    export PATH=:~/.pyenv/shims:~/google-cloud-sdk/platform/google_appengine:~/.gvm/scripts:~/.rbenv/bin:~/.rbenv/shims:/usr/local/php5/bin:~/.composer/vendor/bin:~/dotfiles/bin:/usr/local/opt/coreutils/libexec/gnubin:~/Applications/Vagrant/bin:/usr/local/bin:/usr/local/sbin:/opt/local/bin:/opt/local/sbin:~/bin:$GOPATH/bin:$PATH
+    export PATH=:~/.nodebrew/current/bin:~/.pyenv/shims:~/google-cloud-sdk/platform/google_appengine:~/.gvm/scripts:~/.rbenv/bin:~/.rbenv/shims:/usr/local/php5/bin:~/.composer/vendor/bin:~/dotfiles/bin:/usr/local/opt/coreutils/libexec/gnubin:~/Applications/Vagrant/bin:/usr/local/bin:/usr/local/sbin:/opt/local/bin:/opt/local/sbin:~/bin:$GOPATH/bin:$PATH
     export HOMEBREW_CASK_OPTS="--appdir=/Applications"
     export RBENV_SHELL=zsh
     export PYENV_SHELL=zsh
@@ -448,4 +448,3 @@ elif complete >/dev/null 2>&1; then
         }
     }
 fi
-
