@@ -1,18 +1,18 @@
 # see: http://qiita.com/shimma/items/ebeeb410ecebc22dd41e
-install: create-symlinks osx homebrew node python ruby golang gcloud ios
+install: create-symlinks osx homebrew homebrew-cask node python ruby golang gcloud ios aws
 
 create-symlinks:
-	ln -s ${CURDIR}/dotfiles/.config            ${HOME}/
-	ln -s ${CURDIR}/dotfiles/.gitignore         ${HOME}/
-	ln -s ${CURDIR}/dotfiles/.gitconfig         ${HOME}/
-	ln -s ${CURDIR}/dotfiles/.gitconfig.local   ${HOME}/
-	ln -s ${CURDIR}/dotfiles/.peco              ${HOME}/
-	ln -s ${CURDIR}/dotfiles/.tmux.conf.osx     ${HOME}/.tmux.conf
-	ln -s ${CURDIR}/dotfiles/.zshrc             ${HOME}/
-	ln -s ${CURDIR}/dotfiles/.ideavimrc         ${HOME}/
-	ln -s ${CURDIR}/dotfiles/.hyper.js          ${HOME}/
+	ln -fs ${CURDIR}/.config            ${HOME}/
+	ln -fs ${CURDIR}/.gitignore         ${HOME}/
+	ln -fs ${CURDIR}/.gitconfig         ${HOME}/
+	ln -fs ${CURDIR}/.gitconfig.local   ${HOME}/
+	ln -fs ${CURDIR}/.peco              ${HOME}/
+	ln -fs ${CURDIR}/.tmux.conf.osx     ${HOME}/.tmux.conf
+	ln -fs ${CURDIR}/.zshrc             ${HOME}/
+	ln -fs ${CURDIR}/.ideavimrc         ${HOME}/
+	ln -fs ${CURDIR}/.hyper.js          ${HOME}/
 	touch ${HOME}/.z
-	mkdir ${HOME}/bin
+	mkdir ${HOME}/bin || true
 
 osx:
 	xcode-select --install || true
@@ -32,7 +32,6 @@ homebrew:
 	brew install coreutils                    || true
 	brew install ctags                        || true
 	brew install curl                         || true
-	brew install diff-so-fancy                || true
 	brew install findutils                    || true
 	brew install git                          || true
 	brew install htop                         || true
@@ -55,7 +54,11 @@ homebrew:
 	brew install ios-webkit-debug-proxy       || true
 	brew install libxml2                      || true
 	brew install grep                         || true
-	brew cask cleanup --outdated
+
+brew-cask:
+	brew cask outdated                        
+	brew cask install iterm2                  || true
+	brew cask install alfred                  || true
 	brew cask install cmd-eikana              || true
 	brew cask install dockertoolbox           || true
 	brew cask install google-chrome           || true
@@ -69,6 +72,7 @@ homebrew:
 	brew cask install virtualbox              || true
 	brew cask install visual-studio-code      || true
 	brew cask install charles                 || true
+	brew cask install font-ricty-diminished   || true
 	brew cask install font-hack-nerd-font     || true
 	brew update                               || true
 	brew cleanup                              || true
@@ -86,7 +90,8 @@ python:
 	brew install pipenv
 	CONFIGURE_OPTS="--enable-shared" pyenv install 3.6.6
 	pyenv global 3.6.6
-	pip install neovim
+	pip install --upgrade pip
+	pip install pynvim
 	vim -c "PlugInstall" -c ":q" -c ":q"
 
 ruby:
@@ -94,15 +99,18 @@ ruby:
 	brew install reattach-to-user-namespace   || true
 	brew install ruby-build                   || true
 	brew install v8                           || true
+	sudo gem install bundler
 	bundle config build.libv8 --with-system-v8
 	bundle config build.therubyracer --with-v8-dir=/usr/local/opt/v8-315/
 	bundle config build.nokogiri --use-system-libraries
 	curl get.pow.cx | sh
 
 golang:
-	brew install go                           || true
-	brew install dep                          || true
-	zsh < <(curl -s -S -L https://raw.githubusercontent.com/moovweb/gvm/master/binscripts/gvm-installer)
+	#brew install go                           || true
+	#brew install dep                          || true
+	#zsh < <(curl -s -S -L https://raw.githubusercontent.com/moovweb/gvm/master/binscripts/gvm-installer)
+	#gvm install go1.9
+	#gvm use go1.9 --default
 	go get github.com/motemen/ghq
 	go get github.com/nsf/gocode
 	go get github.com/k0kubun/pp
@@ -118,12 +126,13 @@ gcloud:
 	curl https://sdk.cloud.google.com | bash
 	gcloud components update
 	gcloud components install kubectl
+	gcloud components install appengine-go
 	chmod 755 ~/google-cloud-sdk/platform/google_appengine/goapp
 	chmod 755 ~/google-cloud-sdk/platform/google_appengine/*.py
 	#ln -s ~/google-cloud-sdk/platform/google_appengine/goapp /usr/local/bin/
 
 ios:
-	gem install cocoapods
+	sudo gem install cocoapods
 
 aws:
 	sudo curl -o /usr/local/bin/ecs-cli https://s3.amazonaws.com/amazon-ecs-cli/ecs-cli-darwin-amd64-latest && chmod 755 /usr/local/bin/ecs-cli
