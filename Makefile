@@ -54,6 +54,7 @@ homebrew:
 	brew install ios-webkit-debug-proxy       || true
 	brew install libxml2                      || true
 	brew install grep                         || true
+	brew install fzf                          || true
 
 brew-cask:
 	brew cask outdated                        
