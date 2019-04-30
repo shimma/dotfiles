@@ -70,7 +70,7 @@ set -g pane-border-fg white
 set -g automatic-rename off
 #set -g default-command "tmux rename-window i; reattach-to-user-namespace -l zsh"
 #set -g default-command "reattach-to-user-namespace -l zsh"
-set -g default-command "i -l zsh"
+#set -g default-command "i -l zsh"
 
 ## Edit
 set -g mode-keys vi

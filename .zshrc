@@ -29,29 +29,43 @@ HISTFILE=~/.zsh_history
 HISTSIZE=5000
 SAVEHIST=5000
 
-function peco-git-branch-checkout () {
-    local selected_branch_name="$(git branch -a | peco | tr -d ' ')"
-    case "$selected_branch_name" in
-        *-\>* )
-            selected_branch_name="$(echo ${selected_branch_name} | perl -ne 's/^.*->(.*?)\/(.*)$/\2/;print')";;
-        remotes* )
-            selected_branch_name="$(echo ${selected_branch_name} | perl -ne 's/^.*?remotes\/(.*?)\/(.*)$/\2/;print')";;
-    esac
-    if [ -n "$selected_branch_name" ]; then
-        BUFFER="git checkout ${selected_branch_name} && git pull origin ${selected_branch_name}"
-        zle accept-line
-    fi
-    zle clear-screen
-}
-zle -N peco-git-branch-checkout
-bindkey '^g' peco-git-branch-checkout
+# function peco-git-branch-checkout () {
+#     local selected_branch_name="$(git branch -a | peco | tr -d ' ')"
+#     case "$selected_branch_name" in
+#         *-\>* )
+#             selected_branch_name="$(echo ${selected_branch_name} | perl -ne 's/^.*->(.*?)\/(.*)$/\2/;print')";;
+#         remotes* )
+#             selected_branch_name="$(echo ${selected_branch_name} | perl -ne 's/^.*?remotes\/(.*?)\/(.*)$/\2/;print')";;
+#     esac
+#     if [ -n "$selected_branch_name" ]; then
+#         BUFFER="git checkout ${selected_branch_name} && git pull origin ${selected_branch_name}"
+#         zle accept-line
+#     fi
+#     zle clear-screen
+# }
+# zle -N peco-git-branch-checkout
+# bindkey '^g' peco-git-branch-checkout
 
-function peco-select-ssh() {
-    BUFFER="ssh $(grep -iE "^host[[:space:]]+[^*]" ~/.ssh/config|grep -v "*"|awk "{print \$2}" | peco --query="$LBUFFER")"
-    CURSOR=$#BUFFER
-    zle clear-screen
+fbr() {
+  local branches branch
+  git fetch --prune
+  branches=$(git branch --all | grep -v HEAD) &&
+  branch=$(echo "$branches" |
+           fzf-tmux -d $(( 2 + $(wc -l <<< "$branches") )) +m) &&
+  git checkout $(echo "$branch" | sed "s/.* //" | sed "s#remotes/[^/]*/##") && git pull origin $(echo "$branch" | sed "s/.* //" | sed "s#remotes/[^/]*/##")
+  zle accept-line
 }
-zle -N peco-select-ssh
+zle -N fbr
+bindkey '^g' fbr
+bindkey '^[' fbr
+
+
+# function peco-select-ssh() {
+#     BUFFER="ssh $(grep -iE "^host[[:space:]]+[^*]" ~/.ssh/config|grep -v "*"|awk "{print \$2}" | peco --query="$LBUFFER")"
+#     CURSOR=$#BUFFER
+#     zle clear-screen
+# }
+# zle -N peco-select-ssh
 
 zle -N vim_file_mru
 bindkey "^o" vim_file_mru
@@ -112,42 +126,94 @@ sshpeco () {
         ssh $target
     fi
 }
-peco-select-history() {
-    local tac
-    if which tac > /dev/null; then
-        tac="tac"
-    else
-        tac="tail -r"
-    fi
-    BUFFER=$(history -n 1 | \
-        eval $tac | \
-        peco --query "$LBUFFER")
-    CURSOR=$#BUFFER
-    zle clear-screen
-}
-zle -N peco-select-history
-bindkey '^r' peco-select-history
 
-repo () {
-    peco_query=$@
-    dir=$(ghq list -p | peco --query="$peco_query")
-    if [[ -d $dir && -n $dir ]]; then
-        cd $dir
-    fi
-}
-zle -N repo
-bindkey '^w' repo
+# peco-select-history() {
+#    local tac
+#    if which tac > /dev/null; then
+#        tac="tac"
+#    else
+#        tac="tail -r"
+#    fi
+#    BUFFER=$(history -n 1 | \
+#        eval $tac | \
+#        fzf --query "$LBUFFER")
+#    CURSOR=$#BUFFER
+#    #zle clear-screen
+#}
+#zle -N peco-select-history
+#bindkey '^r' peco-select-history
 
-bindkey '^]' peco-src
-function peco-src() {
-    local src=$(ghq list --full-path | peco --query "$LBUFFER")
-    if [ -n "$src" ]; then
-        BUFFER="cd $src"
-        zle accept-line
-    fi
-    zle -R -c
+
+function ssh-fzf () {
+  local selected_host=$(grep "Host " ~/.ssh/config | grep -v '*' | cut -b 6- | fzf --query "$LBUFFER")
+
+  if [ -n "$selected_host" ]; then
+    BUFFER="ssh ${selected_host}"
+    zle accept-line
+  fi
+  zle reset-prompt
 }
-zle -N peco-src
+
+zle -N ssh-fzf
+bindkey '^\' ssh-fzf
+
+function history-fzf() {
+  local tac
+
+  if which tac > /dev/null; then
+    tac="tac"
+  else
+    tac="tail -r"
+  fi
+
+  BUFFER=$(history -n 1 | eval $tac | fzf --query "$LBUFFER")
+  CURSOR=$#BUFFER
+
+  zle reset-prompt
+}
+
+zle -N history-fzf
+bindkey '^r' history-fzf
+
+function ghq-fzf() {
+  local selected_dir=$(ghq list | fzf --query="$LBUFFER")
+
+  if [ -n "$selected_dir" ]; then
+    BUFFER="cd $(ghq root)/${selected_dir}"
+    zle accept-line
+  fi
+
+  zle reset-prompt
+}
+
+zle -N ghq-fzf
+bindkey "^]" ghq-fzf
+
+
+# function git-branch-fzf() {
+#   local selected_branch=$(git for-each-ref --format='%(refname)' --sort=-committerdate refs/heads | perl -pne 's{^refs/heads/}{}' | fzf --query "$LBUFFER")
+# 
+#   if [ -n "$selected_branch" ]; then
+#     BUFFER="git checkout ${selected_branch}"
+#     zle accept-line
+#   fi
+# 
+#   zle reset-prompt
+# }
+# 
+# zle -N git-branch-fzf
+# bindkey "^b" git-branch-fzf
+
+#  bindkey '^]' peco-src
+#  function peco-src() {
+#      local src=$(ghq list --full-path | peco --query "$LBUFFER")
+#      if [ -n "$src" ]; then
+#          BUFFER="cd $src"
+#          zle accept-line
+#      fi
+#      zle -R -c
+#  }
+#  zle -N peco-src
 
 import-gcloud() {
 # curl https://sdk.cloud.google.com | bash
@@ -161,6 +227,7 @@ source ~/google-cloud-sdk/path.zsh.inc
 # ------------------------------------------------------------
 case "${OSTYPE}" in
 darwin*)
+    export FZF_DEFAULT_OPTS='--height 40% --layout=reverse --border'
     export EDITOR=/usr/local/bin/nvim
     export PATH=:~/.nodebrew/current/bin:~/.pyenv/shims:~/google-cloud-sdk/platform/google_appengine:~/.gvm/scripts:~/.rbenv/bin:~/.rbenv/shims:/usr/local/php5/bin:~/.composer/vendor/bin:~/dotfiles/bin:/usr/local/opt/coreutils/libexec/gnubin:~/Applications/Vagrant/bin:/usr/local/bin:/usr/local/sbin:/opt/local/bin:/opt/local/sbin:~/bin:$GOPATH/bin:$PATH
     export HOMEBREW_CASK_OPTS="--appdir=/Applications"
