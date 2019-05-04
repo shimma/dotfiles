@@ -18,7 +18,6 @@ setopt prompt_subst
 setopt share_history        # historyの共有
 autoload -U compinit        # 自動保管
 compinit -C
-
 autoload colors
 colors
 RESET="%{${reset_color}%}"
@@ -28,26 +27,6 @@ PROMPT="${RESET}${BLUE}[%C]${RESET}${WHITE}$ ${RESET}"
 HISTFILE=~/.zsh_history
 HISTSIZE=1000
 SAVEHIST=1000
-
-fbr() {
-  local branches branch
-  git fetch --prune
-  branches=$(git branch --all | grep -v HEAD) &&
-  branch=$(echo "$branches" |
-           fzf-tmux -d $(( 2 + $(wc -l <<< "$branches") )) +m) &&
-  git checkout $(echo "$branch" | sed "s/.* //" | sed "s#remotes/[^/]*/##") && git pull origin $(echo "$branch" | sed "s/.* //" | sed "s#remotes/[^/]*/##")
-  zle accept-line
-}
-zle -N fbr
-bindkey '^g' fbr
-bindkey '^[' fbr
-
-zle -N vim_file_mru
-bindkey "^o" vim_file_mru
-vim_file_mru () {
-    sh -c 'nvim -c "Denite file_mru" </dev/tty'
-    zle reset-prompt
-}
 
 # ------------------------------------------------------------
 # Common Aliases
@@ -90,11 +69,27 @@ alias develop='git checkout develop && git pull origin develop'
 alias gm='git compare'
 alias c='bin/rails console'
 
-tmuxnew() {
+# ------------------------------------------------------------
+# tmux
+# ------------------------------------------------------------
+function tmuxnew() {
     name=$(basename `pwd` | sed 's/\./-/g')
     tmux new -s $name
 }
 
+# ------------------------------------------------------------
+# vim
+# ------------------------------------------------------------
+zle -N vim_file_mru
+bindkey "^o" vim_file_mru
+vim_file_mru () {
+    sh -c 'nvim -c "Denite file_mru" </dev/tty'
+    zle reset-prompt
+}
+
+# ------------------------------------------------------------
+# fzf
+# ------------------------------------------------------------
 function ssh-fzf () {
   local selected_host=$(grep "Host " ~/.ssh/config | grep -v '*' | cut -b 6- | fzf --query "$LBUFFER")
 
@@ -121,7 +116,6 @@ function history-fzf() {
 
   zle reset-prompt
 }
-
 zle -N history-fzf
 bindkey '^r' history-fzf
 
@@ -135,9 +129,34 @@ function ghq-fzf() {
 
   zle reset-prompt
 }
-
 zle -N ghq-fzf
 bindkey "^]" ghq-fzf
+
+
+function fbr() {
+  local branches branch
+  git fetch --prune
+  branches=$(git branch --all | grep -v HEAD) &&
+  branch=$(echo "$branches" |
+           fzf-tmux -d $(( 2 + $(wc -l <<< "$branches") )) +m) &&
+  git checkout $(echo "$branch" | sed "s/.* //" | sed "s#remotes/[^/]*/##") && git pull origin $(echo "$branch" | sed "s/.* //" | sed "s#remotes/[^/]*/##")
+  zle accept-line
+}
+zle -N fbr
+bindkey '^g' fbr
+bindkey '^[' fbr
+
+function fzf-z-search() {
+    local res=$(z | sort -rn | cut -c 12- | fzf)
+    if [ -n "$res" ]; then
+        BUFFER+="cd $res"
+        zle accept-line
+    fi
+    zle reset-prompt
+}
+zle -N fzf-z-search
+bindkey '^f' fzf-z-search
+
 
 import-gcloud() {
 # curl https://sdk.cloud.google.com | bash
