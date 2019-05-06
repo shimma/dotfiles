@@ -1,52 +1,55 @@
 export LANG=ja_JP.UTF-8
 export LEuSCHARSET=utf-8
-typeset -U name_of_the_variable
-bindkey "^?" backward-delete-char
-bindkey -e
-setopt auto_list            # 補完候補が複数ある時に、一覧表示する
-setopt auto_menu            # 補完キー（Tab,  Ctrl+I) を連打するだけで順に補完候補を自動で補完する
-setopt auto_param_keys      # カッコの対応などを自動的に補完する
-setopt auto_param_slash     # ディレクトリ名の補完で末尾の / を自動的に付加し、次の補完に備える
-setopt hist_ignore_all_dups # 登録済コマンド行は古い方を削除
-setopt hist_ignore_dups
-setopt hist_reduce_blanks   # 余分な空白は詰める
-setopt list_packed          # 補完候補リストを詰めて表示
-setopt list_types           # auto_list の補完候補一覧で、ls -F のようにファイルの種別をマーク表示
-setopt magic_equal_subst    # コマンドラインの引数で --prefix=/usr などの = 以降でも補完できる
-setopt noautoremoveslash    # 最後がディレクトリ名で終わっている場合末尾の / を自動的に取り除かない
-setopt prompt_subst
-setopt share_history        # historyの共有
-autoload -U compinit        # 自動保管
-compinit -C
-autoload colors
-colors
-RESET="%{${reset_color}%}"
-BLUE="%{${fg[blue]}%}"
-WHITE="%{${fg[white]}%}"
-PROMPT="${RESET}${BLUE}[%C]${RESET}${WHITE}$ ${RESET}"
 HISTFILE=~/.zsh_history
 HISTSIZE=1000
 SAVEHIST=1000
+autoload -U compinit
+autoload colors
+compinit -C
+colors
+bindkey "^?" backward-delete-char
+bindkey -e
+typeset -U name_of_the_variable
+BLUE="%{${fg[blue]}%}"
+RESET="%{${reset_color}%}"
+WHITE="%{${fg[white]}%}"
+PROMPT="${RESET}${BLUE}[%C]${RESET}${WHITE}$ ${RESET}"
 
-# ------------------------------------------------------------
-# Common Aliases
-# ------------------------------------------------------------
-alias ls="ls --color"
+setopt auto_list
+setopt auto_menu
+setopt auto_param_keys
+setopt auto_param_slash
+setopt hist_ignore_all_dups
+setopt hist_ignore_dups
+setopt hist_reduce_blanks
+setopt list_packed
+setopt list_types
+setopt magic_equal_subst
+setopt noautoremoveslash
+setopt prompt_subst
+setopt share_history
+
+alias X="tmux kill-server"
+alias agg='ag -ig'
 alias be='bundle exec' # bundler
-alias vm='vagrant ssh'
-alias cp='nocorrect cp -irp'
-function p () {
-    echo $@ | pbcopy
-}
+alias c='bin/rails console'
+alias cp="nocorrect gcp -i" # required: brew install coreutils
+#alias cp='nocorrect cp -irp'
+alias develop='git checkout develop && git pull origin develop'
 alias df="df -h"
 alias du="du -h"
 alias evs='vim ~/.ssh/config'
+alias evz='vim ~/.zshrc'
+alias f='open .'
 alias ga='git add .'
 alias gb='git branch'
 alias gc='git commit'
 alias gd='git diff'
+alias get='ghq get -p'
 alias gf='git fetch --prune'
+alias git=hub # hub command - eval "$(hub alias -s)"
 alias gl='git pull origin'
+alias gm='git compare'
 alias gp='git push'
 alias gs='git status -sb'
 alias gu='git add -u && git commit -am "update" && git push'
@@ -54,20 +57,20 @@ alias h='vim /etc/hosts'
 alias j='z'
 alias la="ls -a"
 alias ll="ls -l"
+alias ls="ls --color"
+alias master='git checkout master && git pull origin master'
 alias pk='pkill -f'
-alias w='repo'
-alias s='sshpeco'
+alias root='cd $(git rev-parse --show-toplevel)'
 alias t="tmuxnew"
+alias tailf='tail -f'
+alias tma='env TERM=screen-256color-bce tmux attach'
+alias tmux="env TERM=screen-256color-bce tmux" #keep vim colorscheme in tmux mode
 alias u='up'
 alias up='cd ..; ll'
 alias ur=root
-alias root='cd $(git rev-parse --show-toplevel)'
 alias v="vim"
-alias X="tmux kill-server"
-alias master='git checkout master && git pull origin master'
-alias develop='git checkout develop && git pull origin develop'
-alias gm='git compare'
-alias c='bin/rails console'
+alias vim='nvim'
+alias vm='vagrant ssh'
 
 # ------------------------------------------------------------
 # tmux
@@ -90,6 +93,8 @@ vim_file_mru () {
 # ------------------------------------------------------------
 # fzf
 # ------------------------------------------------------------
+export FZF_DEFAULT_OPTS='--height 40% --layout=reverse --border'
+
 function ssh-fzf () {
   local selected_host=$(grep "Host " ~/.ssh/config | grep -v '*' | cut -b 6- | fzf --query "$LBUFFER")
 
@@ -99,8 +104,6 @@ function ssh-fzf () {
   fi
   zle reset-prompt
 }
-zle -N ssh-fzf
-bindkey '^\' ssh-fzf
 
 function history-fzf() {
   local tac
@@ -116,8 +119,6 @@ function history-fzf() {
 
   zle reset-prompt
 }
-zle -N history-fzf
-bindkey '^r' history-fzf
 
 function ghq-fzf() {
   local selected_dir=$(ghq list | fzf --query="$LBUFFER")
@@ -129,9 +130,6 @@ function ghq-fzf() {
 
   zle reset-prompt
 }
-zle -N ghq-fzf
-bindkey "^]" ghq-fzf
-
 
 function fbr() {
   local branches branch
@@ -142,9 +140,6 @@ function fbr() {
   git checkout $(echo "$branch" | sed "s/.* //" | sed "s#remotes/[^/]*/##") && git pull origin $(echo "$branch" | sed "s/.* //" | sed "s#remotes/[^/]*/##")
   zle accept-line
 }
-zle -N fbr
-bindkey '^g' fbr
-bindkey '^[' fbr
 
 function fzf-z-search() {
     local res=$(z | sort -rn | cut -c 12- | fzf)
@@ -154,87 +149,104 @@ function fzf-z-search() {
     fi
     zle reset-prompt
 }
-zle -N fzf-z-search
+
+bindkey "^]" ghq-fzf
+bindkey '^[' fbr
+bindkey '^\' ssh-fzf
 bindkey '^f' fzf-z-search
+bindkey '^g' fbr
+bindkey '^r' history-fzf
+zle -N fbr
+zle -N fzf-z-search
+zle -N ghq-fzf
+zle -N history-fzf
+zle -N ssh-fzf
 
 
-import-gcloud() {
-# curl https://sdk.cloud.google.com | bash
-  source ~/google-cloud-sdk/completion.zsh.inc
-  source ~/google-cloud-sdk/path.zsh.inc
+# ------------------------------------------------------------
+# Gcloud
+# ------------------------------------------------------------
+function import-gcloud() {
+    # curl https://sdk.cloud.google.com | bash
+    source ~/google-cloud-sdk/completion.zsh.inc
+    source ~/google-cloud-sdk/path.zsh.inc
 }
 source ~/google-cloud-sdk/path.zsh.inc
 
 # ------------------------------------------------------------
-# Custom Aliases
+# Exports
 # ------------------------------------------------------------
-case "${OSTYPE}" in
-darwin*)
-    export FZF_DEFAULT_OPTS='--height 40% --layout=reverse --border'
-    export EDITOR=/usr/local/bin/nvim
-    export PATH=:~/.nodebrew/current/bin:~/.pyenv/shims:~/google-cloud-sdk/platform/google_appengine:~/.gvm/scripts:~/.rbenv/bin:~/.rbenv/shims:/usr/local/php5/bin:~/.composer/vendor/bin:~/dotfiles/bin:/usr/local/opt/coreutils/libexec/gnubin:~/Applications/Vagrant/bin:/usr/local/bin:/usr/local/sbin:/opt/local/bin:/opt/local/sbin:~/bin:$GOPATH/bin:$PATH
-    export HOMEBREW_CASK_OPTS="--appdir=/Applications"
-    export RBENV_SHELL=zsh
-    export PYENV_SHELL=zsh
-    export GOROOT_BOOTSTRAP=$GOROOT
-    export GVM_ROOT=~/.gvm
+export PATH=:~/.nodebrew/current/bin:~/.pyenv/shims:~/google-cloud-sdk/platform/google_appengine:~/.gvm/scripts:~/.rbenv/bin:~/.rbenv/shims:/usr/local/php5/bin:~/.composer/vendor/bin:~/dotfiles/bin:/usr/local/opt/coreutils/libexec/gnubin:~/Applications/Vagrant/bin:/usr/local/bin:/usr/local/sbin:/opt/local/bin:/opt/local/sbin:~/bin:$GOPATH/bin:$PATH
 
-    alias cp="nocorrect gcp -i" # required: brew install coreutils
-    alias f='open .'
-    alias git=hub # hub command - eval "$(hub alias -s)"
-    alias tailf='tail -f'
-    alias tma='env TERM=screen-256color-bce tmux attach'
-    alias tmux="env TERM=screen-256color-bce tmux" #keep vim colorscheme in tmux mode
-    alias vim='nvim'
-    alias agg='ag -ig'
-    alias get='ghq get -p'
-    cdf() {
-      target=`osascript -e 'tell application "Finder" to if (count of Finder windows) > 0 then get POSIX path of (target of front Finder window as text)'`
-      if [ "$target" != "" ]; then
-        cd "$target"; pwd
-      else
-        echo 'No Finder window found' >&2
-      fi
+# ------------------------------------------------------------
+# OSX
+# ------------------------------------------------------------
+export EDITOR=/usr/local/bin/nvim
+export HOMEBREW_CASK_OPTS="--appdir=/Applications"
+function cdf() {
+    target=`osascript -e 'tell application "Finder" to if (count of Finder windows) > 0 then get POSIX path of (target of front Finder window as text)'`
+        if [ "$target" != "" ]; then
+            cd "$target"; pwd
+        else
+            echo 'No Finder window found' >&2
+        fi
     }
 
-    ## Ruby
-    #source '/usr/local/Cellar/rbenv/1.0.0/libexec/../completions/rbenv.zsh'
-    #command rbenv rehash 2>/dev/null
-    rbenv() {
-      local command
-      command="$1"
-      if [ "$#" -gt 0 ]; then
-        shift
-      fi
+function p() {
+    echo $@ | pbcopy
+}
 
-      case "$command" in
-      rehash|shell)
-        eval "$(rbenv "sh-$command" "$@")";;
-      *)
-        command rbenv "$command" "$@";;
-      esac
-    }
-    #source '/usr/local/Cellar/pyenv/1.2.9/libexec/../completions/pyenv.zsh'
-    #command pyenv rehash 2>/dev/null
-    pyenv() {
-      local command
-      command="${1:-}"
-      if [ "$#" -gt 0 ]; then
-        shift
-      fi
+# ------------------------------------------------------------
+# Ruby
+# ------------------------------------------------------------
+## Ruby
+#source '/usr/local/Cellar/rbenv/1.0.0/libexec/../completions/rbenv.zsh'
+#command rbenv rehash 2>/dev/null
+export RBENV_SHELL=zsh
+function rbenv() {
+  local command
+  command="$1"
+  if [ "$#" -gt 0 ]; then
+    shift
+  fi
 
-      case "$command" in
-      activate|deactivate|rehash|shell)
-        eval "$(pyenv "sh-$command" "$@")";;
-      *)
-        command pyenv "$command" "$@";;
-      esac
-    }
+  case "$command" in
+  rehash|shell)
+    eval "$(rbenv "sh-$command" "$@")";;
+  *)
+    command rbenv "$command" "$@";;
+  esac
+}
 
-    source $GVM_ROOT/scripts/gvm-default
-    [[ -s "~/.gvm/scripts/gvm" ]] && source "~/.gvm/scripts/gvm"
-;;
-esac
+# ------------------------------------------------------------
+# Python
+# ------------------------------------------------------------
+export PYENV_SHELL=zsh
+#source '/usr/local/Cellar/pyenv/1.2.9/libexec/../completions/pyenv.zsh'
+#command pyenv rehash 2>/dev/null
+function pyenv() {
+  local command
+  command="${1:-}"
+  if [ "$#" -gt 0 ]; then
+    shift
+  fi
+
+  case "$command" in
+  activate|deactivate|rehash|shell)
+    eval "$(pyenv "sh-$command" "$@")";;
+  *)
+    command pyenv "$command" "$@";;
+  esac
+}
+
+# ------------------------------------------------------------
+# Golang
+# ------------------------------------------------------------
+export GOROOT_BOOTSTRAP=$GOROOT
+export GVM_ROOT=~/.gvm
+source $GVM_ROOT/scripts/gvm-default
+[[ -s "~/.gvm/scripts/gvm" ]] && source "~/.gvm/scripts/gvm"
+
 
 # ------------------------------------------------------------
 # Z https://github.com/rupa/z
