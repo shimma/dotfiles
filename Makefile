@@ -55,6 +55,8 @@ homebrew:
 	brew install libxml2                      || true
 	brew install grep                         || true
 	brew install fzf                          || true
+	brew install docker                       || true
+	brew install docker-compose               || true
 
 brew-cask:
 	brew cask outdated                        
