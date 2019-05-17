@@ -93,7 +93,7 @@ vim_file_mru () {
 # ------------------------------------------------------------
 # fzf
 # ------------------------------------------------------------
-export FZF_DEFAULT_OPTS='--height 40% --layout=reverse --border'
+export FZF_DEFAULT_OPTS='--height 40% --layout=reverse --border --select-1'
 
 function ssh-fzf () {
   local selected_host=$(grep "Host " ~/.ssh/config | grep -v '*' | cut -b 6- | fzf --query "$LBUFFER")
@@ -114,7 +114,7 @@ function history-fzf() {
     tac="tail -r"
   fi
 
-  BUFFER=$(history -n 1 | eval $tac | fzf --query "$LBUFFER")
+  BUFFER=$(history -n 1 | eval $tac | peco --query "$LBUFFER")
   CURSOR=$#BUFFER
 
   zle reset-prompt
@@ -153,7 +153,7 @@ function fzf-z-search() {
 bindkey "^]" ghq-fzf
 bindkey '^[' fbr
 bindkey '^\' ssh-fzf
-bindkey '^f' fzf-z-search
+bindkey '^j' fzf-z-search
 bindkey '^g' fbr
 bindkey '^r' history-fzf
 zle -N fbr
