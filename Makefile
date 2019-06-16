@@ -82,9 +82,10 @@ brew-cask:
 	ln -s $(which reattach-to-user-namespace) ~/bin/i
 
 node:
-	brew install node                         || true
-	brew install yarn                         || true
-	curl -L git.io/nodebrew | perl - setup
+	#brew install node                         || true
+	brew install nodebrew
+	brew install yarn     
+	nodebrew install-binary latest
 	nodebrew install stable
 	nodebrew use stable
 
