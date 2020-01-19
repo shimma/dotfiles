@@ -24,3 +24,4 @@ Cask
 filezilla
 .config
 .config/nvim/.netrwhist
+.vscode
