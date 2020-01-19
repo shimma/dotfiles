@@ -66,6 +66,7 @@
   gn = grep -n
   # 完全リセット(取り扱い注意)
   hardreset = !git reset --hard "origin/master" && git clean -f -d
+  fetch-pulls = fetch origin +refs/pull/*:refs/remotes/pull/*
 [difftool "sourcetree"]
 	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
 	path = 

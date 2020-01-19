@@ -31,6 +31,7 @@ setopt share_history
 
 alias X="tmux kill-server"
 alias agg='ag -ig'
+alias a='git add . && git commit -m "update"'
 alias be='bundle exec' # bundler
 alias c='bin/rails console'
 alias cp="nocorrect gcp -i" # required: brew install coreutils
@@ -71,6 +72,12 @@ alias ur=root
 alias v="vim"
 alias vim='nvim'
 alias vm='vagrant ssh'
+alias ubuntu='docker run -it ubuntu:18.04 /bin/bash'
+
+alias d="docker"
+alias dps="docker ps"
+alias dclean="docker system prune -a"
+alias dkill="docker ps -q | xargs docker stop | xargs docker rm"
 
 # ------------------------------------------------------------
 # tmux
