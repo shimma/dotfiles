@@ -57,34 +57,35 @@ homebrew:
 	brew install fzf                          || true
 	brew install docker                       || true
 	brew install docker-compose               || true
+	brew install switchaudio-osx              || true
+	brew install bluetoothconnector           || true
 
 brew-cask:
-	brew cask outdated                        
-	brew cask install iterm2                  || true
-	brew cask install alfred                  || true
-	brew cask install cmd-eikana              || true
-	brew cask install dockertoolbox           || true
-	brew cask install google-chrome           || true
-	brew cask install google-japanese-ime     || true
-	brew cask install licecap                 || true
-	brew cask install sequel-pro              || true
-	brew cask install skype                   || true
-	brew cask install spectacle               || true
-	brew cask install the-unarchiver          || true
-	brew cask install vagrant                 || true
-	brew cask install virtualbox              || true
-	brew cask install visual-studio-code      || true
-	brew cask install charles                 || true
-	brew cask install font-ricty-diminished   || true
-	brew cask install font-hack-nerd-font     || true
-	brew update                               || true
-	brew cleanup                              || true
+	brew outdated
+	brew install --cask iterm2                  || true
+	brew install --cask alfred                  || true
+	brew install --cask cmd-eikana              || true
+	brew install --cask dockertoolbox           || true
+	brew install --cask google-chrome           || true
+	brew install --cask google-japanese-ime     || true
+	brew install --cask sequel-pro              || true
+	brew install --cask skype                   || true
+	brew install --cask spectacle               || true
+	brew install --cask the-unarchiver          || true
+	brew install --cask virtualbox              || true
+	brew install --cask visual-studio-code      || true
+	brew install --cask charles                 || true
+	brew install --cask font-ricty-diminished   || true
+	brew install --cask font-hack-nerd-font     || true
+	brew update                                 || true
+	brew cleanup                                || true
 	ln -s $(which reattach-to-user-namespace) ~/bin/i
+	apm disable tree-view
 
 node:
 	#brew install node                         || true
 	brew install nodebrew
-	brew install yarn     
+	brew install yarn
 	nodebrew install-binary latest
 	nodebrew install stable
 	nodebrew use stable
@@ -99,15 +100,15 @@ python:
 	vim -c "PlugInstall" -c ":q" -c ":q"
 
 ruby:
-	brew install rbenv                        || true
+	#brew install rbenv                        || true
 	brew install reattach-to-user-namespace   || true
-	brew install ruby-build                   || true
-	brew install v8                           || true
-	sudo gem install bundler
-	bundle config build.libv8 --with-system-v8
-	bundle config build.therubyracer --with-v8-dir=/usr/local/opt/v8-315/
-	bundle config build.nokogiri --use-system-libraries
-	curl get.pow.cx | sh
+	#brew install ruby-build                   || true
+	#brew install v8                           || true
+	#sudo gem install bundler
+	#bundle config build.libv8 --with-system-v8
+	#bundle config build.therubyracer --with-v8-dir=/usr/local/opt/v8-315/
+	#bundle config build.nokogiri --use-system-libraries
+	#curl get.pow.cx | sh
 
 golang:
 	#brew install go                           || true
