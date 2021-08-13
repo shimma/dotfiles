@@ -1,5 +1,6 @@
 # see: http://qiita.com/shimma/items/ebeeb410ecebc22dd41e
-install: create-symlinks osx homebrew homebrew-cask node python ruby golang gcloud ios aws
+install: create-symlinks osx homebrew homebrew-cask golang aws node
+#install: create-symlinks osx homebrew homebrew-cask node python ruby golang gcloud ios aws
 
 create-symlinks:
 	ln -fs ${CURDIR}/.config            ${HOME}/
@@ -10,7 +11,7 @@ create-symlinks:
 	ln -fs ${CURDIR}/.tmux.conf.osx     ${HOME}/.tmux.conf
 	ln -fs ${CURDIR}/.zshrc             ${HOME}/
 	ln -fs ${CURDIR}/.ideavimrc         ${HOME}/
-	ln -fs ${CURDIR}/.hyper.js          ${HOME}/
+#	ln -fs ${CURDIR}/.hyper.js          ${HOME}/
 	touch ${HOME}/.z
 	mkdir ${HOME}/bin || true
 
@@ -19,7 +20,7 @@ osx:
 	sudo defaults write -g InitialKeyRepeat -int 14
 	sudo defaults write -g KeyRepeat -int 1
 	sudo defaults write -g CGFontRenderingFontSmoothingDisabled -bool NO
-	sudo installer -pkg /Library/Developer/CommandLineTools/Packages/macOS_SDK_headers_for_macOS_10.14.pkg -target / #https://stackoverflow.com/questions/52514791/after-upgrading-to-macos-mojave-gem-update-is-failing?rq=1
+#	sudo installer -pkg /Library/Developer/CommandLineTools/Packages/macOS_SDK_headers_for_macOS_10.14.pkg -target / #https://stackoverflow.com/questions/52514791/after-upgrading-to-macos-mojave-gem-update-is-failing?rq=1
 
 homebrew:
 	ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
@@ -34,13 +35,13 @@ homebrew:
 	brew install curl                         || true
 	brew install findutils                    || true
 	brew install git                          || true
-	brew install htop                         || true
+#	brew install htop                         || true
 	brew install hub                          || true
-	brew install imagemagick                  || true
+#	brew install imagemagick                  || true
 	brew install jq                           || true
 	brew install mcrypt                       || true
 	brew install mysql                        || true
-	brew install neovim                       || true
+#	brew install neovim                       || true
 	brew install nkf                          || true
 	brew install openssl                      || true
 	brew install peco                         || true
@@ -49,27 +50,27 @@ homebrew:
 	brew install wget                         || true
 	brew install xz                           || true
 	brew install zsh                          || true
-	brew install kustomize                    || true
-	brew install kubernetes-helm              || true
-	brew install ios-webkit-debug-proxy       || true
+#	brew install kustomize                    || true
+#	brew install kubernetes-helm              || true
+#	brew install ios-webkit-debug-proxy       || true
 	brew install libxml2                      || true
 	brew install grep                         || true
 	brew install fzf                          || true
 	brew install docker                       || true
 	brew install docker-compose               || true
-	brew install switchaudio-osx              || true
-	brew install bluetoothconnector           || true
+#	brew install switchaudio-osx              || true
+#	brew install bluetoothconnector           || true
 
 brew-cask:
 	brew outdated
 	brew install --cask iterm2                  || true
 	brew install --cask alfred                  || true
 	brew install --cask cmd-eikana              || true
-	brew install --cask dockertoolbox           || true
+#	brew install --cask dockertoolbox           || true
 	brew install --cask google-chrome           || true
 	brew install --cask google-japanese-ime     || true
-	brew install --cask sequel-pro              || true
-	brew install --cask skype                   || true
+#	brew install --cask sequel-pro              || true
+#	brew install --cask skype                   || true
 	brew install --cask spectacle               || true
 	brew install --cask the-unarchiver          || true
 	brew install --cask virtualbox              || true
