@@ -11,7 +11,6 @@ create-symlinks:
 	ln -fs ${CURDIR}/.tmux.conf.osx     ${HOME}/.tmux.conf
 	ln -fs ${CURDIR}/.zshrc             ${HOME}/
 	ln -fs ${CURDIR}/.ideavimrc         ${HOME}/
-#	ln -fs ${CURDIR}/.hyper.js          ${HOME}/
 	touch ${HOME}/.z
 	mkdir ${HOME}/bin || true
 
@@ -24,24 +23,20 @@ osx:
 
 homebrew:
 	ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-	brew tap caskroom/fonts
+	brew tap homebrew/cask-fonts
 	brew tap neovim/homebrew-neovim
 	brew install --disable-etcdir zsh         || true
-	brew install ag                           || true
 	brew install binutils                     || true
-	brew install caskroom/cask/brew-cask      || true
 	brew install coreutils                    || true
 	brew install ctags                        || true
 	brew install curl                         || true
 	brew install findutils                    || true
 	brew install git                          || true
-#	brew install htop                         || true
 	brew install hub                          || true
-#	brew install imagemagick                  || true
 	brew install jq                           || true
 	brew install mcrypt                       || true
 	brew install mysql                        || true
-#	brew install neovim                       || true
+	brew install neovim                       || true
 	brew install nkf                          || true
 	brew install openssl                      || true
 	brew install peco                         || true
@@ -50,27 +45,20 @@ homebrew:
 	brew install wget                         || true
 	brew install xz                           || true
 	brew install zsh                          || true
-#	brew install kustomize                    || true
-#	brew install kubernetes-helm              || true
-#	brew install ios-webkit-debug-proxy       || true
 	brew install libxml2                      || true
 	brew install grep                         || true
 	brew install fzf                          || true
+	brew install gsed                          || true
 	brew install docker                       || true
 	brew install docker-compose               || true
-#	brew install switchaudio-osx              || true
-#	brew install bluetoothconnector           || true
 
 brew-cask:
 	brew outdated
 	brew install --cask iterm2                  || true
 	brew install --cask alfred                  || true
 	brew install --cask cmd-eikana              || true
-#	brew install --cask dockertoolbox           || true
 	brew install --cask google-chrome           || true
 	brew install --cask google-japanese-ime     || true
-#	brew install --cask sequel-pro              || true
-#	brew install --cask skype                   || true
 	brew install --cask spectacle               || true
 	brew install --cask the-unarchiver          || true
 	brew install --cask virtualbox              || true
@@ -112,11 +100,11 @@ ruby:
 	#curl get.pow.cx | sh
 
 golang:
-	#brew install go                           || true
-	#brew install dep                          || true
-	#zsh < <(curl -s -S -L https://raw.githubusercontent.com/moovweb/gvm/master/binscripts/gvm-installer)
-	#gvm install go1.9
-	#gvm use go1.9 --default
+	brew install go                           || true
+	brew install dep                          || true
+	zsh <<(curl -s -S -L https://raw.githubusercontent.com/moovweb/gvm/master/binscripts/gvm-installer)
+	gvm install go1.9
+	gvm use go1.9 --default
 	go get github.com/motemen/ghq
 	go get github.com/nsf/gocode
 	go get github.com/k0kubun/pp

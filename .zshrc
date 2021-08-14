@@ -189,7 +189,7 @@ function import-gcloud() {
     source ~/google-cloud-sdk/completion.zsh.inc
     source ~/google-cloud-sdk/path.zsh.inc
 }
-source ~/google-cloud-sdk/path.zsh.inc
+#source ~/google-cloud-sdk/path.zsh.inc
 
 # ------------------------------------------------------------
 # Exports
@@ -488,3 +488,5 @@ elif complete >/dev/null 2>&1; then
         }
     }
 fi
+
+[[ -s "/Users/shimma/.gvm/scripts/gvm" ]] && source "/Users/shimma/.gvm/scripts/gvm"
