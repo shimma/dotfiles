@@ -13,11 +13,11 @@ Plug 'scrooloose/nerdcommenter', { 'for': [ 'vim', 'go', 'php', 'sh', 'ruby'] }
 Plug 't9md/vim-quickhl', { 'on': '<Plug>(quickhl-manual-this)' }
 " Plug 'tpope/vim-fugitive', { 'on': ['Gdiff', 'Glog', 'Gblame' ] }
 Plug 'tpope/vim-surround', { 'for': [ 'vim', 'go', 'php', 'sh', 'ruby'] }
-Plug 'Shougo/vimproc.vim', { 'do': 'make' }
+" Plug 'Shougo/vimproc.vim', { 'do': 'make' }
 " Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-Plug 'Shougo/vimfiler.vim'
-Plug 'Shougo/denite.nvim'
-Plug 'Shougo/neomru.vim'
+" Plug 'Shougo/vimfiler.vim'
+" Plug 'Shougo/denite.nvim'
+" Plug 'Shougo/neomru.vim'
 Plug 'scrooloose/nerdtree', { 'on':  ['NERDTreeToggle', 'NERDTree' ], 'do' : 'cp ~/dotfiles/.config/nvim/nerdtree_plugin/* ~/.cache/vim-plug/nerdtree/nerdtree_plugin/'}
 Plug 'scrooloose/syntastic', { 'for': [ 'go', 'php', 'ruby'] }
 
@@ -334,58 +334,58 @@ let NERDSpaceDelims = 1
 let NERDShutUp=1
 map <Leader>x ,c<space>
 
-"------------------------------
-" denite.vim
-"------------------------------
-nnoremap    [denite]   <Nop>
-nmap     <Space>f [denite]
-" nmap     f [denite]
-let g:denite_enable_start_insert = 1
-let g:denite_source_file_mru_limit = 200
-let g:denite_split_rule = "belowright"
-let g:neomru#file_mru_limit = 2000
-
-nnoremap [denite]U                  :<C-u>Denite -no-split<Space>
-" nnoremap <silent> [denite]a       :<C-u>DeniteWithCurrentDir -buffer-name=files buffer file_mru bookmark file<CR>
-" nnoremap <silent> [denite]f       :<C-u>Denite -buffer-name=files file<CR>
-nnoremap <silent> [denite]f         :<C-u>Denite file_rec<CR>
-nnoremap <silent> [denite]m         :<C-u>Denite rails/model<CR>
-nnoremap <silent> [denite]c         :<C-u>Denite rails/controller<CR>
-nnoremap <silent> [denite]v         :<C-u>Denite rails/view<CR>
-nnoremap <silent> [denite]b         :<C-u>Denite buffer<CR>
-nnoremap <silent> [denite]u         :<C-u>Denite buffer file_mru<CR>
-nnoremap <silent> [denite]h         :<C-u>Denite file_mru<CR>
-nnoremap <silent> [denite]a         :<C-u>Denite file_rec file_old buffer<CR>
-nnoremap <silent> [denite]d         :<C-u>DeniteWithBufferDir file<CR>
-nnoremap <silent> [denite]o         :<C-u>Denite -vertical -no-quit -winwidth=40 outline<CR>
-"nnoremap <silent> m                :<C-u>Denite file_mru<CR>
-nnoremap <silent> <C-o>             :<C-u>Denite file_mru<CR>
-" nnoremap <silent> <C-i>           :<C-u>Denite grep:. -buffer-name=search-buffer<CR>
-nnoremap <silent> <C-i>             :<C-u>Denite buffer<CR>
-nnoremap <silent> [denite]a         :<C-u>Denite file_rec<CR>
-nnoremap <silent> ,a                :<C-u>Denite grep:. -buffer-name=search-buffer<CR>
-nnoremap <silent> ,ca               :<C-u>Denite grep:. -buffer-name=search-buffer<CR><C-R><C-W>
-
-nnoremap <silent> <Leader>g  :<C-u>Denite grep:. -buffer-name=search-buffer<CR>
-nnoremap <silent> <Leader>s  :<C-u>Denite line<CR>
-
-call denite#custom#var('file_rec', 'command', ['ag', '--follow', '--nocolor', '--nogroup', '-g', ''])
-call denite#custom#var('grep', 'command', ['ag'])
-call denite#custom#var('grep', 'recursive_opts', [])
-call denite#custom#var('grep', 'default_opts', ['--follow', '--no-group', '--no-color'])
-call denite#custom#map(
-      \ 'insert',
-      \ '<C-n>',
-      \ '<denite:move_to_next_line>',
-      \ 'noremap'
-      \)
-call denite#custom#map(
-      \ 'insert',
-      \ '<C-p>',
-      \ '<denite:move_to_previous_line>',
-      \ 'noremap'
-      \)
-
+" "------------------------------
+" " denite.vim
+" "------------------------------
+" nnoremap    [denite]   <Nop>
+" nmap     <Space>f [denite]
+" " nmap     f [denite]
+" let g:denite_enable_start_insert = 1
+" let g:denite_source_file_mru_limit = 200
+" let g:denite_split_rule = "belowright"
+" let g:neomru#file_mru_limit = 2000
+" 
+" nnoremap [denite]U                  :<C-u>Denite -no-split<Space>
+" " nnoremap <silent> [denite]a       :<C-u>DeniteWithCurrentDir -buffer-name=files buffer file_mru bookmark file<CR>
+" " nnoremap <silent> [denite]f       :<C-u>Denite -buffer-name=files file<CR>
+" nnoremap <silent> [denite]f         :<C-u>Denite file_rec<CR>
+" nnoremap <silent> [denite]m         :<C-u>Denite rails/model<CR>
+" nnoremap <silent> [denite]c         :<C-u>Denite rails/controller<CR>
+" nnoremap <silent> [denite]v         :<C-u>Denite rails/view<CR>
+" nnoremap <silent> [denite]b         :<C-u>Denite buffer<CR>
+" nnoremap <silent> [denite]u         :<C-u>Denite buffer file_mru<CR>
+" nnoremap <silent> [denite]h         :<C-u>Denite file_mru<CR>
+" nnoremap <silent> [denite]a         :<C-u>Denite file_rec file_old buffer<CR>
+" nnoremap <silent> [denite]d         :<C-u>DeniteWithBufferDir file<CR>
+" nnoremap <silent> [denite]o         :<C-u>Denite -vertical -no-quit -winwidth=40 outline<CR>
+" "nnoremap <silent> m                :<C-u>Denite file_mru<CR>
+" nnoremap <silent> <C-o>             :<C-u>Denite file_mru<CR>
+" " nnoremap <silent> <C-i>           :<C-u>Denite grep:. -buffer-name=search-buffer<CR>
+" nnoremap <silent> <C-i>             :<C-u>Denite buffer<CR>
+" nnoremap <silent> [denite]a         :<C-u>Denite file_rec<CR>
+" nnoremap <silent> ,a                :<C-u>Denite grep:. -buffer-name=search-buffer<CR>
+" nnoremap <silent> ,ca               :<C-u>Denite grep:. -buffer-name=search-buffer<CR><C-R><C-W>
+" 
+" nnoremap <silent> <Leader>g  :<C-u>Denite grep:. -buffer-name=search-buffer<CR>
+" nnoremap <silent> <Leader>s  :<C-u>Denite line<CR>
+" 
+" call denite#custom#var('file_rec', 'command', ['ag', '--follow', '--nocolor', '--nogroup', '-g', ''])
+" call denite#custom#var('grep', 'command', ['ag'])
+" call denite#custom#var('grep', 'recursive_opts', [])
+" call denite#custom#var('grep', 'default_opts', ['--follow', '--no-group', '--no-color'])
+" call denite#custom#map(
+"       \ 'insert',
+"       \ '<C-n>',
+"       \ '<denite:move_to_next_line>',
+"       \ 'noremap'
+"       \)
+" call denite#custom#map(
+"       \ 'insert',
+"       \ '<C-p>',
+"       \ '<denite:move_to_previous_line>',
+"       \ 'noremap'
+"       \)
+" 
 "------------------------------
 " Syntastic
 "------------------------------

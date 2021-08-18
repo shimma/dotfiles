@@ -24,7 +24,9 @@ osx:
 homebrew:
 	ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 	brew tap homebrew/cask-fonts
-	brew tap neovim/homebrew-neovim
+	brew tap neovim/homebrew-neovim && brew install neovim
+	brew tap shopify/shopify && brew install themekit
+	brew tap heroku/brew && brew install heroku
 	brew install --disable-etcdir zsh         || true
 	brew install binutils                     || true
 	brew install coreutils                    || true
@@ -36,10 +38,10 @@ homebrew:
 	brew install jq                           || true
 	brew install mcrypt                       || true
 	brew install mysql                        || true
-	brew install neovim                       || true
 	brew install nkf                          || true
 	brew install openssl                      || true
 	brew install peco                         || true
+	brew install ghq                          || true
 	brew install tig                          || true
 	brew install tmux                         || true
 	brew install wget                         || true
@@ -48,7 +50,7 @@ homebrew:
 	brew install libxml2                      || true
 	brew install grep                         || true
 	brew install fzf                          || true
-	brew install gsed                          || true
+	brew install gsed                         || true
 	brew install docker                       || true
 	brew install docker-compose               || true
 
@@ -61,11 +63,11 @@ brew-cask:
 	brew install --cask google-japanese-ime     || true
 	brew install --cask spectacle               || true
 	brew install --cask the-unarchiver          || true
-	brew install --cask virtualbox              || true
 	brew install --cask visual-studio-code      || true
 	brew install --cask charles                 || true
 	brew install --cask font-ricty-diminished   || true
 	brew install --cask font-hack-nerd-font     || true
+	brew install --cask imageoptim              || true
 	brew update                                 || true
 	brew cleanup                                || true
 	ln -s $(which reattach-to-user-namespace) ~/bin/i

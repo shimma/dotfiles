@@ -75,7 +75,6 @@
 	trustExitCode = true
 [ghq]
   root = ~/src
-  root = ~/.gvm/pkgsets/go1.9/global/src
 [pager]
   log  = diff-highlight | less
   show = diff-highlight | less
