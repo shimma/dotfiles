@@ -168,8 +168,8 @@ function fzf-z-search() {
     zle reset-prompt
 }
 
-bindkey "^]" ghq-fzf
-bindkey '^[' fbr
+bindkey "^[" ghq-fzf
+bindkey '^]' fbr
 bindkey '^\' ssh-fzf
 bindkey '^j' fzf-z-search
 bindkey '^g' fbr
