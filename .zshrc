@@ -111,7 +111,7 @@ vim_file_mru () {
 # ------------------------------------------------------------
 # fzf
 # ------------------------------------------------------------
-export FZF_DEFAULT_OPTS='--height 40% --layout=reverse --border --select-1'
+export FZF_DEFAULT_OPTS='--height 40% --layout=reverse --border --select-1 --bind=ctrl-k:kill-line --no-sort'
 
 function ssh-fzf () {
   local selected_host=$(grep "Host " ~/.ssh/config | grep -v '*' | cut -b 6- | fzf --query "$LBUFFER")
@@ -134,6 +134,10 @@ function history-fzf() {
 
   BUFFER=$(history -n 1 | eval $tac | fzf --query "$LBUFFER")
   CURSOR=$#BUFFER
+
+  if [ -n "$BUFFER" ]; then
+    zle accept-line
+  fi
 
   zle reset-prompt
 }
