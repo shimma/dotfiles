@@ -7,7 +7,6 @@ create-symlinks:
 	ln -fs ${CURDIR}/.gitignore         ${HOME}/
 	ln -fs ${CURDIR}/.gitconfig         ${HOME}/
 	ln -fs ${CURDIR}/.gitconfig.local   ${HOME}/
-	ln -fs ${CURDIR}/.peco              ${HOME}/
 	ln -fs ${CURDIR}/.tmux.conf.osx     ${HOME}/.tmux.conf
 	ln -fs ${CURDIR}/.zshrc             ${HOME}/
 	ln -fs ${CURDIR}/.ideavimrc         ${HOME}/
@@ -40,7 +39,6 @@ homebrew:
 	brew install mysql                        || true
 	brew install nkf                          || true
 	brew install openssl                      || true
-	brew install peco                         || true
 	brew install ghq                          || true
 	brew install tig                          || true
 	brew install tmux                         || true

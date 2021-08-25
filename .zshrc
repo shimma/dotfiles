@@ -71,13 +71,13 @@ alias up='cd ..; ll'
 alias ur=root
 alias v="vim"
 alias vim='nvim'
-alias vm='vagrant ssh'
 alias ubuntu='docker run -it ubuntu:18.04 /bin/bash'
 
 alias d="docker"
 alias dps="docker ps"
 alias dclean="docker system prune -a"
 alias dkill="docker ps -q | xargs docker stop | xargs docker rm"
+alias cb="git checkout -b"
 
 # ------------------------------------------------------------
 # tmux
@@ -132,7 +132,7 @@ function history-fzf() {
     tac="tail -r"
   fi
 
-  BUFFER=$(history -n 1 | eval $tac | peco --query "$LBUFFER")
+  BUFFER=$(history -n 1 | eval $tac | fzf --query "$LBUFFER")
   CURSOR=$#BUFFER
 
   zle reset-prompt
@@ -168,9 +168,10 @@ function fzf-z-search() {
     zle reset-prompt
 }
 
-bindkey "^[" ghq-fzf
+bindkey "^[" fbr
 bindkey '^]' fbr
-bindkey '^\' ssh-fzf
+bindkey '^\' ghq-fzf
+# bindkey '^\' ssh-fzf
 bindkey '^j' fzf-z-search
 bindkey '^g' fbr
 bindkey '^r' history-fzf
