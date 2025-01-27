@@ -19,6 +19,7 @@ osx:
 	sudo defaults write -g KeyRepeat -int 1
 	sudo defaults write -g CGFontRenderingFontSmoothingDisabled -bool NO
 #	sudo installer -pkg /Library/Developer/CommandLineTools/Packages/macOS_SDK_headers_for_macOS_10.14.pkg -target / #https://stackoverflow.com/questions/52514791/after-upgrading-to-macos-mojave-gem-update-is-failing?rq=1
+	sudo defaults write com.apple.dock appswitcher-all-displays -bool true
 
 homebrew:
 	ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
@@ -51,6 +52,7 @@ homebrew:
 	brew install gsed                         || true
 	brew install docker                       || true
 	brew install docker-compose               || true
+	brew install kayac/tap/ecspresso          || true
 
 brew-cask:
 	brew outdated
@@ -66,6 +68,7 @@ brew-cask:
 	brew install --cask font-ricty-diminished   || true
 	brew install --cask font-hack-nerd-font     || true
 	brew install --cask imageoptim              || true
+	brew install --cask tableplus               || true
 	brew update                                 || true
 	brew cleanup                                || true
 	ln -s $(which reattach-to-user-namespace) ~/bin/i
@@ -87,6 +90,7 @@ python:
 	pip install --upgrade pip
 	pip install pynvim
 	vim -c "PlugInstall" -c ":q" -c ":q"
+	curl -sSL https://install.python-poetry.org | python3 -
 
 ruby:
 	#brew install rbenv                        || true
