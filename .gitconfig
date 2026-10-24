@@ -15,7 +15,7 @@
 	excludesfile = ~/.gitignore
 #  autocrlf = input                 # CRLFを自動変換
   quotepath = false
-  editor = /usr/local/bin/nvim
+  editor = /opt/homebrew/bin/nvim
 	autocrlf = false
   precomposeunicode = true
 	pager = diff-so-fancy | less --tabs=4 -RFX
@@ -109,3 +109,11 @@
 	defaultBranch = main
 [hub]
 	protocol = https
+[coderabbit]
+	machineId = cli/da2232c4580446298a6ebdfcadd79582
+[credential "https://github.com"]
+	helper = 
+	helper = !/opt/homebrew/bin/gh auth git-credential
+[credential "https://gist.github.com"]
+	helper = 
+	helper = !/opt/homebrew/bin/gh auth git-credential

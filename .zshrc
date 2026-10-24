@@ -34,7 +34,7 @@ alias agg='ag -ig'
 alias a='git add . && git commit -m "update"'
 alias be='bundle exec' # bundler
 alias c='code .'
-alias cp="nocorrect gcp -i" # required: brew install coreutils
+#alias cp="nocorrect gcp -i" # required: brew install coreutils
 #alias cp='nocorrect cp -irp'
 #alias develop='git checkout develop && git pull origin develop'
 alias df="df -h"
@@ -51,6 +51,8 @@ alias gd='git diff'
 alias get='ghq get -p'
 alias gf='git fetch --prune'
 alias git=hub # hub command - eval "$(hub alias -s)"
+#alias git=gh # hub command - eval "$(hub alias -s)"
+#alias compare='gh pr create --web'
 alias gl='git pull origin'
 alias gm='git compare'
 alias gp='git push'
@@ -196,7 +198,7 @@ function open-github() {
 bindkey "^[" fbr
 bindkey '^\' fbr
 bindkey '^]' ghq-fzf
-bindkey '^\' open-github
+bindkey '^\' ghq-fzf
 #bindkey '^j' fzf-z-search
 bindkey '^g' fbr
 bindkey '^r' history-fzf
@@ -222,7 +224,7 @@ function import-gcloud() {
 # Exports
 # ------------------------------------------------------------
 export GOPATH=~/go
-export PATH=:~/.rbenv/bin:~/.rbenv/shims:/opt/homebrew/opt/mysql-client/bin:/opt/homebrew/bin:~/google-cloud-sdk/platform/google_appengine:~/.gvm/scripts:~/dotfiles/bin:/opt/homebrew/opt/coreutils/libexec/gnubin:/usr/local/bin:/usr/local/sbin:/opt/local/bin:/opt/local/sbin:~/bin:$GOPATH/bin:~/.bun/bin:$PATH
+export PATH=:~/.local/bin/:~/.rbenv/bin:~/.rbenv/shims:/opt/homebrew/opt/mysql-client/bin:/opt/homebrew/bin:~/google-cloud-sdk/platform/google_appengine:~/.gvm/scripts:~/dotfiles/bin:/opt/homebrew/opt/coreutils/libexec/gnubin:/usr/local/bin:/usr/local/sbin:/opt/local/bin:/opt/local/sbin:~/bin:$GOPATH/bin:~/.bun/bin:$PATH
 #export PATH=:~/.rbenv/bin:~/.rbenv/shims:/opt/homebrew/opt/python@3.9/libexec/bin:/opt/homebrew/opt/mysql-client/bin:/opt/homebrew/bin:~/google-cloud-sdk/platform/google_appengine:~/.gvm/scripts:~/dotfiles/bin:/opt/homebrew/opt/coreutils/libexec/gnubin:/usr/local/bin:/usr/local/sbin:/opt/local/bin:/opt/local/sbin:~/bin:$GOPATH/bin:~/.bun/bin:$PATH
 # export PATH=:/opt/homebrew/bin:~/.nodebrew/current/bin:~/.pyenv/shims:~/google-cloud-sdk/platform/google_appengine:~/.gvm/scripts:~/.rbenv/bin:~/.rbenv/shims:~/dotfiles/bin:/usr/local/opt/coreutils/libexec/gnubin:/usr/local/bin:/usr/local/sbin:/opt/local/bin:/opt/local/sbin:~/bin:$GOPATH/bin:$PATH
 
@@ -291,9 +293,9 @@ function p() {
 #     command pyenv "$command" "$@";;
 #   esac
 # }
-export PYENV_ROOT="$HOME/.pyenv"
-[[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
-eval "$(pyenv init -)"
+#export PYENV_ROOT="$HOME/.pyenv"
+#[[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
+#eval "$(pyenv init -)"
 
 # ------------------------------------------------------------
 # Golang
@@ -531,5 +533,5 @@ export GVM_ROOT=~/.gvm
 export VOLTA_HOME="$HOME/.volta"
 export PATH="$VOLTA_HOME/bin:$PATH"
 
-eval "$(rbenv init - zsh)"
-eval "$(direnv hook zsh)"
+#eval "$(rbenv init - zsh)"
+#eval "$(direnv hook zsh)"
