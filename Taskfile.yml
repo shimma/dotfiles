@@ -46,9 +46,6 @@ tasks:
       - brew install task
       - brew install aws-sso-util
       - brew install tfenv
-      # - brew install aws-ecs-cli
-      # - brew install session-manager-plugin
-      # - brew install cloudflared
       - brew install jira-cli
 
   brew-cask:
