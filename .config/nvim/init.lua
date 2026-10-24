@@ -147,7 +147,7 @@ end
 local gh = function(repo) return 'https://github.com/' .. repo end
 
 vim.pack.add({
-  gh('scottmckendry/cyberdream.nvim'),
+  gh('itchyny/landscape.vim'),
   gh('gcmt/wildfire.vim'),
   gh('h1mesuke/vim-alignta'),
   gh('junegunn/vim-easy-align'),
@@ -202,7 +202,7 @@ opt.shortmess:append('I')                 -- 起動画面を出さない
 opt.mouse = 'a'
 
 opt.termguicolors = true
-vim.cmd.colorscheme('cyberdream')
+vim.cmd.colorscheme('landscape')
 vim.env.TODAY = os.date('%Y%m%d')
 
 command('Ev', 'edit $MYVIMRC', {})

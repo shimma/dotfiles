@@ -4,9 +4,9 @@
       "rev": "6a3ac5e3688598af9411ab741737f98c47370c22",
       "src": "https://github.com/rhysd/clever-f.vim"
     },
-    "cyberdream.nvim": {
-      "rev": "81b3e39ceb87db2987255123af3212beeb75bf6d",
-      "src": "https://github.com/scottmckendry/cyberdream.nvim"
+    "landscape.vim": {
+      "rev": "dcdd360f98d35d3b2c0bd1ce9f29ee053f906d07",
+      "src": "https://github.com/itchyny/landscape.vim"
     },
     "nvim-lspconfig": {
       "rev": "77b7432d4770d23b277d37923e5a08a442d8bb07",
