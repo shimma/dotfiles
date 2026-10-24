@@ -10,7 +10,6 @@ create-symlinks:
 	ln -fs $(CURDIR)/.gitignore         $(HOME)/
 	ln -fs $(CURDIR)/.gitconfig         $(HOME)/
 	ln -fs $(CURDIR)/.zshrc             $(HOME)/
-	mkdir -p $(HOME)/bin
 
 osx:
 	# xcode-select --install || true

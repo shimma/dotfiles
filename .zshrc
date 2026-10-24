@@ -15,7 +15,6 @@ typeset -U path PATH
 path=(
   ~/.local/bin
   ~/dotfiles/bin
-  ~/bin
   $VOLTA_HOME/bin
   $path
   /Applications/Orca.app/Contents/Resources/bin # Orca CLI
