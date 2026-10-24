@@ -31,6 +31,7 @@ tasks:
     cmds:
       - /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
       - brew install neovim
+      - brew install tree-sitter-cli
       #- brew tap shopify/shopify && brew install themekit
       #- brew install shopify-cli
       - brew install docker

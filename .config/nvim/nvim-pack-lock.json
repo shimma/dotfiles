@@ -21,6 +21,11 @@
       "rev": "9a2e0006d42f292eb3ade7dfdff201a7429a780c",
       "src": "https://github.com/nvim-tree/nvim-tree.lua"
     },
+    "nvim-treesitter": {
+      "rev": "29212d826054bb2948fa9d3a99eca9bf6a050eb2",
+      "src": "https://github.com/nvim-treesitter/nvim-treesitter",
+      "version": "'main'"
+    },
     "vim-alignta": {
       "rev": "cb3d593c48d7d3aef829b5aff49ddade24417a9f",
       "src": "https://github.com/h1mesuke/vim-alignta"

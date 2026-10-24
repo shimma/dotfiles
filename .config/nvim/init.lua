@@ -118,6 +118,32 @@ local function lsp_config()
   })
 end
 
+--------------------------------
+-- Treesitter (ハイライト)
+--------------------------------
+-- プラグイン更新時はパーサーも合わせて更新する
+vim.api.nvim_create_autocmd('PackChanged', {
+  callback = function(ev)
+    if ev.data.spec.name == 'nvim-treesitter' and ev.data.kind == 'update' then
+      vim.cmd.packadd('nvim-treesitter')
+      vim.cmd('TSUpdate')
+    end
+  end,
+})
+
+local function treesitter_config()
+  -- c / lua / markdown / vim / vimdoc / query は Neovim 本体に同梱
+  require('nvim-treesitter').install({
+    'bash', 'css', 'diff', 'dockerfile', 'git_config', 'gitcommit', 'go', 'gomod', 'hcl',
+    'html', 'javascript', 'json', 'make', 'php', 'python', 'ruby', 'sql', 'terraform',
+    'toml', 'tsx', 'twig', 'typescript', 'yaml', 'zsh',
+  })
+  -- パーサーがある filetype だけ有効化
+  vim.api.nvim_create_autocmd('FileType', {
+    callback = function() pcall(vim.treesitter.start) end,
+  })
+end
+
 local gh = function(repo) return 'https://github.com/' .. repo end
 
 vim.pack.add({
@@ -133,10 +159,12 @@ vim.pack.add({
   { src = gh('kylechui/nvim-surround'), version = vim.version.range('*') },
   gh('neovim/nvim-lspconfig'),
   gh('nvim-tree/nvim-tree.lua'),
+  { src = gh('nvim-treesitter/nvim-treesitter'), version = 'main' },
 })
 
 require('nvim-surround').setup()
 lsp_config()
+treesitter_config()
 nvim_tree_config({
   on_attach = nvim_tree_on_attach,
   view = { width = 22 },
