@@ -59,7 +59,7 @@ alias gs='git status -sb'
 alias gt='git checkout -b'
 alias gu='git add -u && git commit -am "update" && git push'
 alias get='ghq get'
-alias m='master'
+alias m='main'
 alias root='cd $(git rev-parse --show-toplevel)'
 alias ur=root
 
@@ -85,13 +85,9 @@ alias tma='tmux attach'
 # ------------------------------------------------------------
 # Functions
 # ------------------------------------------------------------
-# デフォルトブランチ（main / master）に切り替えて pull
-function master() {
-  if git show-ref --verify --quiet refs/heads/main; then
-    git checkout main && git pull origin main
-  else
-    git checkout master && git pull origin master
-  fi
+# main に切り替えて pull
+function main() {
+  git checkout main && git pull origin main
 }
 
 # 最前面の Finder ウィンドウのディレクトリへ cd

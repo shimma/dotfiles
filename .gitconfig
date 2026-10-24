@@ -27,7 +27,7 @@
   so = remote show origin
   ft = fetch
   up = pull --rebase       # pull rebase
-  rbm = rebase master      # masterへのrebaseはよく使うのでalias
+  rbm = rebase main        # mainへのrebaseはよく使うのでalias
   ad = add
   ci = commit -a           # modifiedなファイルを全てstageへ
   cam = commit -a --amend  # 直前のcommitを修正
@@ -49,7 +49,7 @@
   log-graph = log --graph --date=short --pretty=format:'%Cgreen%h %cd %Cblue%cn %Creset%s'
   log-all = log --graph --all --color --pretty='%x09%h %cn%x09%s %Cred%d%Creset'
   # diff関連
-  dm = diff master           # masterとのdiff
+  dm = diff main             # mainとのdiff
   dw = diff --color-words    # 単語単位でいろつけてdiff
   dc = diff --cached         # addされているものとのdiff
   ds = diff --staged         # 同上(1.6.1移行)
@@ -67,7 +67,7 @@
   gr = grep
   gn = grep -n
   # 完全リセット(取り扱い注意)
-  hardreset = !git reset --hard "origin/master" && git clean -f -d
+  hardreset = !git reset --hard "origin/main" && git clean -f -d
   fetch-pulls = fetch origin +refs/pull/*:refs/remotes/pull/*
 [ghq]
   root = ~/src
