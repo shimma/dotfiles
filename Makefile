@@ -23,9 +23,7 @@ homebrew:
 
 node:
 	$(BREW) install volta
-	volta pin yarn
-	volta install node@latest
-	volta pin node@23.11.0
+	volta install node@lts yarn
 
 gcloud:
 	curl https://sdk.cloud.google.com | bash
