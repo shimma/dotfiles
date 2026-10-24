@@ -18,7 +18,7 @@
   editor = /opt/homebrew/bin/nvim
 	autocrlf = false
   precomposeunicode = true
-	pager = diff-so-fancy | less --tabs=4 -RFX
+	pager = delta
 [alias]
   # 現在のブランチの GitHub compare ページを開く（旧 hub の git compare）
   compare = "!open \"$(gh repo view --json url -q .url)/compare/$(git branch --show-current)\""
@@ -71,10 +71,10 @@
   fetch-pulls = fetch origin +refs/pull/*:refs/remotes/pull/*
 [ghq]
   root = ~/src
-[pager]
-  log  = diff-highlight | less
-  show = diff-highlight | less
-  diff = diff-highlight | less
+[interactive]
+  diffFilter = delta --color-only
+[delta]
+  navigate = true
 [filter "media"]
 	required = true
 	clean = git media clean %f
@@ -86,11 +86,6 @@
 	process = git-lfs filter-process
 [http]
 	postBuffer = 524288000
-[color "diff-highlight"]
-	oldNormal = red bold
-	oldHighlight = red bold 52
-	newNormal = green bold
-	newHighlight = green bold 22
 [color "diff"]
 	meta = 227
 	frag = magenta bold

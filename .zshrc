@@ -14,7 +14,6 @@ export VOLTA_HOME="$HOME/.volta"
 typeset -U path PATH
 path=(
   ~/.local/bin
-  ~/dotfiles/bin
   $VOLTA_HOME/bin
   $path
   /Applications/Orca.app/Contents/Resources/bin # Orca CLI
