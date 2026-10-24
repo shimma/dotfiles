@@ -1,5 +1,5 @@
 call plug#begin('~/.cache/vim-plug')
-" #Plug 'itchyny/landscape.vim'
+Plug 'itchyny/landscape.vim'
 Plug 'gcmt/wildfire.vim'
 Plug 'h1mesuke/vim-alignta', { 'on': 'Alignta' }
 Plug 'junegunn/vim-easy-align', { 'on': '<Plug>(EasyAlign)' }
