@@ -2,5 +2,5 @@
 
 ```sh
 $ cd $HOME && git clone https://github.com/shimma/dotfiles.git
-$ task install
+$ cd dotfiles && make install
 ```
