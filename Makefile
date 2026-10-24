@@ -12,7 +12,6 @@ create-symlinks:
 	ln -fs $(CURDIR)/.zshrc             $(HOME)/
 
 osx:
-	# xcode-select --install || true
 	sudo defaults write -g InitialKeyRepeat -int 14
 	sudo defaults write -g KeyRepeat -int 1
 
