@@ -12,8 +12,8 @@ create-symlinks:
 	ln -fs $(CURDIR)/.zshrc             $(HOME)/
 
 osx:
-	sudo defaults write -g InitialKeyRepeat -int 14
-	sudo defaults write -g KeyRepeat -int 1
+	defaults write -g InitialKeyRepeat -int 14
+	defaults write -g KeyRepeat -int 1
 
 homebrew:
 	test -x $(BREW) || /bin/bash -c "$$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
