@@ -1,7 +1,7 @@
 # see: http://qiita.com/shimma/items/ebeeb410ecebc22dd41e
 BREW := /opt/homebrew/bin/brew
 
-.PHONY: install create-symlinks osx homebrew node gcloud
+.PHONY: install create-symlinks osx homebrew node
 
 install: create-symlinks osx homebrew node
 
@@ -23,7 +23,3 @@ homebrew:
 node:
 	$(BREW) install volta
 	volta install node@lts yarn
-
-gcloud:
-	curl https://sdk.cloud.google.com | bash
-	gcloud components update
