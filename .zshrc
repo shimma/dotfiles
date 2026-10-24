@@ -1,34 +1,25 @@
 export LANG=ja_JP.UTF-8
-export LEuSCHARSET=utf-8
+export LESSCHARSET=utf-8
 HISTFILE=~/.zsh_history
-HISTSIZE=1000
-SAVEHIST=1000
+HISTSIZE=100000
+SAVEHIST=100000
 autoload -U compinit
 autoload colors
 compinit -C
 colors
-bindkey "^?" backward-delete-char
 bindkey -e
-typeset -U name_of_the_variable
 BLUE="%{${fg[blue]}%}"
 RESET="%{${reset_color}%}"
 WHITE="%{${fg[white]}%}"
 PROMPT="${RESET}${BLUE}[%C]${RESET}${WHITE}$ ${RESET}"
 
-setopt auto_list
-setopt auto_menu
-setopt auto_param_keys
-setopt auto_param_slash
 setopt hist_ignore_all_dups
-setopt hist_ignore_dups
 setopt hist_reduce_blanks
 setopt list_packed
-setopt list_types
 setopt magic_equal_subst
 setopt noautoremoveslash
 setopt prompt_subst
 setopt share_history
-alias agg='ag -ig'
 alias a='git add . && git commit -m "update"'
 alias be='bundle exec' # bundler
 alias c='code .'
@@ -44,7 +35,6 @@ alias gt='git checkout -b'
 alias gd='git diff'
 alias get='ghq get'
 alias gf='git fetch --prune'
-alias git=hub # hub command - eval "$(hub alias -s)"
 alias gl='git pull origin'
 alias gm='git compare'
 alias gp='git push'
@@ -54,14 +44,12 @@ alias h='vim /etc/hosts'
 alias la="ls -a"
 alias ll="ls -l"
 alias ls="ls --color"
-alias master='git checkout main && git pull origin main || git checkout master && git pull origin master'
 alias m='master'
 alias pk='pkill -f'
 alias root='cd $(git rev-parse --show-toplevel)'
 alias t="tmuxnew"
 alias tailf='tail -f'
-alias tma='env TERM=screen-256color-bce tmux attach'
-alias tmux="env TERM=screen-256color-bce tmux" #keep vim colorscheme in tmux mode
+alias tma='tmux attach'
 alias u='up'
 alias up='cd ..; ll'
 alias ur=root
@@ -77,6 +65,18 @@ alias python="python3"
 alias diff='colordiff'
 alias intel="env /usr/bin/arch -x86_64 /bin/zsh --login"
 alias arm="env /usr/bin/arch -arm64 /bin/zsh --login"
+
+# ------------------------------------------------------------
+# git
+# ------------------------------------------------------------
+# デフォルトブランチ（main / master）に切り替えて pull
+function master() {
+  if git show-ref --verify --quiet refs/heads/main; then
+    git checkout main && git pull origin main
+  else
+    git checkout master && git pull origin master
+  fi
+}
 
 
 # ------------------------------------------------------------
@@ -94,16 +94,6 @@ export FZF_DEFAULT_OPTS='--height 40% --layout=reverse --border --select-1 --bin
 
 # 公式のシェル統合: ^R 履歴 / ^T ファイル / Alt-C cd
 source <(fzf --zsh)
-
-function ssh-fzf () {
-  local selected_host=$(grep "Host " ~/.ssh/config | grep -v '*' | cut -b 6- | fzf --query "$LBUFFER")
-
-  if [ -n "$selected_host" ]; then
-    BUFFER="ssh ${selected_host}"
-    zle accept-line
-  fi
-  zle reset-prompt
-}
 
 function ghq-fzf() {
   local root=$(ghq root)
@@ -128,38 +118,27 @@ function fbr() {
   zle accept-line
 }
 
-function open-github() {
-    git compare || git browse
-    zle reset-prompt
-}
-
-bindkey '^]' ghq-fzf
-bindkey '^\' ghq-fzf
-#bindkey '^j' fzf-z-search
-bindkey '^g' fbr
 zle -N fbr
 zle -N ghq-fzf
-zle -N ssh-fzf
-zle -N open-github
-
-# ------------------------------------------------------------
-# Gcloud
-# ------------------------------------------------------------
-function import-gcloud() {
-    # curl https://sdk.cloud.google.com | bash
-    source ~/google-cloud-sdk/completion.zsh.inc
-    source ~/google-cloud-sdk/path.zsh.inc
-}
+bindkey '^]' ghq-fzf
+bindkey '^\' ghq-fzf
+bindkey '^g' fbr
 
 # ------------------------------------------------------------
 # Exports
 # ------------------------------------------------------------
-export GOPATH=~/go
-export PATH=:~/.local/bin/:~/.rbenv/bin:~/.rbenv/shims:/opt/homebrew/opt/mysql-client/bin:/opt/homebrew/bin:~/google-cloud-sdk/platform/google_appengine:~/.gvm/scripts:~/dotfiles/bin:/opt/homebrew/opt/coreutils/libexec/gnubin:/usr/local/bin:/usr/local/sbin:/opt/local/bin:/opt/local/sbin:~/bin:$GOPATH/bin:~/.bun/bin:$PATH
+eval "$(/opt/homebrew/bin/brew shellenv)"
 
-export HOMEBREW_PREFIX=/opt/homebrew
+# 重複を除去（tmux などで zsh を入れ子にしても PATH が膨らまない）
+typeset -U path PATH
+path=(
+  ~/.local/bin
+  ~/dotfiles/bin
+  ~/bin
+  $path
+)
 
-export EDITOR=/usr/local/bin/nvim
+export EDITOR=nvim
 export HOMEBREW_CASK_OPTS="--appdir=/Applications"
 function cdf() {
     target=`osascript -e 'tell application "Finder" to if (count of Finder windows) > 0 then get POSIX path of (target of front Finder window as text)'`

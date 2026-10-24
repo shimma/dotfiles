@@ -38,7 +38,6 @@ tasks:
       - brew install docker-compose
       - brew install fzf
       - brew install ghq
-      - brew install hub
       - brew install tig
       - brew install tmux
       - brew install wget

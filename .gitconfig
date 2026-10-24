@@ -19,6 +19,8 @@
   precomposeunicode = true
 	pager = diff-so-fancy | less --tabs=4 -RFX
 [alias]
+  # 現在のブランチの GitHub compare ページを開く（旧 hub の git compare）
+  compare = "!open \"$(gh repo view --json url -q .url)/compare/$(git branch --show-current)\""
   st = status
   sh = show
   so = remote show origin
@@ -100,8 +102,6 @@
 	driver = /usr/local/bin/mergepbx %O %A %B
 [init]
 	defaultBranch = main
-[hub]
-	protocol = https
 [coderabbit]
 	machineId = cli/da2232c4580446298a6ebdfcadd79582
 [credential "https://github.com"]
