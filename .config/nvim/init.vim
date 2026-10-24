@@ -1,26 +1,14 @@
-call plug#begin('~/.cache/vim-plug')
-Plug 'itchyny/landscape.vim'
-Plug 'gcmt/wildfire.vim'
-Plug 'h1mesuke/vim-alignta', { 'on': 'Alignta' }
-Plug 'junegunn/vim-easy-align', { 'on': '<Plug>(EasyAlign)' }
-Plug 'kana/vim-niceblock'
-Plug 'kana/vim-operator-replace', { 'on': '<Plug>(operator-replace)' }
-Plug 'kana/vim-operator-user'
-Plug 'rhysd/clever-f.vim'
-Plug 'scrooloose/nerdcommenter', { 'for': [ 'vim', 'go', 'php', 'sh', 'ruby'] }
-Plug 't9md/vim-quickhl', { 'on': '<Plug>(quickhl-manual-this)' }
-Plug 'tpope/vim-surround', { 'for': [ 'vim', 'go', 'php', 'sh', 'ruby'] }
-Plug 'scrooloose/nerdtree', { 'on':  ['NERDTreeToggle', 'NERDTree' ], 'do' : 'cp ~/dotfiles/.config/nvim/nerdtree_plugin/* ~/.cache/vim-plug/nerdtree/nerdtree_plugin/'}
-Plug 'scrooloose/syntastic', { 'for': [ 'go', 'php', 'ruby'] }
-
-call plug#end()
+let mapleader = ","                 " キーマップリーダー（lazy.nvim より先に設定）
+let g:loaded_netrw = 1             " nvim-tree を使うので netrw は無効
+let g:loaded_netrwPlugin = 1
+let g:wildfire_objects = ["i'", 'i"', 'i)', 'i]', 'i}', 'it', 'ii', 'ip', 'i>']
+lua require('plugins')
 
 nmap <BS> <C-W>h
 
 "========================================
 " BASE
 "========================================
-let mapleader = ","                 " キーマップリーダー
 set scrolloff=5                     " スクロール時の余白確保
 set textwidth=0                     " 一行に長い文章を書いていても自動折り返しをしない
 set nobackup                        " バックアップ取らない
@@ -68,7 +56,7 @@ nnoremap <silent> <Space>r :Rd<CR>  " Remove dust
 let $TODAY=strftime('%Y%m%d')
 set undodir=/tmp
 
-colorscheme landscape
+colorscheme tokyonight-night
 let edark_current_line=1
 let edark_ime_cursor=1
 let edark_insert_status_line=1
@@ -300,11 +288,12 @@ autocmd FileType ruby          setlocal omnifunc=rubycomplete#Complete
 autocmd FileType xml           setlocal omnifunc=xmlcomplete#CompleteTags
 
 "------------------------------
-" NERD_commenter.vim
+" Comment (Neovim 組み込みの gc)
 "------------------------------
-let NERDSpaceDelims = 1
-let NERDShutUp=1
-map <Leader>x ,c<space>
+nmap <Leader>x gcc
+xmap <Leader>x gc
+nmap <Leader>c<Space> gcc
+xmap <Leader>c<Space> gc
 
 " "------------------------------
 " " denite.vim
@@ -359,23 +348,16 @@ map <Leader>x ,c<space>
 "       \)
 " 
 "------------------------------
-" Syntastic
+" Diagnostic (LSP)
 "------------------------------
-let g:syntastic_enable_signs = 1        " エラー行をsignで表示する
-let g:syntastic_enable_highlighting = 1 " 可能ならhighligt表示する
-let g:syntastic_auto_jump = 2
-let g:syntastic_php_checkers = ['php']
+nnoremap <silent> <Leader>e :lua vim.diagnostic.open_float()<CR>
 
 "------------------------------
-" NERD-Tree.vim
+" NERD-Tree (nvim-tree で互換コマンドを定義: lua/plugins.lua)
 "------------------------------
 nnoremap <silent> <Leader>N :CD<CR>:NERDTree<CR>
 nnoremap <silent> <Leader>n :NERDTreeToggle<CR>
 nnoremap <silent> <C-e> :NERDTreeToggle<CR>
-" let NERDTreeShowBookmarks=1
-" let NERDTreeShowHidden=1
-let NERDTreeWinSize=22
-" let g:NERDTreeWinPos = "right"
 
 "------------------------------
 " easyalign
@@ -395,11 +377,6 @@ nmap <Space>m <Plug>(quickhl-manual-this)
 xmap <Space>m <Plug>(quickhl-manual-this)
 nmap <Space>M <Plug>(quickhl-manual-reset)
 xmap <Space>M <Plug>(quickhl-manual-reset)
-
-"------------------------------
-" wildfire
-"------------------------------
-let g:wildfire_objects = ["i'", 'i"', 'i)', 'i]', 'i}', 'it', 'ii', 'ip', 'i>']
 
 "------------------------------
 " alignta
@@ -428,10 +405,5 @@ set t_Co=256
 
 map <leader>h :set ft=html<CR>
 map <leader>p :set ft=php<CR>
-
-"------------------------------
-" Nerdtree
-"------------------------------
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
 
 let g:vimfiler_as_default_explorer = 1
