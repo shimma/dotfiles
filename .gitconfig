@@ -1,5 +1,6 @@
-[include]
-  path = ~/.gitconfig.local
+[user]
+  name = shimma
+  email = shimma.dev@gmail.com
 [color]
   status = auto
   diff = auto
