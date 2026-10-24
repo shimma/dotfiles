@@ -26,7 +26,8 @@ set clipboard=unnamed                     " システムのクリップボード
 set shortmess+=I                          " 起動画面を出さない
 set mouse=a
 
-colorscheme nightfox
+set termguicolors
+colorscheme cyberdream
 let $TODAY = strftime('%Y%m%d')
 
 command! Ev edit $MYVIMRC

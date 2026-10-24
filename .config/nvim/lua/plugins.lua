@@ -123,7 +123,7 @@ end
 
 require('lazy').setup({
   spec = {
-    { 'EdenEast/nightfox.nvim', lazy = false, priority = 1000 },
+    { 'scottmckendry/cyberdream.nvim', lazy = false, priority = 1000 },
     { 'gcmt/wildfire.vim' },
     { 'h1mesuke/vim-alignta', cmd = 'Alignta' },
     { 'junegunn/vim-easy-align' },
@@ -151,7 +151,7 @@ require('lazy').setup({
       },
     },
   },
-  install = { colorscheme = { 'nightfox', 'habamax' } },
+  install = { colorscheme = { 'cyberdream', 'habamax' } },
   rocks = { enabled = false },
   change_detection = { notify = false },
 })
