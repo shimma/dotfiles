@@ -1,76 +1,63 @@
-let mapleader = ","                 " キーマップリーダー（lazy.nvim より先に設定）
-let g:loaded_netrw = 1             " nvim-tree を使うので netrw は無効
+"========================================
+" PLUGINS (lazy.nvim: lua/plugins.lua)
+"========================================
+let mapleader = ","
+let g:loaded_netrw = 1                    " nvim-tree を使うので netrw は無効
 let g:loaded_netrwPlugin = 1
 let g:wildfire_objects = ["i'", 'i"', 'i)', 'i]', 'i}', 'it', 'ii', 'ip', 'i>']
 lua require('plugins')
 
-nmap <BS> <C-W>h
+augroup vimrc
+  autocmd!
+augroup END
 
 "========================================
 " BASE
 "========================================
-set scrolloff=5                     " スクロール時の余白確保
-set textwidth=0                     " 一行に長い文章を書いていても自動折り返しをしない
-set nobackup                        " バックアップ取らない
-set autoread                        " 他で書き換えられたら自動で読み直す
-set noswapfile                      " スワップファイル作らない
-" set nowrap
-set hidden                          " 編集中でも他のファイルを開けるようにする
-set backspace=indent,eol,start      " バックスペースでなんでも消せるように
-set formatoptions=lmoq              " テキスト整形オプション，マルチバイト系を追加
-set vb t_vb=                        " ビープをならさない
-" set browsedir=buffer                " Exploreの初期ディレクトリ
-set whichwrap=b,s,h,l,<,>,[,]       " カーソルを行頭、行末で止まらないようにする
-set showcmd                         " コマンドをステータス行に表示
-set showmode                        " 現在のモードを表示
-set viminfo='50,<1000,s100,\"50     " viminfoファイルの設定
-set modelines=0                     " モードラインは無効
-set nrformats=alpha                 " 数値を全て10進数としてインクリメントする
-set clipboard+=unnamed              " OSのクリップボードを使用する
-set clipboard=unnamed               "ヤンクした文字は、システムのクリップボードに入れる"
-set shortmess+=I
+set scrolloff=5                           " スクロール時の余白
+set textwidth=0                           " 自動折り返ししない
+set noswapfile
+set formatoptions=lmoq                    " テキスト整形（マルチバイト対応）
+set whichwrap=b,s,h,l,<,>,[,]             " 行頭・行末で前後の行へ移動
+set shada='50,<1000,s100,\"50
+set modelines=0
+set nrformats=alpha                       " <C-a>/<C-x> は10進数とアルファベットのみ
+set clipboard=unnamed                     " システムのクリップボードを使う
+set shortmess+=I                          " 起動画面を出さない
+set mouse=a
 
-command! Ev edit $MYVIMRC           " Ev/Rvでvimrcの編集と反映
-command! Rv source $MYVIMRC         " Ev/Rvでvimrcの編集と反映
-set helpfile=$VIMRUNTIME/doc/help.txt " Japanese help files
-filetype plugin on                  " ファイルタイプ判定をon
-let OSTYPE=system('uname')          " OSTypeの判定
-command! -nargs=0 CdCurrent %:p:h    " カレントディレクトリに移動コマンド
-command! -nargs=? -complete=dir -bang CD  call s:ChangeCurrentDir('<args>', '<bang>')
+colorscheme nightfox
+let $TODAY = strftime('%Y%m%d')
+
+command! Ev edit $MYVIMRC
+command! Rv source $MYVIMRC
+
+" :CD でカレントファイルのディレクトリへ lcd（! で pwd 表示なし）
+command! -nargs=? -complete=dir -bang CD call s:ChangeCurrentDir('<args>', '<bang>')
 function! s:ChangeCurrentDir(directory, bang)
-    if a:directory == ''
-        lcd %:p:h
-    else
-        execute 'lcd' . a:directory
-    endif
-
-    if a:bang == ''
-        pwd
-    endif
+  if a:directory == ''
+    lcd %:p:h
+  else
+    execute 'lcd' . a:directory
+  endif
+  if a:bang == ''
+    pwd
+  endif
 endfunction
 
-nnoremap <silent> <Space>cd :CD<CR> " Change current directory.
-nnoremap <silent> <Space>e :e!<CR>  " Reload file buffer
-nnoremap <silent> <Space>r :Rd<CR>  " Remove dust
-
-let $TODAY=strftime('%Y%m%d')
-set undodir=/tmp
-
-colorscheme tokyonight-night
-let edark_current_line=1
-let edark_ime_cursor=1
-let edark_insert_status_line=1
-syntax enable
-autocmd BufNewFile,BufRead *.twig   set syntax=html
+"========================================
+" FILETYPE
+"========================================
+autocmd vimrc BufNewFile,BufRead *.twig set syntax=html
+let g:html_indent_inctags = "html,body,head,tbody"
 
 "========================================
 " COMPLETION
 "========================================
-set wildmenu               " コマンド補完を強化
-set wildchar=<tab>         " コマンド補完を開始するキー
-set wildmode=list:full     " リスト表示，最長マッチ
-set history=1000           " コマンド・検索パターンの履歴数
-set complete+=k            " 補完に辞書ファイル追加
+set wildchar=<tab>
+set wildmode=list:full
+set complete+=k                           " 辞書ファイルも補完対象
+" コマンドラインの <C-p>/<C-n> は入力済みの文字で履歴を絞り込む
 cnoremap <C-p> <Up>
 cnoremap <Up>  <C-p>
 cnoremap <C-n> <Down>
@@ -79,331 +66,169 @@ cnoremap <Down> <C-n>
 "========================================
 " SEARCH
 "========================================
-set wrapscan   " 最後まで検索したら先頭へ戻る
-set ignorecase " 大文字小文字無視
-set smartcase  " 検索文字列に大文字が含まれている場合は区別して検索する
-set incsearch  " インクリメンタルサーチ
-set hlsearch   " 検索文字をハイライト
+set ignorecase
+set smartcase                             " 大文字を含むときは区別する
 nmap <ESC><ESC> :nohlsearch<CR><ESC>
 nnoremap <C-j> :nohlsearch<CR><ESC>
 
 "========================================
 " TAGS
 "========================================
-" if has("autochdir")
-  " set autochdir
-  " set tags=tags;
-" else
-  set tags=./tags,./../tags,./*/tags,./../../tags,./../../../tags,./../../../../tags,./../../../../../tags
-" endif
-
+set tags=./tags;,tags,./*/tags            " 上位ディレクトリへ遡って探す
 set notagbsearch
 nnoremap t  <Nop>
 nnoremap T  <C-]>
-nnoremap tt  :<C-u>pop<CR>
-nnoremap tj  :<C-u>tag<CR>
-nnoremap tl  :<C-u>tags<CR>
+nnoremap tt :<C-u>pop<CR>
+nnoremap tj :<C-u>tag<CR>
+nnoremap tl :<C-u>tags<CR>
 
 "========================================
 " VIEW
 "========================================
-set showmatch         " 括弧の対応をハイライト
-set number            " 行番号表示
-set list              " 不可視文字表示
-set display=uhex      " 印字不可能文字を16進数で表示
-set foldmethod=marker " folding
-" set lazyredraw        " コマンド実行中は再描画しない
-set ttyfast           " 高速ターミナル接続を行う
-set cursorline        " カーソル行をハイライト
-" set colorcolumn=80
-set listchars=tab:>.,trail:_,extends:>,precedes:< " 不可視文字の表示形式
-set laststatus=2      " 常にステータスラインを表示
-set ruler             " カーソルが何行目の何列目に置かれているかを表示する
+set showmatch
+set number
+set list
+set listchars=tab:>.,trail:_,extends:>,precedes:<
+set display=uhex                          " 印字不可能文字を16進数で表示
+set foldmethod=marker
+set cursorline
 set statusline=%F%m%r%h%w
 
+" 全角スペースを可視化
 highlight ZenkakuSpace cterm=underline ctermfg=lightblue guibg=darkgray
 match ZenkakuSpace /　/
 
 "========================================
 " EDIT
 "========================================
-set expandtab              " Tabキーを空白に変換
-set noimdisable            " insertモードを抜けるとIMEオフ
-set iminsert=0 imsearch=0
-set noimcmdline
-au BufNewFile,BufRead *.go set noexpandtab tabstop=4 shiftwidth=4 nolist
+set expandtab
+set virtualedit+=block                    " 矩形選択で文字がない所にも移動
 
-set mouse=a
-
-" escape mapping
 inoremap jj <Esc>
 inoremap <C-j> <Esc>
 vnoremap <C-j> <Esc>
-inoremap <silent> <ESC> <ESC>:set iminsert=0<CR>
-nnoremap <Space>S :%s!
-nnoremap <Space>s /
-" nnoremap f /
+
 nnoremap ; :
-
 nnoremap Y y$
-" nnoremap V v$h
-command! Pt :set paste!
+nnoremap <Space>w :w<CR>
+nnoremap <Space>q :q!<CR>
+nnoremap ` :qa!<CR>
+nnoremap <Space>s /
+nnoremap <Space>S :%s!
+nnoremap <silent> <Space>e :e!<CR>
+nnoremap <silent> <Space>cd :CD<CR>
+command! Pt set paste!
 
+" 行末の空白を削除
 function! s:remove_dust()
-    let cursor = getpos(".")
-    %s/\s\+$//ge
-    call setpos(".", cursor)
-    unlet cursor
+  let cursor = getpos(".")
+  %s/\s\+$//ge
+  call setpos(".", cursor)
 endfunction
-command! Rd :call s:remove_dust()
+command! Rd call s:remove_dust()
+nnoremap <silent> <Space>r :Rd<CR>
 
+" 日時の挿入
 inoremap <expr> ,df strftime('%Y/%m/%d %H:%M:%S')
 inoremap <expr> ,dd strftime('%Y/%m/%d (%a)')
 inoremap <expr> ,dt strftime('%H:%M:%S')
 
-autocmd FileType qf nnoremap <buffer> q :ccl<CR>
-autocmd FileType qf nnoremap <buffer> <ESC> :ccl<CR>
-
-nnoremap <Space>w :w<CR>
-
 inoreabbrev dk ========================================
 inoreabbrev dj ------------------------------
 
-" buffer control
-nnoremap <C-n> :bn<CR>
-nnoremap <C-p> :bp<CR>
-" nnoremap <C-d> :bd<CR>
-
-" window
-nnoremap <C-w><C-w> :wincmd =<CR>  " automatic window resize
-
-" file path yank
+" ファイルパスをヤンク（相対 / 絶対）
 nnoremap yr :let @*=expand("%")<CR>
 nnoremap yp :let @*=expand("%:p")<CR>
-" nnoremap M :! open %:p -a Atom<CR>
 
+" quickfix を q / ESC で閉じる
+autocmd vimrc FileType qf nnoremap <buffer> q :ccl<CR>
+autocmd vimrc FileType qf nnoremap <buffer> <ESC> :ccl<CR>
+
+map <leader>h :set ft=html<CR>
+map <leader>p :set ft=php<CR>
+
+"========================================
+" BUFFER / WINDOW / TAB
+"========================================
+nnoremap <C-n> :bn<CR>
+nnoremap <C-p> :bp<CR>
+nnoremap <C-w><C-w> :wincmd =<CR>
+nnoremap <BS> <C-w>h
+nnoremap <C-h> <C-w>h
+nnoremap <C-k> <C-w>k
+nnoremap <C-l> <C-w>l
 nnoremap <Space>t :tabnew<CR>
-nnoremap <Space>q :q!<CR>
-nnoremap ` :qa!<CR>
 nnoremap <Space>n gt
 nnoremap <Space>p gT
 
 "========================================
 " INDENT
 "========================================
-set autoindent
 set smartindent
 set cindent
 set tabstop=2 shiftwidth=2 softtabstop=0
 
-if has("autocmd")
-  filetype plugin on "ファイルタイプの検索を有効にする
-  filetype indent on "そのファイルタイプにあわせたインデントを利用する
-  autocmd FileType apache     setlocal sw=4 sts=4 ts=4 et
-  autocmd FileType aspvbs     setlocal sw=4 sts=4 ts=4 et
-  autocmd FileType c          setlocal sw=4 sts=4 ts=4 et
-  autocmd FileType cpp        setlocal sw=4 sts=4 ts=4 et
-  autocmd FileType cs         setlocal sw=4 sts=4 ts=4 et
-  autocmd FileType css        setlocal sw=2 sts=2 ts=2 et
-  autocmd FileType diff       setlocal sw=4 sts=4 ts=4 et
-  autocmd FileType eruby      setlocal sw=4 sts=4 ts=4 et
-  autocmd FileType html       setlocal sw=2 sts=2 ts=2 et
-  autocmd FileType java       setlocal sw=4 sts=4 ts=4 et
-  autocmd FileType javascript setlocal sw=2 sts=2 ts=2 et
-  autocmd FileType perl       setlocal sw=4 sts=4 ts=4 et
-  autocmd FileType php        setlocal sw=4 sts=4 ts=4 et
-  autocmd FileType python     setlocal sw=4 sts=4 ts=4 et
-  autocmd FileType go         setlocal sw=4 sts=4 ts=4 et
-  autocmd FileType ruby       setlocal sw=2 sts=2 ts=2 et
-  autocmd FileType haml       setlocal sw=2 sts=2 ts=2 et
-  autocmd FileType sh         setlocal sw=4 sts=4 ts=4 et
-  autocmd FileType sql        setlocal sw=4 sts=4 ts=4 et
-  autocmd FileType vb         setlocal sw=4 sts=4 ts=4 et
-  autocmd FileType vim        setlocal sw=2 sts=2 ts=2 et
-  autocmd FileType wsh        setlocal sw=4 sts=4 ts=4 et
-  autocmd FileType xhtml      setlocal sw=4 sts=4 ts=4 et
-  autocmd FileType xml        setlocal sw=4 sts=4 ts=4 et
-  autocmd FileType yaml       setlocal sw=2 sts=2 ts=2 et
-  autocmd FileType zsh        setlocal sw=4 sts=4 ts=4 et
-  autocmd FileType scala      setlocal sw=2 sts=2 ts=2 et
-endif
-
+autocmd vimrc FileType css,html,javascript,ruby,haml,vim,yaml,scala
+      \ setlocal sw=2 sts=2 ts=2 et
+autocmd vimrc FileType apache,aspvbs,c,cpp,cs,diff,eruby,java,perl,php,python,sh,sql,vb,wsh,xhtml,xml,zsh
+      \ setlocal sw=4 sts=4 ts=4 et
+autocmd vimrc FileType go setlocal sw=4 sts=4 ts=4 noet nolist
 
 "========================================
-" Move
+" MOVE
 "========================================
-set virtualedit+=block " 矩形選択で自由に移動する
 nnoremap <Space>h ^
 nnoremap <Space>l $
-autocmd BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$") | exe "normal g`\"" | endif " 前回終了したカーソル行に移動
 nnoremap ( %
 nnoremap ) %
 vnoremap v $h
-" nnoremap <C-j> <C-w>j
-nnoremap <C-k> <C-w>k
-nnoremap <C-l> <C-w>l
-nnoremap <C-h> <C-w>h
-" enabled cursor key
-nnoremap OA gi<Up>
-nnoremap OB gi<Down>
-nnoremap OC gi<Right>
-nnoremap OD gi<Left>
 
+" 前回終了時のカーソル位置に戻る
+autocmd vimrc BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$") | exe "normal g`\"" | endif
 
 "========================================
-" Encodings
+" ENCODING
 "========================================
-set ffs=unix,dos,mac
-set encoding=utf-8
+set fileformats=unix,dos,mac
 set fileencodings=utf-8,iso-2022-jp,euc-jp,sjis
-autocmd FileType js    :set fileencoding=utf-8
-autocmd FileType css   :set fileencoding=utf-8
-autocmd FileType html  :set fileencoding=utf-8
-autocmd FileType xml   :set fileencoding=utf-8
-autocmd FileType java  :set fileencoding=utf-8
-autocmd FileType scala :set fileencoding=utf-8
+autocmd vimrc FileType css,html,xml,java,scala setlocal fileencoding=utf-8
 set suffixes=.bak,~,.swp,.o,.info,.aux,.log,.dvi,.bbl,.blg,.brf,.cb,.ind,.idx,.ilg,.inx,.out,.toc
+
+" 文字コードを指定して開き直す
 command! Cp932 edit ++enc=cp932
 command! Eucjp edit ++enc=euc-jp
 command! Iso2022jp edit ++enc=iso-2022-jp
 command! Utf8 edit ++enc=utf-8
 command! Jis Iso2022jp
 command! Sjis Cp932
-autocmd BufNewFile,BufRead *.{md,mdwn,mkd,mkdn,mark*} set filetype=markdown
-
 
 "========================================
-" Vim-Plugins
+" PLUGIN SETTINGS
 "========================================
-" let g:deoplete#enable_at_startup = 1
+" NERDTree 互換（nvim-tree: lua/plugins.lua）
+nnoremap <silent> <Leader>N :CD<CR>:NERDTree<CR>
+nnoremap <silent> <Leader>n :NERDTreeToggle<CR>
+nnoremap <silent> <C-e> :NERDTreeToggle<CR>
 
-" Enable omni completion.
-autocmd FileType c             setlocal omnifunc=ccomplete#Complete
-autocmd FileType css           setlocal omnifunc=csscomplete#CompleteCSS
-autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-autocmd FileType javascript    setlocal omnifunc=javascriptcomplete#CompleteJS
-autocmd FileType php           setlocal omnifunc=phpcomplete#CompletePHP
-autocmd FileType python        setlocal omnifunc=pythoncomplete#Complete
-autocmd FileType ruby          setlocal omnifunc=rubycomplete#Complete
-autocmd FileType xml           setlocal omnifunc=xmlcomplete#CompleteTags
-
-"------------------------------
-" Comment (Neovim 組み込みの gc)
-"------------------------------
+" コメント（Neovim 組み込みの gc）
 nmap <Leader>x gcc
 xmap <Leader>x gc
 nmap <Leader>c<Space> gcc
 xmap <Leader>c<Space> gc
 
-" "------------------------------
-" " denite.vim
-" "------------------------------
-" nnoremap    [denite]   <Nop>
-" nmap     <Space>f [denite]
-" " nmap     f [denite]
-" let g:denite_enable_start_insert = 1
-" let g:denite_source_file_mru_limit = 200
-" let g:denite_split_rule = "belowright"
-" let g:neomru#file_mru_limit = 2000
-" 
-" nnoremap [denite]U                  :<C-u>Denite -no-split<Space>
-" " nnoremap <silent> [denite]a       :<C-u>DeniteWithCurrentDir -buffer-name=files buffer file_mru bookmark file<CR>
-" " nnoremap <silent> [denite]f       :<C-u>Denite -buffer-name=files file<CR>
-" nnoremap <silent> [denite]f         :<C-u>Denite file_rec<CR>
-" nnoremap <silent> [denite]m         :<C-u>Denite rails/model<CR>
-" nnoremap <silent> [denite]c         :<C-u>Denite rails/controller<CR>
-" nnoremap <silent> [denite]v         :<C-u>Denite rails/view<CR>
-" nnoremap <silent> [denite]b         :<C-u>Denite buffer<CR>
-" nnoremap <silent> [denite]u         :<C-u>Denite buffer file_mru<CR>
-" nnoremap <silent> [denite]h         :<C-u>Denite file_mru<CR>
-" nnoremap <silent> [denite]a         :<C-u>Denite file_rec file_old buffer<CR>
-" nnoremap <silent> [denite]d         :<C-u>DeniteWithBufferDir file<CR>
-" nnoremap <silent> [denite]o         :<C-u>Denite -vertical -no-quit -winwidth=40 outline<CR>
-" "nnoremap <silent> m                :<C-u>Denite file_mru<CR>
-" nnoremap <silent> <C-o>             :<C-u>Denite file_mru<CR>
-" " nnoremap <silent> <C-i>           :<C-u>Denite grep:. -buffer-name=search-buffer<CR>
-" nnoremap <silent> <C-i>             :<C-u>Denite buffer<CR>
-" nnoremap <silent> [denite]a         :<C-u>Denite file_rec<CR>
-" nnoremap <silent> ,a                :<C-u>Denite grep:. -buffer-name=search-buffer<CR>
-" nnoremap <silent> ,ca               :<C-u>Denite grep:. -buffer-name=search-buffer<CR><C-R><C-W>
-" 
-" nnoremap <silent> <Leader>g  :<C-u>Denite grep:. -buffer-name=search-buffer<CR>
-" nnoremap <silent> <Leader>s  :<C-u>Denite line<CR>
-" 
-" call denite#custom#var('file_rec', 'command', ['ag', '--follow', '--nocolor', '--nogroup', '-g', ''])
-" call denite#custom#var('grep', 'command', ['ag'])
-" call denite#custom#var('grep', 'recursive_opts', [])
-" call denite#custom#var('grep', 'default_opts', ['--follow', '--no-group', '--no-color'])
-" call denite#custom#map(
-"       \ 'insert',
-"       \ '<C-n>',
-"       \ '<denite:move_to_next_line>',
-"       \ 'noremap'
-"       \)
-" call denite#custom#map(
-"       \ 'insert',
-"       \ '<C-p>',
-"       \ '<denite:move_to_previous_line>',
-"       \ 'noremap'
-"       \)
-" 
-"------------------------------
-" Diagnostic (LSP)
-"------------------------------
+" 診断（LSP）
 nnoremap <silent> <Leader>e :lua vim.diagnostic.open_float()<CR>
 
-"------------------------------
-" NERD-Tree (nvim-tree で互換コマンドを定義: lua/plugins.lua)
-"------------------------------
-nnoremap <silent> <Leader>N :CD<CR>:NERDTree<CR>
-nnoremap <silent> <Leader>n :NERDTreeToggle<CR>
-nnoremap <silent> <C-e> :NERDTreeToggle<CR>
-
-"------------------------------
-" easyalign
-"------------------------------
+" easy-align / alignta
 vmap E <Plug>(EasyAlign)
 vmap <Space> <Plug>(EasyAlign)
+vmap a :Alignta
 
-"------------------------------
-" operator replace
-"------------------------------
+" operator-replace
 map R <Plug>(operator-replace)
 
-"------------------------------
 " quickhl
-"------------------------------
 nmap <Space>m <Plug>(quickhl-manual-this)
 xmap <Space>m <Plug>(quickhl-manual-this)
 nmap <Space>M <Plug>(quickhl-manual-reset)
 xmap <Space>M <Plug>(quickhl-manual-reset)
-
-"------------------------------
-" alignta
-"------------------------------
-vmap a :Alignta
-
-"------------------------------
-" Go
-"------------------------------
-let g:go_highlight_functions = 1
-let g:go_highlight_methods = 1
-let g:go_highlight_structs = 1
-let g:go_highlight_operators = 1
-let g:go_highlight_build_constraints = 1
-au FileType go nmap <leader>b <Plug>(go-build)
-au FileType go nmap <leader>t <Plug>(go-test)
-au FileType go nmap <leader>c <Plug>(go-coverage)
-au FileType go nmap <Leader>ds <Plug>(go-def-split)
-au FileType go nmap <Leader>dv <Plug>(go-def-vertical)
-au FileType go nmap <Leader>dt <Plug>(go-def-tab)
-au FileType go nmap <Leader>gd <Plug>(go-doc)
-au FileType go nmap <Leader>gv <Plug>(go-doc-vertical)
-
-set t_Co=256
-:let g:html_indent_inctags = "html,body,head,tbody"
-
-map <leader>h :set ft=html<CR>
-map <leader>p :set ft=php<CR>
-
-let g:vimfiler_as_default_explorer = 1
