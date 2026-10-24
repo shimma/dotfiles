@@ -1,0 +1,83 @@
+# see: http://qiita.com/shimma/items/ebeeb410ecebc22dd41e
+version: '3'
+
+tasks:
+  install:
+    cmds:
+      - task: create-symlinks
+      - task: osx
+      - task: homebrew
+      - task: brew-cask
+      - task: aws
+      - task: node
+
+  create-symlinks:
+    cmds:
+      - ln -fs {{.TASKFILE_DIR}}/.config            $HOME/
+      - ln -fs {{.TASKFILE_DIR}}/.gitignore         $HOME/
+      - ln -fs {{.TASKFILE_DIR}}/.gitconfig         $HOME/
+      - ln -fs {{.TASKFILE_DIR}}/.gitconfig.local   $HOME/
+      - ln -fs {{.TASKFILE_DIR}}/.tmux.conf.osx     $HOME/.tmux.conf
+      - ln -fs {{.TASKFILE_DIR}}/.zshrc             $HOME/
+      - touch $HOME/.z
+      - mkdir -p $HOME/bin
+
+  osx:
+    cmds:
+      # - xcode-select --install || true
+      - sudo defaults write -g InitialKeyRepeat -int 14
+      - sudo defaults write -g KeyRepeat -int 1
+
+  homebrew:
+    cmds:
+      - /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+      - brew install neovim
+      - brew tap shopify/shopify && brew install themekit
+      - brew install shopify-cli
+      - brew install docker                 
+      - brew install docker-compose        
+      - brew install fzf                  
+      - brew install ghq                 
+      - brew install hub                
+      - brew install tig               
+      - brew install tmux             
+      - brew install wget            
+      - brew install uv
+      - brew install task
+      - brew install aws-sso-util
+      - brew install tfenv
+      # - brew install aws-ecs-cli
+      # - brew install session-manager-plugin
+      # - brew install cloudflared
+      - brew install jira-cli
+
+  brew-cask:
+    cmds:
+      - brew outdated
+      - brew install --cask ghostty                 || true
+      - brew install --cask docker                  || true
+      - brew install --cask kanary                  || true
+      - brew install --cask google-japanese-ime     || true
+      - brew install --cask the-unarchiver          || true
+      - brew install --cask visual-studio-code      || true
+      - brew install --cask tableplus               || true
+      # - brew install --cask monitorcontrol          || true
+      - brew install --cask cleanshot               || true
+      - brew update                                 || true
+      - brew cleanup                                || true
+
+  node:
+    cmds:
+      - brew install volta
+      - volta pin yarn
+      - volta install node@latest
+      - volta pin node@23.11.0
+
+  gcloud:
+    cmds:
+      - curl https://sdk.cloud.google.com | bash
+      - gcloud components update
+
+  aws:
+    cmds:
+      - sudo curl -o /usr/local/bin/ecs-cli https://s3.amazonaws.com/amazon-ecs-cli/ecs-cli-darwin-amd64-latest && chmod 755 /usr/local/bin/ecs-cli
