@@ -1,0 +1,53 @@
+{
+  "plugins": {
+    "clever-f.vim": {
+      "rev": "6a3ac5e3688598af9411ab741737f98c47370c22",
+      "src": "https://github.com/rhysd/clever-f.vim"
+    },
+    "cyberdream.nvim": {
+      "rev": "81b3e39ceb87db2987255123af3212beeb75bf6d",
+      "src": "https://github.com/scottmckendry/cyberdream.nvim"
+    },
+    "nvim-lspconfig": {
+      "rev": "77b7432d4770d23b277d37923e5a08a442d8bb07",
+      "src": "https://github.com/neovim/nvim-lspconfig"
+    },
+    "nvim-surround": {
+      "rev": "2e93e154de9ff326def6480a4358bfc149d5da2c",
+      "src": "https://github.com/kylechui/nvim-surround",
+      "version": ">=0.0.0"
+    },
+    "nvim-tree.lua": {
+      "rev": "9a2e0006d42f292eb3ade7dfdff201a7429a780c",
+      "src": "https://github.com/nvim-tree/nvim-tree.lua"
+    },
+    "vim-alignta": {
+      "rev": "cb3d593c48d7d3aef829b5aff49ddade24417a9f",
+      "src": "https://github.com/h1mesuke/vim-alignta"
+    },
+    "vim-easy-align": {
+      "rev": "9815a55dbcd817784458df7a18acacc6f82b1241",
+      "src": "https://github.com/junegunn/vim-easy-align"
+    },
+    "vim-niceblock": {
+      "rev": "9302f527eefc0fde8df983cbb9710ad52c4213b5",
+      "src": "https://github.com/kana/vim-niceblock"
+    },
+    "vim-operator-replace": {
+      "rev": "1345a556a321a092716e149d4765a5e17c0e9f0f",
+      "src": "https://github.com/kana/vim-operator-replace"
+    },
+    "vim-operator-user": {
+      "rev": "c3dfd41c1ed516b4b901c97562e644de62c367aa",
+      "src": "https://github.com/kana/vim-operator-user"
+    },
+    "vim-quickhl": {
+      "rev": "be1f44169c3fdee3beab629e83380515da03835e",
+      "src": "https://github.com/t9md/vim-quickhl"
+    },
+    "wildfire.vim": {
+      "rev": "dfcf48aad2e80c63272df67a1b81e37cbc443412",
+      "src": "https://github.com/gcmt/wildfire.vim"
+    }
+  }
+}
