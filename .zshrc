@@ -92,6 +92,9 @@ function tmuxnew() {
 # ------------------------------------------------------------
 export FZF_DEFAULT_OPTS='--height 40% --layout=reverse --border --select-1 --bind=ctrl-k:kill-line --no-sort'
 
+# 公式のシェル統合: ^R 履歴 / ^T ファイル / Alt-C cd
+source <(fzf --zsh)
+
 function ssh-fzf () {
   local selected_host=$(grep "Host " ~/.ssh/config | grep -v '*' | cut -b 6- | fzf --query "$LBUFFER")
 
@@ -102,27 +105,10 @@ function ssh-fzf () {
   zle reset-prompt
 }
 
-function history-fzf() {
-  local tac
-
-  if which tac > /dev/null; then
-    tac="tac"
-  else
-    tac="tail -r"
-  fi
-
-  BUFFER=$(history -n 1 | eval $tac | fzf --query "$LBUFFER")
-  CURSOR=$#BUFFER
-
-  if [ -n "$BUFFER" ]; then
-    zle accept-line
-  fi
-
-  zle reset-prompt
-}
-
 function ghq-fzf() {
-  local selected_dir=$(ghq list | fzf --sort --query="$LBUFFER")
+  local root=$(ghq root)
+  local selected_dir=$(ghq list | fzf --sort --query="$LBUFFER" \
+    --preview "tree -C -L 1 $root/{}; echo; head -40 $root/{}/README.md 2>/dev/null")
 
   if [ -n "$selected_dir" ]; then
     BUFFER="cd $(ghq root)/${selected_dir}"
@@ -137,7 +123,7 @@ function fbr() {
   git fetch --prune
   branches=$(git branch --all | grep -v HEAD) &&
   branch=$(echo "$branches" |
-           fzf-tmux -d $(( 2 + $(wc -l <<< "$branches") )) +m) &&
+           fzf --tmux center,80% +m) &&
   git checkout $(echo "$branch" | sed "s/.* //" | sed "s#remotes/[^/]*/##") && git pull origin $(echo "$branch" | sed "s/.* //" | sed "s#remotes/[^/]*/##")
   zle accept-line
 }
@@ -147,16 +133,12 @@ function open-github() {
     zle reset-prompt
 }
 
-bindkey "^[" fbr
-bindkey '^\' fbr
 bindkey '^]' ghq-fzf
 bindkey '^\' ghq-fzf
 #bindkey '^j' fzf-z-search
 bindkey '^g' fbr
-bindkey '^r' history-fzf
 zle -N fbr
 zle -N ghq-fzf
-zle -N history-fzf
 zle -N ssh-fzf
 zle -N open-github
 
