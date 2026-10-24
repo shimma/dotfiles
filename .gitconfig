@@ -1,7 +1,6 @@
 [include]
   path = ~/.gitconfig.local
 [color]
-  # colorの設定(以下のコマンドは自動で色つける)
   status = auto
   diff = auto
   branch = auto
@@ -67,12 +66,6 @@
   # 完全リセット(取り扱い注意)
   hardreset = !git reset --hard "origin/master" && git clean -f -d
   fetch-pulls = fetch origin +refs/pull/*:refs/remotes/pull/*
-[difftool "sourcetree"]
-	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
-	path = 
-[mergetool "sourcetree"]
-	cmd = /Applications/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
-	trustExitCode = true
 [ghq]
   root = ~/src
 [pager]
