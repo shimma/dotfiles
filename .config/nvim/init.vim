@@ -1,6 +1,5 @@
 call plug#begin('~/.cache/vim-plug')
-Plug 'fatih/vim-go', { 'for': 'go' }
-Plug 'itchyny/landscape.vim'
+" #Plug 'itchyny/landscape.vim'
 Plug 'gcmt/wildfire.vim'
 Plug 'h1mesuke/vim-alignta', { 'on': 'Alignta' }
 Plug 'junegunn/vim-easy-align', { 'on': '<Plug>(EasyAlign)' }
@@ -8,24 +7,16 @@ Plug 'kana/vim-niceblock'
 Plug 'kana/vim-operator-replace', { 'on': '<Plug>(operator-replace)' }
 Plug 'kana/vim-operator-user'
 Plug 'rhysd/clever-f.vim'
-Plug 'othree/html5.vim', { 'for': 'html' }
 Plug 'scrooloose/nerdcommenter', { 'for': [ 'vim', 'go', 'php', 'sh', 'ruby'] }
 Plug 't9md/vim-quickhl', { 'on': '<Plug>(quickhl-manual-this)' }
-" Plug 'tpope/vim-fugitive', { 'on': ['Gdiff', 'Glog', 'Gblame' ] }
 Plug 'tpope/vim-surround', { 'for': [ 'vim', 'go', 'php', 'sh', 'ruby'] }
-" Plug 'Shougo/vimproc.vim', { 'do': 'make' }
-" Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-" Plug 'Shougo/vimfiler.vim'
-" Plug 'Shougo/denite.nvim'
-" Plug 'Shougo/neomru.vim'
 Plug 'scrooloose/nerdtree', { 'on':  ['NERDTreeToggle', 'NERDTree' ], 'do' : 'cp ~/dotfiles/.config/nvim/nerdtree_plugin/* ~/.cache/vim-plug/nerdtree/nerdtree_plugin/'}
 Plug 'scrooloose/syntastic', { 'for': [ 'go', 'php', 'ruby'] }
 
 call plug#end()
 
-" nvim configure https://github.com/neovim/neovim/issues/2048
 nmap <BS> <C-W>h
-" autocmd! User YouCompleteMe if !has('vim_starting') | call youcompleteme#Enable() | endif
+
 "========================================
 " BASE
 "========================================
@@ -77,22 +68,11 @@ nnoremap <silent> <Space>r :Rd<CR>  " Remove dust
 let $TODAY=strftime('%Y%m%d')
 set undodir=/tmp
 
-
-"========================================
-" COLOR
-"========================================
-" colorscheme jellybeans
-" colorscheme monokai
-" colorscheme burnttoast256
 colorscheme landscape
-" colorscheme iceberg
-" set termguicolors
-" colorscheme monrovia
 let edark_current_line=1
 let edark_ime_cursor=1
 let edark_insert_status_line=1
 syntax enable
-" highlight PmenuSel cterm=reverse ctermfg=33 ctermbg=222 gui=reverse guifg=#3399ff guibg=#f0e68c
 autocmd BufNewFile,BufRead *.twig   set syntax=html
 
 "========================================
@@ -107,14 +87,6 @@ cnoremap <C-p> <Up>
 cnoremap <Up>  <C-p>
 cnoremap <C-n> <Down>
 cnoremap <Down> <C-n>
-
-"========================================
-" Skeleton
-"========================================
-autocmd BufNewFile *.sh  0r ~/.config/nvim/skeleton/skeleton.sh
-autocmd BufNewFile *.pl  0r ~/.config/nvim/skeleton/skeleton.perl
-autocmd BufNewFile *.php 0r ~/.config/nvim/skeleton/skeleton.php
-
 
 "========================================
 " SEARCH

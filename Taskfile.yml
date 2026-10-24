@@ -32,18 +32,18 @@ tasks:
     cmds:
       - /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
       - brew install neovim
-      - brew tap shopify/shopify && brew install themekit
-      - brew install shopify-cli
-      - brew install docker                 
-      - brew install docker-compose        
-      - brew install fzf                  
-      - brew install ghq                 
-      - brew install hub                
-      - brew install tig               
-      - brew install tmux             
-      - brew install wget            
+      #- brew tap shopify/shopify && brew install themekit
+      #- brew install shopify-cli
+      - brew install docker
+      - brew install docker-compose
+      - brew install fzf
+      - brew install ghq
+      - brew install hub
+      - brew install tig
+      - brew install tmux
+      - brew install wget
       - brew install uv
-      - brew install task
+      - brew install go-task
       - brew install aws-sso-util
       - brew install tfenv
       - brew install jira-cli
