@@ -17,7 +17,6 @@ tasks:
       - ln -fs {{.TASKFILE_DIR}}/.gitignore         $HOME/
       - ln -fs {{.TASKFILE_DIR}}/.gitconfig         $HOME/
       - ln -fs {{.TASKFILE_DIR}}/.gitconfig.local   $HOME/
-      - ln -fs {{.TASKFILE_DIR}}/.tmux.conf.osx     $HOME/.tmux.conf
       - ln -fs {{.TASKFILE_DIR}}/.zshrc             $HOME/
       - touch $HOME/.z
       - mkdir -p $HOME/bin
