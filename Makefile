@@ -10,7 +10,6 @@ create-symlinks:
 	ln -fs $(CURDIR)/.gitignore         $(HOME)/
 	ln -fs $(CURDIR)/.gitconfig         $(HOME)/
 	ln -fs $(CURDIR)/.zshrc             $(HOME)/
-	touch $(HOME)/.z
 	mkdir -p $(HOME)/bin
 
 osx:
