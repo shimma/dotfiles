@@ -1,4 +1,3 @@
-# see: http://qiita.com/shimma/items/ebeeb410ecebc22dd41e
 BREW := /opt/homebrew/bin/brew
 
 .PHONY: install create-symlinks osx homebrew node
