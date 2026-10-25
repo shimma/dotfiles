@@ -1,7 +1,7 @@
 # ------------------------------------------------------------
 # Env / PATH
 # ------------------------------------------------------------
-# compinit より前に読む（Homebrew の補完を fpath に追加するため）
+# Must run before compinit (adds Homebrew completions to fpath)
 eval "$(/opt/homebrew/bin/brew shellenv)"
 
 export LANG=ja_JP.UTF-8
@@ -10,7 +10,7 @@ export EDITOR=nvim
 export HOMEBREW_CASK_OPTS="--appdir=/Applications"
 export VOLTA_HOME="$HOME/.volta"
 
-# 重複を除去（tmux などで zsh を入れ子にしても PATH が膨らまない）
+# Deduplicate so PATH does not grow when zsh is nested (e.g. inside tmux)
 typeset -U path PATH
 path=(
   ~/.local/bin
@@ -85,12 +85,12 @@ alias tma='tmux attach'
 # ------------------------------------------------------------
 # Functions
 # ------------------------------------------------------------
-# main に切り替えて pull
+# Switch to main and pull
 function main() {
   git checkout main && git pull origin main
 }
 
-# 最前面の Finder ウィンドウのディレクトリへ cd
+# cd to the directory of the frontmost Finder window
 function cdf() {
   local target=$(osascript -e 'tell application "Finder" to if (count of Finder windows) > 0 then get POSIX path of (target of front Finder window as text)')
   if [[ -n "$target" ]]; then
@@ -109,10 +109,10 @@ function p() {
 # ------------------------------------------------------------
 export FZF_DEFAULT_OPTS='--height 40% --layout=reverse --border --select-1 --bind=ctrl-k:kill-line --no-sort'
 
-# 公式のシェル統合: ^R 履歴 / ^T ファイル / Alt-C cd
+# Official shell integration: ^R history / ^T files / Alt-C cd
 source <(fzf --zsh)
 
-# ghq 管理のリポジトリへ cd
+# cd to a repository managed by ghq
 function ghq-fzf() {
   local root=$(ghq root)
   local selected_dir=$(ghq list | fzf --sort --query="$LBUFFER" \
@@ -126,7 +126,7 @@ function ghq-fzf() {
   zle reset-prompt
 }
 
-# ブランチを選んで checkout & pull
+# Pick a branch, then checkout & pull
 function fbr() {
   local branch
   git fetch --prune

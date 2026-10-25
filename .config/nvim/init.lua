@@ -2,17 +2,17 @@
 -- PLUGINS (vim.pack)
 --========================================
 vim.g.mapleader = ','
-vim.g.loaded_netrw = 1                    -- nvim-tree を使うので netrw は無効
+vim.g.loaded_netrw = 1                    -- Disable netrw; nvim-tree is used instead
 vim.g.loaded_netrwPlugin = 1
 vim.g.wildfire_objects = { "i'", 'i"', 'i)', 'i]', 'i}', 'it', 'ii', 'ip', 'i>' }
 
 --------------------------------
--- nvim-tree (NERDTree互換)
+-- nvim-tree (NERDTree-compatible)
 --------------------------------
 local function nvim_tree_on_attach(bufnr)
   local api = require('nvim-tree.api')
   api.config.mappings.default_on_attach(bufnr)
-  pcall(vim.keymap.del, 'n', 'm', { buffer = bufnr }) -- ma/mm/md 用に空ける
+  pcall(vim.keymap.del, 'n', 'm', { buffer = bufnr }) -- free up m for ma/mm/md
 
   local function map(lhs, fn, desc)
     vim.keymap.set('n', lhs, fn, { buffer = bufnr, silent = true, nowait = true, desc = 'nerdtree: ' .. desc })
@@ -50,17 +50,17 @@ local function nvim_tree_on_attach(bufnr)
   map('?',    api.tree.toggle_help, 'Help')
   map('cd',   function() vim.cmd.cd(node_dir()) end, 'cd to node')
   map('CD',   function() api.tree.change_root(vim.fn.getcwd()) end, 'Root to cwd')
-  -- NERDTree の m メニュー相当
+  -- Equivalent of the NERDTree m menu
   map('ma',   api.fs.create, 'Add')
   map('mm',   api.fs.rename_full, 'Move/Rename')
   map('md',   api.fs.remove, 'Delete')
   map('mc',   api.fs.copy.node, 'Copy')
   map('mp',   api.fs.paste, 'Paste')
-  -- 旧 nerdtree_plugin/call_finder.vim
+  -- Formerly nerdtree_plugin/call_finder.vim
   map('fd', function()
     vim.system({ 'open', api.tree.get_node_under_cursor().absolute_path })
   end, 'Call Finder')
-  -- 旧 nerdtree_plugin/toggle_width.vim
+  -- Formerly nerdtree_plugin/toggle_width.vim
   map('w', function()
     local maxi = 0
     for _, line in ipairs(vim.api.nvim_buf_get_lines(bufnr, 0, -1, false)) do
@@ -85,7 +85,7 @@ local function nvim_tree_config(opts)
   vim.api.nvim_create_user_command('NERDTreeFocus', function() api.tree.focus() end, {})
   vim.api.nvim_create_user_command('NERDTreeClose', function() api.tree.close() end, {})
 
-  -- ツリーだけ残ったら終了
+  -- Quit when the tree is the only window left
   vim.api.nvim_create_autocmd('BufEnter', {
     nested = true,
     callback = function()
@@ -97,7 +97,7 @@ local function nvim_tree_config(opts)
 end
 
 --------------------------------
--- LSP (syntastic の代わり)
+-- LSP (replaces syntastic)
 --------------------------------
 local function lsp_config()
   local servers = {
@@ -119,9 +119,9 @@ local function lsp_config()
 end
 
 --------------------------------
--- Treesitter (ハイライト)
+-- Treesitter (highlighting)
 --------------------------------
--- プラグイン更新時はパーサーも合わせて更新する
+-- Update parsers whenever the plugin is updated
 vim.api.nvim_create_autocmd('PackChanged', {
   callback = function(ev)
     if ev.data.spec.name == 'nvim-treesitter' and ev.data.kind == 'update' then
@@ -132,13 +132,13 @@ vim.api.nvim_create_autocmd('PackChanged', {
 })
 
 local function treesitter_config()
-  -- c / lua / markdown / vim / vimdoc / query は Neovim 本体に同梱
+  -- c / lua / markdown / vim / vimdoc / query are bundled with Neovim
   require('nvim-treesitter').install({
     'bash', 'css', 'diff', 'dockerfile', 'git_config', 'gitcommit', 'go', 'gomod', 'hcl',
     'html', 'javascript', 'json', 'make', 'php', 'python', 'ruby', 'sql', 'terraform',
     'toml', 'tsx', 'twig', 'typescript', 'yaml', 'zsh',
   })
-  -- パーサーがある filetype だけ有効化
+  -- Enable only for filetypes that have a parser
   vim.api.nvim_create_autocmd('FileType', {
     callback = function() pcall(vim.treesitter.start) end,
   })
@@ -189,16 +189,16 @@ end
 --========================================
 -- BASE
 --========================================
-opt.scrolloff = 5                         -- スクロール時の余白
-opt.textwidth = 0                         -- 自動折り返ししない
+opt.scrolloff = 5                         -- Keep context lines when scrolling
+opt.textwidth = 0                         -- No automatic line wrapping
 opt.swapfile = false
-opt.formatoptions = 'lmoq'                -- テキスト整形（マルチバイト対応）
-opt.whichwrap = 'b,s,h,l,<,>,[,]'         -- 行頭・行末で前後の行へ移動
+opt.formatoptions = 'lmoq'                -- Text formatting (multibyte-aware)
+opt.whichwrap = 'b,s,h,l,<,>,[,]'         -- Move to prev/next line at line start/end
 opt.shada = [['50,<1000,s100,"50]]
 opt.modelines = 0
-opt.nrformats = 'alpha'                   -- <C-a>/<C-x> は10進数とアルファベットのみ
-opt.clipboard = 'unnamed'                 -- システムのクリップボードを使う
-opt.shortmess:append('I')                 -- 起動画面を出さない
+opt.nrformats = 'alpha'                   -- <C-a>/<C-x> on decimals and letters only
+opt.clipboard = 'unnamed'                 -- Use the system clipboard
+opt.shortmess:append('I')                 -- Hide the intro screen
 opt.mouse = 'a'
 
 opt.termguicolors = true
@@ -208,7 +208,7 @@ vim.env.TODAY = os.date('%Y%m%d')
 command('Ev', 'edit $MYVIMRC', {})
 command('Rv', 'source $MYVIMRC', {})
 
--- :CD でカレントファイルのディレクトリへ lcd（! で pwd 表示なし）
+-- :CD does lcd to the current file's directory (! suppresses pwd)
 command('CD', function(o)
   vim.cmd.lcd(o.args ~= '' and o.args or vim.fn.expand('%:p:h'))
   if not o.bang then
@@ -227,8 +227,8 @@ vim.g.html_indent_inctags = 'html,body,head,tbody'
 --========================================
 opt.wildchar = 9                          -- <Tab>
 opt.wildmode = 'list:full'
-opt.complete:append('k')                  -- 辞書ファイルも補完対象
--- コマンドラインの <C-p>/<C-n> は入力済みの文字で履歴を絞り込む
+opt.complete:append('k')                  -- Also complete from dictionary files
+-- Command-line <C-p>/<C-n> filter history by what is already typed
 map('c', '<C-p>', '<Up>')
 map('c', '<Up>', '<C-p>')
 map('c', '<C-n>', '<Down>')
@@ -238,14 +238,14 @@ map('c', '<Down>', '<C-n>')
 -- SEARCH
 --========================================
 opt.ignorecase = true
-opt.smartcase = true                      -- 大文字を含むときは区別する
+opt.smartcase = true                      -- Case-sensitive when the pattern has uppercase
 map('n', '<Esc><Esc>', '<Cmd>nohlsearch<CR>')
 map('n', '<C-j>', '<Cmd>nohlsearch<CR>')
 
 --========================================
 -- TAGS
 --========================================
-opt.tags = './tags;,tags,./*/tags'        -- 上位ディレクトリへ遡って探す
+opt.tags = './tags;,tags,./*/tags'        -- Search parent directories upward
 opt.tagbsearch = false
 map('n', 't', '<Nop>')
 map('n', 'T', '<C-]>')
@@ -260,12 +260,12 @@ opt.showmatch = true
 opt.number = true
 opt.list = true
 opt.listchars = { tab = '>.', trail = '_', extends = '>', precedes = '<' }
-opt.display = 'uhex'                      -- 印字不可能文字を16進数で表示
+opt.display = 'uhex'                      -- Show unprintable characters as hex
 opt.foldmethod = 'marker'
 opt.cursorline = true
 opt.statusline = '%F%m%r%h%w'
 
--- 全角スペースを可視化
+-- Highlight full-width (zenkaku) spaces
 vim.api.nvim_set_hl(0, 'ZenkakuSpace', { underline = true, ctermfg = 'lightblue', bg = 'darkgray' })
 vim.fn.matchadd('ZenkakuSpace', '　')
 
@@ -273,7 +273,7 @@ vim.fn.matchadd('ZenkakuSpace', '　')
 -- EDIT
 --========================================
 opt.expandtab = true
-opt.virtualedit:append('block')           -- 矩形選択で文字がない所にも移動
+opt.virtualedit:append('block')           -- Allow the cursor past line end in block selection
 
 map('i', 'jj', '<Esc>')
 map('i', '<C-j>', '<Esc>')
@@ -290,7 +290,7 @@ map('n', '<Space>e', '<Cmd>e!<CR>', { silent = true })
 map('n', '<Space>cd', '<Cmd>CD<CR>', { silent = true })
 command('Pt', 'set paste!', {})
 
--- 行末の空白を削除
+-- Strip trailing whitespace
 command('Rd', function()
   local view = vim.fn.winsaveview()
   vim.cmd([[keeppatterns %s/\s\+$//ge]])
@@ -298,7 +298,7 @@ command('Rd', function()
 end, {})
 map('n', '<Space>r', '<Cmd>Rd<CR>', { silent = true })
 
--- 日時の挿入
+-- Insert date/time
 map('i', ',df', function() return os.date('%Y/%m/%d %H:%M:%S') end, { expr = true })
 map('i', ',dd', function() return os.date('%Y/%m/%d (%a)') end, { expr = true })
 map('i', ',dt', function() return os.date('%H:%M:%S') end, { expr = true })
@@ -306,11 +306,11 @@ map('i', ',dt', function() return os.date('%H:%M:%S') end, { expr = true })
 map('ia', 'dk', '========================================')
 map('ia', 'dj', '------------------------------')
 
--- ファイルパスをヤンク（相対 / 絶対）
+-- Yank the file path (relative / absolute)
 map('n', 'yr', function() vim.fn.setreg('*', vim.fn.expand('%')) end)
 map('n', 'yp', function() vim.fn.setreg('*', vim.fn.expand('%:p')) end)
 
--- quickfix を q / ESC で閉じる
+-- Close quickfix with q / ESC
 autocmd('FileType', 'qf', function()
   map('n', 'q', '<Cmd>cclose<CR>', { buffer = true })
   map('n', '<Esc>', '<Cmd>cclose<CR>', { buffer = true })
@@ -368,7 +368,7 @@ map('n', '(', '%')
 map('n', ')', '%')
 map('v', 'v', '$h')
 
--- 前回終了時のカーソル位置に戻る
+-- Restore the cursor position from last time
 autocmd('BufReadPost', '*', function()
   local line = vim.fn.line([['"]])
   if line > 0 and line <= vim.fn.line('$') then
@@ -384,7 +384,7 @@ opt.fileencodings = 'utf-8,iso-2022-jp,euc-jp,sjis'
 autocmd('FileType', { 'css', 'html', 'xml', 'java', 'scala' }, function() vim.bo.fileencoding = 'utf-8' end)
 opt.suffixes = '.bak,~,.swp,.o,.info,.aux,.log,.dvi,.bbl,.blg,.brf,.cb,.ind,.idx,.ilg,.inx,.out,.toc'
 
--- 文字コードを指定して開き直す
+-- Reopen with a specific encoding
 command('Cp932', 'edit ++enc=cp932', {})
 command('Eucjp', 'edit ++enc=euc-jp', {})
 command('Iso2022jp', 'edit ++enc=iso-2022-jp', {})
@@ -395,18 +395,18 @@ command('Sjis', 'Cp932', {})
 --========================================
 -- PLUGIN SETTINGS
 --========================================
--- NERDTree 互換（nvim-tree: PLUGINS 参照）
+-- NERDTree compatibility (nvim-tree: see PLUGINS)
 map('n', '<Leader>N', '<Cmd>CD<CR><Cmd>NERDTree<CR>', { silent = true })
 map('n', '<Leader>n', '<Cmd>NERDTreeToggle<CR>', { silent = true })
 map('n', '<C-e>', '<Cmd>NERDTreeToggle<CR>', { silent = true })
 
--- コメント（Neovim 組み込みの gc）
+-- Comments (Neovim built-in gc)
 map('n', '<Leader>x', 'gcc', { remap = true })
 map('x', '<Leader>x', 'gc', { remap = true })
 map('n', '<Leader>c<Space>', 'gcc', { remap = true })
 map('x', '<Leader>c<Space>', 'gc', { remap = true })
 
--- 診断（LSP）
+-- Diagnostics (LSP)
 map('n', '<Leader>e', vim.diagnostic.open_float, { silent = true })
 
 -- easy-align / alignta

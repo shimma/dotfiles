@@ -19,7 +19,7 @@
   precomposeunicode = true
 	pager = delta
 [alias]
-  # 現在のブランチの GitHub compare ページを開く（旧 hub の git compare）
+  # Open the GitHub compare page for the current branch (replaces hub's git compare)
   compare = "!open \"$(gh repo view --json url -q .url)/compare/$(git branch --show-current)\""
   st = status
   co = checkout
