@@ -13,7 +13,6 @@
   ; default = tracking
 [core]
 	excludesfile = ~/.gitignore
-#  autocrlf = input                 # CRLFを自動変換
   quotepath = false
   editor = /opt/homebrew/bin/nvim
 	autocrlf = false
@@ -23,51 +22,7 @@
   # 現在のブランチの GitHub compare ページを開く（旧 hub の git compare）
   compare = "!open \"$(gh repo view --json url -q .url)/compare/$(git branch --show-current)\""
   st = status
-  sh = show
-  so = remote show origin
-  ft = fetch
-  up = pull --rebase       # pull rebase
-  rbm = rebase main        # mainへのrebaseはよく使うのでalias
-  ad = add
-  ci = commit -a           # modifiedなファイルを全てstageへ
-  cam = commit -a --amend  # 直前のcommitを修正
   co = checkout
-  # branch関連
-  br = branch
-  ba = branch -a           # originも含めた全てのbranchを表示
-  bm = branch --merged     # merge済みのbranchを表示
-  bn = branch --no-merged  # mergeしてないbranchを表示
-  # log関連
-  wc = whatchanged         # logに変更されたファイルも一緒に出す
-  ls = log --stat          # logに変更されたファイルも一緒に出す
-  lp = log -p              # diffも一緒に出す
-  la = log --pretty=\"format:%ad %h (%an): %s\" --date=short  # ざっくりログ出す
-  lr = log origin          # originのlog
-  oneline = log --pretty=oneline
-  ranking = shortlog -s -n --no-merges
-  # logをtree表示
-  log-graph = log --graph --date=short --pretty=format:'%Cgreen%h %cd %Cblue%cn %Creset%s'
-  log-all = log --graph --all --color --pretty='%x09%h %cn%x09%s %Cred%d%Creset'
-  # diff関連
-  dm = diff main             # mainとのdiff
-  dw = diff --color-words    # 単語単位でいろつけてdiff
-  dc = diff --cached         # addされているものとのdiff
-  ds = diff --staged         # 同上(1.6.1移行)
-  d1 = diff HEAD~            # HEADから1つ前とdiff
-  d2 = diff HEAD~~           # HEADから2つ前とdiff
-  d3 = diff HEAD~~~          # HEADから3つ前とdiff
-  d4 = diff HEAD~~~~         # HEADから4つ前とdiff
-  d5 = diff HEAD~~~~~        # HEADから5つ前とdiff
-  d10 = diff HEAD~~~~~~~~~~  # HEADから10前とdiff
-  # mergeの際にconflictが起きたファイルを編集
-  edit-unmerged = "!f() { git ls-files --unmerged | cut -f2 | sort -u ; }; vim `f`"
-  # mergeの際にconflictが起きたファイルをadd
-  add-unmerged = "!f() { git ls-files --unmerged | cut -f2 | sort -u ; }; git add `f`"
-  # grep関連
-  gr = grep
-  gn = grep -n
-  # 完全リセット(取り扱い注意)
-  hardreset = !git reset --hard "origin/main" && git clean -f -d
   fetch-pulls = fetch origin +refs/pull/*:refs/remotes/pull/*
 [ghq]
   root = ~/src
@@ -93,9 +48,6 @@
 	old = red bold
 	new = green bold
 	whitespace = red reverse
-[merge "mergepbx"]
-	name = Xcode project files merger
-	driver = /usr/local/bin/mergepbx %O %A %B
 [init]
 	defaultBranch = main
 [coderabbit]
